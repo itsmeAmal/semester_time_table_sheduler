@@ -15,14 +15,14 @@ import java.sql.SQLException;
  */
 public interface batchDao {
 
-    boolean addBatch(batch batch) throws SQLException;
+    boolean addBatch(batch batch) throws SQLException; 
 
     ResultSet getAllBatches() throws SQLException;
 
-    ResultSet getBatchByOneAttribute() throws SQLException;
+    ResultSet getBatchByOneAttribute(String attribute, String condition, String value) throws SQLException;
 
     boolean updateBatch(batch batch) throws SQLException;
 
-    boolean deleteBatch(int batch) throws SQLException;
+    boolean deleteBatch(int batchId) throws SQLException;
 
 }

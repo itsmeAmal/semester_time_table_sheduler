@@ -19,10 +19,10 @@ public interface studentDao {
 
     ResultSet getAllStudents() throws SQLException;
 
-    boolean getStudentByOneAttribute(String attribute, String condition, String value) throws SQLException;
+    ResultSet getStudentByOneAttribute(String attribute, String condition, String value) throws SQLException;
 
     boolean updateStudent(student student) throws SQLException;
 
-    boolean deleteStudent() throws SQLException;
+    boolean deleteStudent(int studentId) throws SQLException;
 
 }

@@ -14,14 +14,14 @@ import java.sql.SQLException;
  * @author Nethmi Dasanayaka
  */
 public interface lecturerDao {
-    
+
     boolean addLecturer(lecturer lecturer) throws SQLException;
-    
+
     ResultSet getAlllecturers() throws SQLException;
-    
+
     ResultSet getLecturerByOneAttribute(String attribute, String condition, String value) throws SQLException;
-    
+
     boolean updateLecturer(lecturer lecturer) throws SQLException;
-    
-    boolean deleteLecturer() throws SQLException;
+
+    boolean deleteLecturer(int lecturerId) throws SQLException;
 }

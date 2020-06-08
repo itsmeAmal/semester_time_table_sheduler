@@ -66,6 +66,37 @@ CREATE TABLE `course` (
 
 
 --
+-- Definition of table `delivery_plan`
+--
+
+DROP TABLE IF EXISTS `delivery_plan`;
+CREATE TABLE `delivery_plan` (
+  `delivery_plan_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `delivery_plan_calender_week` varchar(150) DEFAULT NULL,
+  `delivery_plan_class_contact_week` varchar(150) DEFAULT NULL,
+  `delivery_plan_week_begining` date DEFAULT NULL,
+  `delivery_plan_lecture_hours` varchar(150) DEFAULT NULL,
+  `delivery_plan_tutorial_hours` varchar(150) DEFAULT NULL,
+  `delivery_plan_lab_hours` varchar(150) DEFAULT NULL,
+  `delivery_plan_remarks` varchar(450) DEFAULT NULL,
+  `delivery_plan_detail` varchar(450) DEFAULT NULL,
+  `delivery_plan_status` tinyint(1) unsigned DEFAULT '1',
+  `delivery_plan_location` varchar(150) DEFAULT NULL,
+  `delivery_plan_lecture_name` varchar(150) DEFAULT NULL,
+  `delivery_plan_tutorial_name` varchar(150) DEFAULT NULL,
+  `delivery_plan_lab_name` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`delivery_plan_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `delivery_plan`
+--
+
+/*!40000 ALTER TABLE `delivery_plan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `delivery_plan` ENABLE KEYS */;
+
+
+--
 -- Definition of table `group`
 --
 
@@ -113,6 +144,30 @@ CREATE TABLE `lecturer` (
 
 
 --
+-- Definition of table `lecturer_availablity`
+--
+
+DROP TABLE IF EXISTS `lecturer_availablity`;
+CREATE TABLE `lecturer_availablity` (
+  `lecturer_availablity_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lecturer_availablity_lec_id` int(10) unsigned DEFAULT NULL,
+  `lecturer_availablity_unavailable_date` date DEFAULT NULL,
+  `lecturer_availablity_unavailable_time_from` time DEFAULT NULL,
+  `lecturer_availablity_unavailable_time_to` time DEFAULT NULL,
+  `lecturer_availablity_status` tinyint(1) unsigned DEFAULT '1',
+  `lecturer_availablity_detail` varchar(450) DEFAULT NULL,
+  PRIMARY KEY (`lecturer_availablity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `lecturer_availablity`
+--
+
+/*!40000 ALTER TABLE `lecturer_availablity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `lecturer_availablity` ENABLE KEYS */;
+
+
+--
 -- Definition of table `lecturer_subject`
 --
 
@@ -150,13 +205,15 @@ CREATE TABLE `room` (
   `room_detail` varchar(450) DEFAULT NULL,
   `room_status` tinyint(1) unsigned DEFAULT '1',
   PRIMARY KEY (`room_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room`
 --
 
 /*!40000 ALTER TABLE `room` DISABLE KEYS */;
+INSERT INTO `room` (`room_id`,`room_name`,`room_code`,`room_detail`,`room_status`) VALUES 
+ (1,'LECTURE ROOM 1','LR1',NULL,1);
 /*!40000 ALTER TABLE `room` ENABLE KEYS */;
 
 

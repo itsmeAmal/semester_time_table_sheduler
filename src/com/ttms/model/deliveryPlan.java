@@ -12,17 +12,21 @@ import java.sql.Date;
  * @author Amal
  */
 public class deliveryPlan {
-    
+
     private int id;
     private String calenderWeek;
     private String classContactWeek;
     private Date weekBegining;
-    private String lecture3Hours;
-    private String tutorial2Hours;
-    private String lab2HoursCl03;
+    private String lectureHours;
+    private String tutorialHours;
+    private String labHours;
     private String remarks;
     private String detail;
     private int status;
+    private String location;
+    private String lecturName;
+    private String tutorialName;
+    private String labName;
 
     /**
      * @return the id
@@ -81,45 +85,45 @@ public class deliveryPlan {
     }
 
     /**
-     * @return the lecture3Hours
+     * @return the lectureHours
      */
-    public String getLecture3Hours() {
-        return lecture3Hours;
+    public String getLectureHours() {
+        return lectureHours;
     }
 
     /**
-     * @param lecture3Hours the lecture3Hours to set
+     * @param lectureHours the lectureHours to set
      */
-    public void setLecture3Hours(String lecture3Hours) {
-        this.lecture3Hours = lecture3Hours;
+    public void setLectureHours(String lectureHours) {
+        this.lectureHours = lectureHours;
     }
 
     /**
-     * @return the tutorial2Hours
+     * @return the tutorialHours
      */
-    public String getTutorial2Hours() {
-        return tutorial2Hours;
+    public String getTutorialHours() {
+        return tutorialHours;
     }
 
     /**
-     * @param tutorial2Hours the tutorial2Hours to set
+     * @param tutorialHours the tutorialHours to set
      */
-    public void setTutorial2Hours(String tutorial2Hours) {
-        this.tutorial2Hours = tutorial2Hours;
+    public void setTutorialHours(String tutorialHours) {
+        this.tutorialHours = tutorialHours;
     }
 
     /**
-     * @return the lab2HoursCl03
+     * @return the labHours
      */
-    public String getLab2HoursCl03() {
-        return lab2HoursCl03;
+    public String getLabHours() {
+        return labHours;
     }
 
     /**
-     * @param lab2HoursCl03 the lab2HoursCl03 to set
+     * @param labHours the labHours to set
      */
-    public void setLab2HoursCl03(String lab2HoursCl03) {
-        this.lab2HoursCl03 = lab2HoursCl03;
+    public void setLabHours(String labHours) {
+        this.labHours = labHours;
     }
 
     /**
@@ -163,5 +167,62 @@ public class deliveryPlan {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
+    /**
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * @return the lecturName
+     */
+    public String getLecturName() {
+        return lecturName;
+    }
+
+    /**
+     * @param lecturName the lecturName to set
+     */
+    public void setLecturName(String lecturName) {
+        this.lecturName = lecturName;
+    }
+
+    /**
+     * @return the tutorialName
+     */
+    public String getTutorialName() {
+        return tutorialName;
+    }
+
+    /**
+     * @param tutorialName the tutorialName to set
+     */
+    public void setTutorialName(String tutorialName) {
+        this.tutorialName = tutorialName;
+    }
+
+    /**
+     * @return the labName
+     */
+    public String getLabName() {
+        return labName;
+    }
+
+    /**
+     * @param labName the labName to set
+     */
+    public void setLabName(String labName) {
+        this.labName = labName;
+    }
+
 }
+

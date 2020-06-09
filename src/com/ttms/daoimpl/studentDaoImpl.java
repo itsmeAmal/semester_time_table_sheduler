@@ -31,11 +31,13 @@ public class studentDaoImpl implements studentDao {
         ps.setString(1, student.getName());
         ps.setString(2, student.getEmail1());
         ps.setString(3, student.getEmail2());
-        ps.setString(4, student.getContactNo());
-        ps.setString(5, student.getDetail());
-        ps.setInt(6, student.getStatus());
-        ps.setInt(7, student.getBatchId());
-        ps.setInt(8, student.getGroupId());
+        ps.setString(4, student.getRegNo());
+        ps.setString(5, student.getContactNo());
+        ps.setString(6, student.getDetail());
+        ps.setInt(7, student.getStatus());
+        ps.setInt(8, student.getBatchId());
+        ps.setInt(9, student.getGroupId());
+        ps.setInt(10, student.getSpecialId());
         ps.executeUpdate();
         ps.close();
         return true;

@@ -10,7 +10,10 @@ package com.ttms.model;
  * @author Nethmi Dasanayaka
  */
 public class student {
-    
+
+    public static int ACTIVE_STUDENT = 1;
+    public static int INACTIVE_STUDENT = 0;
+
     private int id;
     private String name;
     private String email1;
@@ -176,5 +179,5 @@ public class student {
     public void setSpecialId(int specialId) {
         this.specialId = specialId;
     }
-    
+
 }

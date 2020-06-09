@@ -8,10 +8,13 @@ package com.ttms.controller;
 import com.ttms.daoimpl.commonDaoImpl;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -55,6 +58,25 @@ public class commonController {
     public static Date getSqlDateByString(String date) throws ParseException {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return new Date(format.parse(date).getTime());
+    }
+
+    public static void loadDataToTable(JTable table, ResultSet rst, String[] columnList) throws SQLException {
+        DefaultTableModel dtm1 = (DefaultTableModel) table.getModel();
+        int rw = dtm1.getRowCount();
+        for (int i = 0; i < rw; i++) {
+            dtm1.removeRow(0);
+        }
+        while (rst.next()) {
+            Object[] rowCells = new Object[columnList.length];
+            for (int i = 0; i < columnList.length; i++) {
+                rowCells[i] = rst.getString(columnList[i]);
+            }
+            dtm1.addRow(rowCells);
+        }
+        rst.getStatement().close();
+        rst.close();
+//        Font font = new Font("FMSamantha", Font.PLAIN, 14);
+//        changeColumnToSinhala(table, 1, null);
     }
 
 }

@@ -7,6 +7,7 @@ package com.ttms.controller;
 
 import com.ttms.daoimpl.studentDaoImpl;
 import com.ttms.model.student;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -15,7 +16,8 @@ import java.sql.SQLException;
  */
 public class studentController {
 
-    public static boolean addStudent(String name, String email1, String email2, String regNo, String contactNo, String detail, int groupId, int batchId, int specialGroupId) throws SQLException {
+    public static boolean addStudent(String name, String email1, String email2, String regNo, String contactNo, String detail,
+            int groupId, int batchId, int specialGroupId) throws SQLException {
         student student = new student();
         student.setName(name);
         student.setEmail1(email1);
@@ -28,6 +30,10 @@ public class studentController {
         student.setSpecialId(specialGroupId);
         student.setStatus(student.ACTIVE_STUDENT);
         return new studentDaoImpl().addStudent(student);
+    }
+
+    public static ResultSet getAllStudents() throws SQLException {
+        return new studentDaoImpl().getAllStudents();
     }
 
 }

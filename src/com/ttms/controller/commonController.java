@@ -5,7 +5,6 @@
  */
 package com.ttms.controller;
 
-import com.ttms.daoimpl.commonDaoImpl;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -77,6 +77,13 @@ public class commonController {
         rst.close();
 //        Font font = new Font("FMSamantha", Font.PLAIN, 14);
 //        changeColumnToSinhala(table, 1, null);
+    }
+
+    public static void loadDataToComboBox(JComboBox comboBox, ResultSet rst, String attribute) throws SQLException {
+        comboBox.removeAllItems();
+        while (rst.next()) {
+            comboBox.addItem(rst.getString(attribute));
+        }
     }
 
 }

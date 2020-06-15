@@ -10,7 +10,10 @@ package com.ttms.model;
  * @author Nethmi Dasanayaka
  */
 public class batch {
-    
+
+    public static int ACTIVE_BATCH = 1;
+    public static int INACTIVE_BATCH = 0;
+
     private int id;
     private String year;
     private String level;
@@ -86,5 +89,5 @@ public class batch {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
 }

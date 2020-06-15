@@ -8,7 +8,6 @@ package com.ttms.daoimpl;
 import com.ttms.controller.commonConstants;
 import com.ttms.dao.commonDao;
 import com.ttms.databaseConnection.DatabaseConnection;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

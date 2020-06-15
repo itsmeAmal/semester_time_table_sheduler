@@ -11,6 +11,9 @@ package com.ttms.model;
  */
 public class lecturer {
 
+    public static int ACTIVE = 1;
+    public static int INACTIVE = 0;
+
     private int id;
     private String title;
     private String name;

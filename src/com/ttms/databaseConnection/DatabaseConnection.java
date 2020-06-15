@@ -26,7 +26,7 @@ public class DatabaseConnection {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ttms_uh", "root", "123");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ttms_uh", "root", "1234");
         return con;
     }
 

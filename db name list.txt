@@ -1,0 +1,15 @@
+batch			done
+course			done
+delivery_plan		---
+group			done
+lecturer		done
+lecturer_availability	---
+lecturer_subject	---
+room			done
+room_activity		---
+student			done
+subject			done
+
+-------------------------------
+main menu size  [1352, 680]
+

@@ -19,12 +19,12 @@ import java.sql.SQLException;
  */
 public class groupDaoImpl implements groupDao {
 
-    private String selectQuery = "select group_id, group_name, group_batch_id, group_type, group_detail, group_status from group";
+    private String selectQuery = "select group_id, group_name, group_batch_id, group_type, group_detail, group_status from group_info";
 
     @Override
     public boolean addGroup(group group) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("insert into group (group_name, group_batch_id, group_type, group_detail, group_status) values (?,?,?,?,?)");
+        PreparedStatement ps = con.prepareStatement("insert into group_info (group_name, group_batch_id, group_type, group_detail, group_status) values (?,?,?,?,?)");
         ps.setString(1, group.getName());
         ps.setInt(2, group.getBatchId());
         ps.setInt(3, group.getType());
@@ -48,7 +48,7 @@ public class groupDaoImpl implements groupDao {
     @Override
     public boolean updateGroup(group group) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("update group set group_name=?, group_batch_id=?, group_type=?, group_detail=?, group_status=? where group_id=?");
+        PreparedStatement ps = con.prepareStatement("update group_info set group_name=?, group_batch_id=?, group_type=?, group_detail=?, group_status=? where group_id=?");
         ps.setString(1, group.getName());
         ps.setInt(2, group.getBatchId());
         ps.setInt(3, group.getType());
@@ -63,7 +63,7 @@ public class groupDaoImpl implements groupDao {
     @Override
     public boolean deleteGroup(int groupId) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("delete from group where group_id=?");
+        PreparedStatement ps = con.prepareStatement("delete from group_info where group_id=?");
         ps.setInt(1, groupId);
         ps.executeUpdate();
         ps.close();

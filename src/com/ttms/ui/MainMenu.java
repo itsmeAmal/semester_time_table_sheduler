@@ -495,7 +495,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        new lecturerAvailability().setVisible(true);
+        new lecturerUnavailability().setVisible(true);
     }//GEN-LAST:event_jLabel16MouseClicked
 
     /**

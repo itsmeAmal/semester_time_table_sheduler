@@ -9,12 +9,12 @@ package com.ttms.ui;
  *
  * @author Amal
  */
-public class lecturerAvailability extends javax.swing.JFrame {
+public class lecturerUnavailability extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public lecturerAvailability() {
+    public lecturerUnavailability() {
         initComponents();
     }
 
@@ -152,7 +152,7 @@ public class lecturerAvailability extends javax.swing.JFrame {
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
         btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon.png"))); // NOI18N
-        btSave.setToolTipText("Save");
+        btSave.setToolTipText("Add Lecturer Unavailability Details");
         btSave.setBorder(null);
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,14 +456,22 @@ public class lecturerAvailability extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(lecturerAvailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(lecturerUnavailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(lecturerAvailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(lecturerUnavailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(lecturerAvailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(lecturerUnavailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(lecturerAvailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(lecturerUnavailability.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -476,7 +484,7 @@ public class lecturerAvailability extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new lecturerAvailability().setVisible(true);
+                new lecturerUnavailability().setVisible(true);
             }
         });
     }

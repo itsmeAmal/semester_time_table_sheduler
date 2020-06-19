@@ -5,6 +5,12 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonController;
+import com.ttms.controller.lecturerController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Amal
@@ -16,6 +22,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
      */
     public lecturerUnavailability() {
         initComponents();
+        loadLecturerDataObjectToComboBox();
     }
 
     private void clearAll() {
@@ -23,9 +30,15 @@ public class lecturerUnavailability extends javax.swing.JFrame {
         txtYear.setText("");
     }
 
-
-
-
+    private void loadLecturerDataObjectToComboBox() {
+        try {
+            String[] columnList = {"lecturer_id", "lecturer_title", "lecturer_name", "lecturer_email", "lecturer_contact_no", "lecturer_detail", "lecturer_status"};
+            ResultSet rset = lecturerController.getAllLecturers();
+            commonController.loadDataObjectsIntoComboBox(comboLecturerDataObjects, rset, columnList, "lecturer_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(lecturerUnavailability.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,7 +58,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboLecturer = new javax.swing.JComboBox<>();
+        comboLecturerDataObjects = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         btSave = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -141,8 +154,8 @@ public class lecturerUnavailability extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
 
-        comboLecturer.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboLecturer.setToolTipText("Group");
+        comboLecturerDataObjects.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboLecturerDataObjects.setToolTipText("Group");
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -296,7 +309,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboLecturer, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(comboLecturerDataObjects, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -319,7 +332,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboLecturerDataObjects, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -408,7 +421,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-
+        clearAll();
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void comboFromMinutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFromMinutesActionPerformed
@@ -496,7 +509,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboFromAmPm;
     private javax.swing.JComboBox<String> comboFromHours;
     private javax.swing.JComboBox<String> comboFromMinutes;
-    private javax.swing.JComboBox<String> comboLecturer;
+    private javax.swing.JComboBox<String> comboLecturerDataObjects;
     private javax.swing.JComboBox<String> comboToAmPm;
     private javax.swing.JComboBox<String> comboToHours;
     private javax.swing.JComboBox<String> comboToMinutes;

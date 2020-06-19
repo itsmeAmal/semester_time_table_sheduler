@@ -11,6 +11,11 @@ package com.ttms.model;
  */
 public class group {
 
+    public static int ACTIVE_GROUP = 1;
+    public static int INACTIVE_GROUP = 0;
+    public static int GROUP_TYPE_NORMAL = 2;
+    public static int GROUP_TYPE_SPECIAL = 3;    
+
     private int id;
     private String name;
     private int batchId;

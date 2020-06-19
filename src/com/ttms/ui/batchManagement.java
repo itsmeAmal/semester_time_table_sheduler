@@ -288,6 +288,7 @@ public class batchManagement extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         addBatch();
+        loadBatchesToTable();
     }//GEN-LAST:event_btSaveActionPerformed
 
     /**

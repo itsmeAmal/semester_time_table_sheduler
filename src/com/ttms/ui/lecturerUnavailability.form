@@ -216,7 +216,7 @@
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel20" max="32767" attributes="0"/>
-                                          <Component id="comboLecturer" max="32767" attributes="0"/>
+                                          <Component id="comboLecturerDataObjects" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -249,7 +249,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel5" min="-2" pref="44" max="-2" attributes="0"/>
-                          <Component id="comboLecturer" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="comboLecturerDataObjects" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
@@ -375,7 +375,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboLecturer">
+            <Component class="javax.swing.JComboBox" name="comboLecturerDataObjects">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="0"/>

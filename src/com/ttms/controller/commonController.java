@@ -5,6 +5,7 @@
  */
 package com.ttms.controller;
 
+import com.ttms.model.DataObject;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -75,14 +76,63 @@ public class commonController {
         }
         rst.getStatement().close();
         rst.close();
-//        Font font = new Font("FMSamantha", Font.PLAIN, 14);
-//        changeColumnToSinhala(table, 1, null);
     }
 
     public static void loadDataToComboBox(JComboBox comboBox, ResultSet rst, String attribute) throws SQLException {
         comboBox.removeAllItems();
         while (rst.next()) {
             comboBox.addItem(rst.getString(attribute));
+        }
+    }
+
+    public static void loadDataObjectsIntoComboBox(JComboBox comboBox, ResultSet rst, String[] columnList,
+            String defaultAttribute) throws SQLException {
+        comboBox.removeAllItems();
+        while (rst.next()) {
+            DataObject object = new DataObject(defaultAttribute);
+            for (int i = 0; i < columnList.length; i++) {
+                object.addProperty(columnList[i], rst.getString(columnList[i]));
+            }
+            comboBox.addItem(object);
+        }
+    }
+
+    public static int getIntOrZeroFromString(String value) {
+        if (isInteger(value)) {
+            return Integer.parseInt(value);
+        } else {
+            return 0;
+        }
+    }
+
+    public static BigDecimal getBigDecimalFromString(String value) {
+        return new BigDecimal(value);
+    }
+
+    public static boolean isInteger(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isLong(String value) {
+        try {
+            Long.parseLong(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isBigdDecimal(String value) {
+        try {
+            new BigDecimal(value);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 

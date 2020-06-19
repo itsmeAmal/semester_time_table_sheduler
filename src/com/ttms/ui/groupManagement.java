@@ -7,6 +7,8 @@ package com.ttms.ui;
 
 import com.ttms.controller.batchController;
 import com.ttms.controller.commonController;
+import com.ttms.controller.groupController;
+import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,14 +26,53 @@ public class groupManagement extends javax.swing.JFrame {
      */
     public groupManagement() {
         initComponents();
+        loadBatchObjectsToComboBox();
+        loadDataToTable();
     }
 
     private void clearAll() {
         txtDetail.setText("");
-        txtType.setText("");
+        comboGroupType.setSelectedItem(null);
         txtYear.setText("");
+        comboBatchDataObject.setSelectedIndex(0);
     }
 
+    private void loadBatchObjectsToComboBox() {
+        try {
+            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail", "batch_status"};
+            ResultSet rset = batchController.getAllBatches();
+            commonController.loadDataObjectsIntoComboBox(comboBatchDataObject, rset, columnList, "batch_year");
+        } catch (SQLException ex) {
+            Logger.getLogger(groupManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addGroup() {
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this group details ?");
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                DataObject dataObj = (DataObject) comboBatchDataObject.getSelectedItem();
+                int batchId = commonController.getIntOrZeroFromString(dataObj.get("batch_id"));
+                boolean status = groupController.addGroupDetail(txtDetail.getText().trim(), batchId, txtYear.getText().trim(), 1);
+                if (status) {
+                    JOptionPane.showMessageDialog(this, "Group registered successfully !");
+                    clearAll();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(groupManagement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void loadDataToTable() {
+        try {
+            ResultSet rset = groupController.getAllGroups();
+            String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail"};
+            commonController.loadDataToTable(tblGroupDetails, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(groupManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,21 +85,21 @@ public class groupManagement extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBatchDetails = new javax.swing.JTable();
+        tblGroupDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtYear = new javax.swing.JTextField();
-        txtType = new javax.swing.JTextField();
         txtDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btSave = new javax.swing.JButton();
-        comboBatch = new javax.swing.JComboBox<>();
+        comboBatchDataObject = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        comboGroupType = new javax.swing.JComboBox<>();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
 
@@ -67,13 +108,13 @@ public class groupManagement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblGroupDetails.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        tblGroupDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "groupId", "Name", "Batch", "Type", "Detail"
+                "groupId", "Group Name", "Batch ", "Group Type", "Detail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -84,18 +125,18 @@ public class groupManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBatchDetails.setRowHeight(20);
-        tblBatchDetails.setRowMargin(2);
-        tblBatchDetails.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblBatchDetails);
-        if (tblBatchDetails.getColumnModel().getColumnCount() > 0) {
-            tblBatchDetails.getColumnModel().getColumn(0).setMinWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(3).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(4).setResizable(false);
+        tblGroupDetails.setRowHeight(20);
+        tblGroupDetails.setRowMargin(2);
+        tblGroupDetails.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblGroupDetails);
+        if (tblGroupDetails.getColumnModel().getColumnCount() > 0) {
+            tblGroupDetails.getColumnModel().getColumn(0).setMinWidth(0);
+            tblGroupDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblGroupDetails.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblGroupDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblGroupDetails.getColumnModel().getColumn(2).setResizable(false);
+            tblGroupDetails.getColumnModel().getColumn(3).setResizable(false);
+            tblGroupDetails.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -105,11 +146,6 @@ public class groupManagement extends javax.swing.JFrame {
         txtYear.setToolTipText("Group Name");
         txtYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtYear.setSelectionColor(new java.awt.Color(255, 255, 0));
-
-        txtType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtType.setToolTipText("Group Type");
-        txtType.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtType.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setToolTipText("Details");
@@ -142,9 +178,9 @@ public class groupManagement extends javax.swing.JFrame {
             }
         });
 
-        comboBatch.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboBatch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Batch 1", "Batch 2", "Batch 3", "Batch 4" }));
-        comboBatch.setToolTipText("Batch");
+        comboBatchDataObject.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboBatchDataObject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Batch 1", "Batch 2", "Batch 3", "Batch 4" }));
+        comboBatchDataObject.setToolTipText("Batch");
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -153,7 +189,7 @@ public class groupManagement extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Group Name");
+        jLabel20.setText("Group Year");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,6 +203,10 @@ public class groupManagement extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Detail / Remarks");
 
+        comboGroupType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboGroupType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal Group", "Special Group" }));
+        comboGroupType.setToolTipText("Batch");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -177,11 +217,7 @@ public class groupManagement extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBatch, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBatchDataObject, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,6 +230,10 @@ public class groupManagement extends javax.swing.JFrame {
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboGroupType, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,13 +255,13 @@ public class groupManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(comboBatch, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBatchDataObject, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboGroupType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -284,6 +324,9 @@ public class groupManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
+        addGroup();
+        loadDataToTable();
+        clearAll();
     }//GEN-LAST:event_btSaveActionPerformed
 
     /**
@@ -332,7 +375,8 @@ public class groupManagement extends javax.swing.JFrame {
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JComboBox<String> comboBatch;
+    private javax.swing.JComboBox<String> comboBatchDataObject;
+    private javax.swing.JComboBox<String> comboGroupType;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -344,9 +388,8 @@ public class groupManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBatchDetails;
+    private javax.swing.JTable tblGroupDetails;
     private javax.swing.JTextField txtDetail;
-    private javax.swing.JTextField txtType;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
 }

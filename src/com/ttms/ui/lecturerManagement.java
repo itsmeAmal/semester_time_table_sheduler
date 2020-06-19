@@ -344,6 +344,8 @@ public class lecturerManagement extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         addLecturer();
+        clearAll();
+        loadLecturerData();
     }//GEN-LAST:event_btSaveActionPerformed
 
     /**

@@ -157,7 +157,7 @@ public class subjectManagement extends javax.swing.JFrame {
 
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
-        btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon.png"))); // NOI18N
+        btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
         btSave.setToolTipText("Add new subject");
         btSave.setBorder(null);
         btSave.addActionListener(new java.awt.event.ActionListener() {

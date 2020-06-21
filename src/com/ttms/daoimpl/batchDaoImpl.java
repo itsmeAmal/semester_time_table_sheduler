@@ -68,4 +68,14 @@ public class batchDaoImpl implements batchDao {
         return true;
     }
 
+    public boolean updateBatchAsDeleted(int batchId) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("update batch set batch_status=? where batch_id=?");
+        ps.setInt(1, batch.INACTIVE_BATCH);
+        ps.setInt(2, batchId);
+        ps.executeUpdate();
+        ps.close();
+        return true;
+    }
+
 }

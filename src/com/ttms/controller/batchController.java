@@ -33,4 +33,26 @@ public class batchController {
         return new batchDaoImpl().addBatch(batch);
     }
 
+    public static boolean updateAsDeleted(int batchId) throws SQLException {
+        return new batchDaoImpl().updateBatchAsDeleted(batchId);
+    }
+
+    public static boolean updateBatch(batch batch) throws SQLException {
+        return new batchDaoImpl().updateBatch(batch);
+    }
+
+    public static batch getBatchModelByBatchId(int batchId) throws SQLException {
+        ResultSet rset = batchController.getBatchByOneAttribute("batch_id", commonConstants.Sql.EQUAL, Integer.toString(batchId));
+        batch batch = null;
+        while (rset.next()) {
+            batch = new batch();
+            batch.setDetail(rset.getString("batch_detail"));
+            batch.setId(rset.getInt("batch_id"));
+            batch.setLevel(rset.getString("batch_level"));
+            batch.setYear(rset.getString("batch_year"));
+            batch.setStatus(rset.getInt("batch_status"));
+        }
+        return batch;
+    }
+
 }

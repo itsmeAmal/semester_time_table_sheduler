@@ -10,6 +10,7 @@ import com.ttms.model.batch;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,6 +40,31 @@ public class editBatch extends javax.swing.JDialog {
             txtYear2.setText(btch.getYear());
             txtLevel2.setText(btch.getLevel());
             txtDetail2.setText(btch.getDetail());
+        } catch (SQLException ex) {
+            Logger.getLogger(editBatch.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateBatchDetails() {
+
+        try {
+            if (txtYear2.getText().trim().equalsIgnoreCase("") || txtYear2.getText().trim().equalsIgnoreCase(null)) {
+                JOptionPane.showMessageDialog(this, "Year could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            batch batch = new batch();
+            batch.setId(batchId);
+            batch.setDetail(txtDetail2.getText().trim());
+            batch.setLevel(txtLevel2.getText().trim());
+            batch.setYear(txtYear2.getText().trim());
+            batch.setStatus(batch.ACTIVE_BATCH);
+
+            boolean status = batchController.updateBatch(batch);
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Batch updated successfully !");
+                this.dispose();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(editBatch.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -224,7 +250,7 @@ public class editBatch extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
-
+        updateBatchDetails();
     }//GEN-LAST:event_btSave2ActionPerformed
 
     /**

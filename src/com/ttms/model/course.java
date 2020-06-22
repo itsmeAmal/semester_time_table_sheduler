@@ -10,10 +10,13 @@ package com.ttms.model;
  * @author Amal
  */
 public class course {
+
+    public static int ACTIVE_COURSE = 1;
+    public static int INACTIVE_COURSE = 0; 
     
     private int id;
     private String name;
-    private int type;
+    private String type;
     private String detail;
     private int status;
 
@@ -46,20 +49,6 @@ public class course {
     }
 
     /**
-     * @return the type
-     */
-    public int getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    /**
      * @return the detail
      */
     public String getDetail() {
@@ -86,5 +75,19 @@ public class course {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

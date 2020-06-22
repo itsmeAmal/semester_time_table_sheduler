@@ -26,7 +26,7 @@ public class courseDaoImpl implements courseDao {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("insert into course (course_name, course_type, course_detail, course_satus) values (?,?,?,?)");
         ps.setString(1, course.getName());
-        ps.setInt(2, course.getType());
+        ps.setString(2, course.getType());
         ps.setString(3, course.getDetail());
         ps.setInt(4, course.getStatus());
         ps.executeUpdate();
@@ -49,7 +49,7 @@ public class courseDaoImpl implements courseDao {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("update course course_name=?, course_type=?, course_detail=?, course_satus=? where course_id=?");
         ps.setString(1, course.getName());
-        ps.setInt(2, course.getType());
+        ps.setString(2, course.getType());
         ps.setString(3, course.getDetail());
         ps.setInt(4, course.getStatus());
         ps.setInt(5, course.getId());

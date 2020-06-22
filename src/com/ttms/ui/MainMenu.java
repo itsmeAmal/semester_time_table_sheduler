@@ -43,7 +43,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        lblCourseManagement = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -206,11 +206,11 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(102, 102, 255));
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/menuIcons/course_128x128.png"))); // NOI18N
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCourseManagement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCourseManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/menuIcons/course_128x128.png"))); // NOI18N
+        lblCourseManagement.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                lblCourseManagementMouseClicked(evt);
             }
         });
 
@@ -220,14 +220,14 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblCourseManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(lblCourseManagement, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -493,9 +493,9 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel8MouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel10MouseClicked
+    private void lblCourseManagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCourseManagementMouseClicked
+        new courseManagement().setVisible(true);
+    }//GEN-LAST:event_lblCourseManagementMouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         new batchManagement().setVisible(true);
@@ -546,7 +546,6 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -574,5 +573,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lblCourseManagement;
     // End of variables declaration//GEN-END:variables
 }

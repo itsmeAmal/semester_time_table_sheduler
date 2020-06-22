@@ -58,12 +58,16 @@ public class batchManagement extends javax.swing.JFrame {
             Logger.getLogger(batchManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void editSelectedBatch(){
+
+    private void editSelectedBatch() {
         int selectedRaw = tblBatchDetails.getSelectedRow();
+        if (selectedRaw == -1) {
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE); 
+            return;
+        }
         DefaultTableModel dtm = (DefaultTableModel) tblBatchDetails.getModel();
-        int batchId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());         
-        new editBatch(this, true, batchId).setVisible(true); 
+        int batchId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editBatch(this, true, batchId).setVisible(true);
     }
 
     /**

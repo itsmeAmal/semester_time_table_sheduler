@@ -47,7 +47,7 @@ public class courseDaoImpl implements courseDao {
     @Override
     public boolean updateCourse(course course) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("update course course_name=?, course_type=?, course_detail=?, course_satus=? where course_id=?");
+        PreparedStatement ps = con.prepareStatement("update course set course_name=?, course_type=?, course_detail=?, course_satus=? where course_id=?");
         ps.setString(1, course.getName());
         ps.setString(2, course.getType());
         ps.setString(3, course.getDetail());

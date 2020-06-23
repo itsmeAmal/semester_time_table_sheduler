@@ -6,7 +6,9 @@
 package com.ttms.ui;
 
 import com.ttms.controller.batchController;
+import com.ttms.controller.courseController;
 import com.ttms.model.batch;
+import com.ttms.model.course;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,49 +20,53 @@ import javax.swing.JOptionPane;
  */
 public class editCourse extends javax.swing.JDialog {
 
-    private int batchId;
+    private int courseId;
 
     /**
      * Creates new form editBatch
      *
      * @param parent
      * @param modal
-     * @param batchPrimaryKey
+     * @param coursePrimaryKey
      */
-    public editCourse(java.awt.Frame parent, boolean modal, int batchPrimaryKey) {
+    public editCourse(java.awt.Frame parent, boolean modal, int coursePrimaryKey) {
         super(parent, modal);
         initComponents();
-        batchId = batchPrimaryKey;
+        courseId = coursePrimaryKey;
         setDetails();
     }
 
     private void setDetails() {
         try {
-            batch btch = batchController.getBatchModelByBatchId(batchId);
-            txtYear2.setText(btch.getYear());
-            txtLevel2.setText(btch.getLevel());
-            txtDetail2.setText(btch.getDetail());
+            course course = courseController.getCourseByCourseId(courseId);
+            txtCourseName.setText(course.getName());
+            txtCourseDetail.setText(course.getDetail());
+            txtCourseType.setText(course.getType());
         } catch (SQLException ex) {
             Logger.getLogger(editCourse.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void updateBatchDetails() {
+    private void updateCourseDetails() {
 
         try {
-            if (txtYear2.getText().trim().equalsIgnoreCase("") || txtYear2.getText().trim().equalsIgnoreCase(null)) {
-                JOptionPane.showMessageDialog(this, "Year could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
+            if (txtCourseName.getText().trim().equalsIgnoreCase("") || txtCourseName.getText().trim().equalsIgnoreCase(null)) {
+                JOptionPane.showMessageDialog(this, "Course name could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtCourseType.getText().trim().equalsIgnoreCase("") || txtCourseType.getText().trim().equalsIgnoreCase(null)) {
+                JOptionPane.showMessageDialog(this, "Course type could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            batch batch = new batch();
-            batch.setId(batchId);
-            batch.setDetail(txtDetail2.getText().trim());
-            batch.setLevel(txtLevel2.getText().trim());
-            batch.setYear(txtYear2.getText().trim());
-            batch.setStatus(batch.ACTIVE_BATCH);
+            course course = new course();
+            course.setDetail(txtCourseDetail.getText().trim());
+            course.setName(txtCourseName.getText().trim());
+            course.setType(txtCourseType.getText().trim());
+            course.setStatus(course.ACTIVE_COURSE);
+            course.setId(courseId);
 
-            boolean status = batchController.updateBatch(batch);
+            boolean status = courseController.updateCourse(course);
             if (status) {
                 JOptionPane.showMessageDialog(this, "Batch updated successfully !");
                 this.dispose();
@@ -81,9 +87,8 @@ public class editCourse extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        txtYear2 = new javax.swing.JTextField();
-        txtLevel2 = new javax.swing.JTextField();
-        txtDetail2 = new javax.swing.JTextField();
+        txtCourseName = new javax.swing.JTextField();
+        txtCourseDetail = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -91,6 +96,7 @@ public class editCourse extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        txtCourseType = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Selected Course");
@@ -100,20 +106,15 @@ public class editCourse extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(0, 0, 102));
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtYear2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear2.setToolTipText("Name");
-        txtYear2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtYear2.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtCourseName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtCourseName.setToolTipText("Name");
+        txtCourseName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtCourseName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
-        txtLevel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtLevel2.setToolTipText("Email 1");
-        txtLevel2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtLevel2.setSelectionColor(new java.awt.Color(255, 255, 0));
-
-        txtDetail2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail2.setToolTipText("Details");
-        txtDetail2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtDetail2.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtCourseDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtCourseDetail.setToolTipText("Details");
+        txtCourseDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtCourseDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,7 +124,7 @@ public class editCourse extends javax.swing.JDialog {
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Course_Type.png"))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -143,15 +144,20 @@ public class editCourse extends javax.swing.JDialog {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Batch Details / Remarks");
+        jLabel16.setText("Course  Details / Remarks");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Batch Level");
+        jLabel17.setText("Course Type");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Batch Year");
+        jLabel18.setText("Course Name");
+
+        txtCourseType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtCourseType.setToolTipText("Name");
+        txtCourseType.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtCourseType.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -160,11 +166,13 @@ public class editCourse extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtLevel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCourseType, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
@@ -180,14 +188,14 @@ public class editCourse extends javax.swing.JDialog {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtDetail2)))
+                            .addComponent(txtCourseDetail)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtYear2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btSave2, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
@@ -199,18 +207,18 @@ public class editCourse extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtYear2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLevel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCourseType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDetail2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCourseDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addComponent(btSave2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,7 +258,7 @@ public class editCourse extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
-        updateBatchDetails();
+        updateCourseDetails();
     }//GEN-LAST:event_btSave2ActionPerformed
 
     /**
@@ -306,8 +314,8 @@ public class editCourse extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField txtDetail2;
-    private javax.swing.JTextField txtLevel2;
-    private javax.swing.JTextField txtYear2;
+    private javax.swing.JTextField txtCourseDetail;
+    private javax.swing.JTextField txtCourseName;
+    private javax.swing.JTextField txtCourseType;
     // End of variables declaration//GEN-END:variables
 }

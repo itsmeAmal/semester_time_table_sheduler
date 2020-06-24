@@ -11,15 +11,16 @@ package com.ttms.model;
  */
 public class group {
 
+    //, 
     public static int ACTIVE_GROUP = 1;
     public static int INACTIVE_GROUP = 0;
-    public static int GROUP_TYPE_NORMAL = 2;
-    public static int GROUP_TYPE_SPECIAL = 3;    
+    public static String GROUP_TYPE_NORMAL = "Normal Group";
+    public static String GROUP_TYPE_SPECIAL = "Special Group";
 
     private int id;
     private String name;
     private int batchId;
-    private int type;
+    private String type;
     private String detail;
     private int status;
 
@@ -68,14 +69,14 @@ public class group {
     /**
      * @return the type
      */
-    public int getType() {
+    public String getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

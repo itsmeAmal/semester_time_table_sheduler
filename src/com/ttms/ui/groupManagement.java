@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,7 +34,7 @@ public class groupManagement extends javax.swing.JFrame {
     private void clearAll() {
         txtDetail.setText("");
         comboGroupType.setSelectedItem(null);
-        txtYear.setText("");
+        txtGroupName.setText("");
         comboBatchDataObject.setSelectedIndex(0);
     }
 
@@ -52,8 +53,9 @@ public class groupManagement extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             try {
                 DataObject dataObj = (DataObject) comboBatchDataObject.getSelectedItem();
-                int batchId = commonController.getIntOrZeroFromString(dataObj.get("batch_id"));
-                boolean status = groupController.addGroupDetail(txtDetail.getText().trim(), batchId, txtYear.getText().trim(), 1);
+                int batchId = commonController.getIntOrZeroFromString(dataObj.get("batch_year"));
+                boolean status = groupController.addGroupDetail(txtDetail.getText().trim(),
+                        batchId, txtGroupName.getText().trim(), comboGroupType.getSelectedItem().toString());
                 if (status) {
                     JOptionPane.showMessageDialog(this, "Group registered successfully !");
                     clearAll();
@@ -74,6 +76,17 @@ public class groupManagement extends javax.swing.JFrame {
         }
     }
 
+    private void editSelectedGroup() {
+        int selectedRaw = tblGroupDetails.getSelectedRow();
+        if (selectedRaw == -1) {
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DefaultTableModel dtm = (DefaultTableModel) tblGroupDetails.getModel();
+        int groupId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editGroup(this, true, groupId).setVisible(true);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,7 +100,7 @@ public class groupManagement extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGroupDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        txtYear = new javax.swing.JTextField();
+        txtGroupName = new javax.swing.JTextField();
         txtDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -142,10 +155,10 @@ public class groupManagement extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear.setToolTipText("Group Name");
-        txtYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtYear.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtGroupName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtGroupName.setToolTipText("Group Name");
+        txtGroupName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtGroupName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setToolTipText("Details");
@@ -189,11 +202,11 @@ public class groupManagement extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Group Year");
+        jLabel20.setText("Group Name");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Batch");
+        jLabel21.setText("Batch Year");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
@@ -226,7 +239,7 @@ public class groupManagement extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -249,7 +262,7 @@ public class groupManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -276,6 +289,11 @@ public class groupManagement extends javax.swing.JFrame {
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -328,6 +346,11 @@ public class groupManagement extends javax.swing.JFrame {
         loadDataToTable();
         clearAll();
     }//GEN-LAST:event_btSaveActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        editSelectedGroup();
+        loadDataToTable();
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,6 +413,6 @@ public class groupManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblGroupDetails;
     private javax.swing.JTextField txtDetail;
-    private javax.swing.JTextField txtYear;
+    private javax.swing.JTextField txtGroupName;
     // End of variables declaration//GEN-END:variables
 }

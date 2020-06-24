@@ -24,14 +24,33 @@ public class groupController {
             String condition, String value) throws SQLException {
         return new groupDaoImpl().getGroupByOneAttribute(attribute, condition, value);
     }
-    
-    public static boolean addGroupDetail(String detail, int batchId, String name, int groupType)throws SQLException{
+
+    public static boolean addGroupDetail(String detail, int batchId, String name, String groupType) throws SQLException {
         group group = new group();
         group.setDetail(detail);
         group.setBatchId(batchId);
         group.setName(name);
-        group.setStatus(group.ACTIVE_GROUP); 
-        group.setType(batchId);
+        group.setStatus(group.ACTIVE_GROUP);
+        group.setType(groupType);
         return new groupDaoImpl().addGroup(group);
+    }
+
+    public static group getGroupByGroupId(int groupId) throws SQLException {
+        ResultSet rset = getGroupByOneAttribute("group_id", commonConstants.Sql.EQUAL, Integer.toString(groupId));
+        group group = null;
+        while (rset.next()) {
+            group = new group();
+            group.setId(rset.getInt("group_id"));
+            group.setName(rset.getString("group_name"));
+            group.setBatchId(rset.getInt("group_batch_id"));
+            group.setType(rset.getString("group_type"));
+            group.setDetail(rset.getString("group_detail"));
+            group.setStatus(rset.getInt("group_status"));
+        }
+        return group;
+    }
+
+    public static boolean updateGroup(group group) throws SQLException {
+        return new groupDaoImpl().updateGroup(group);
     }
 }

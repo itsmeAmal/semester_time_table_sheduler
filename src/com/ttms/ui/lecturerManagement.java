@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,6 +61,17 @@ public class lecturerManagement extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(lecturerManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void editSelectedCourse() {
+        int selectedRaw = tblLectures.getSelectedRow();
+        if (selectedRaw == -1) {
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DefaultTableModel dtm = (DefaultTableModel) tblLectures.getModel();
+        int lecturerId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editLecturer(this, true, lecturerId).setVisible(true);
     }
 
     /**
@@ -294,6 +306,11 @@ public class lecturerManagement extends javax.swing.JFrame {
         );
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
 
@@ -347,6 +364,11 @@ public class lecturerManagement extends javax.swing.JFrame {
         clearAll();
         loadLecturerData();
     }//GEN-LAST:event_btSaveActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        editSelectedCourse();
+        loadLecturerData();
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments

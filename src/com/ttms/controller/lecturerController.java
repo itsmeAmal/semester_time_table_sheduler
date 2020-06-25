@@ -31,4 +31,30 @@ public class lecturerController {
         return new lecturerDaoImpl().getAlllecturers();
     }
 
+    public static ResultSet getLecturerResultSetByOneAttribute(String attribute,
+            String condition, String value) throws SQLException {
+        return new lecturerDaoImpl().getLecturerByOneAttribute(attribute, condition, value);
+    }
+
+    public static boolean updateLecturer(lecturer lecturer) throws SQLException {
+        return new lecturerDaoImpl().updateLecturer(lecturer);
+    }
+
+    public static lecturer getLecturerByLecturerId(int lecturerId) throws SQLException {
+        ResultSet rset = getLecturerResultSetByOneAttribute("lecturer_id",
+                commonConstants.Sql.EQUAL, Integer.toString(lecturerId));
+        lecturer lecturer = null;
+        while (rset.next()) {
+            lecturer = new lecturer();
+            lecturer.setId(rset.getInt("lecturer_id"));
+            lecturer.setDetail(rset.getString("lecturer_detail"));
+            lecturer.setTitle(rset.getString("lecturer_title"));
+            lecturer.setName(rset.getString("lecturer_name"));
+            lecturer.setEmail(rset.getString("lecturer_email"));
+            lecturer.setContactNo(rset.getString("lecturer_contact_no"));
+            lecturer.setStatus(rset.getInt("lecturer_status"));
+        }
+        return lecturer;
+    }
+
 }

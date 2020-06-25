@@ -14,13 +14,13 @@ public class group {
     //, 
     public static int ACTIVE_GROUP = 1;
     public static int INACTIVE_GROUP = 0;
-    public static String GROUP_TYPE_NORMAL = "Normal Group";
-    public static String GROUP_TYPE_SPECIAL = "Special Group";
+    public static int GROUP_TYPE_NORMAL = 1;
+    public static int GROUP_TYPE_SPECIAL = 2;
 
     private int id;
     private String name;
     private int batchId;
-    private String type;
+    private int type;
     private String detail;
     private int status;
 
@@ -69,14 +69,14 @@ public class group {
     /**
      * @return the type
      */
-    public String getType() {
+    public int getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

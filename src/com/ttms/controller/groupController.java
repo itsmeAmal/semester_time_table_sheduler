@@ -25,7 +25,7 @@ public class groupController {
         return new groupDaoImpl().getGroupByOneAttribute(attribute, condition, value);
     }
 
-    public static boolean addGroupDetail(String detail, int batchId, String name, String groupType) throws SQLException {
+    public static boolean addGroupDetail(String detail, int batchId, String name, int groupType) throws SQLException {
         group group = new group();
         group.setDetail(detail);
         group.setBatchId(batchId);
@@ -43,7 +43,7 @@ public class groupController {
             group.setId(rset.getInt("group_id"));
             group.setName(rset.getString("group_name"));
             group.setBatchId(rset.getInt("group_batch_id"));
-            group.setType(rset.getString("group_type"));
+            group.setType(rset.getInt("group_type"));
             group.setDetail(rset.getString("group_detail"));
             group.setStatus(rset.getInt("group_status"));
         }

@@ -9,6 +9,7 @@ import com.ttms.controller.batchController;
 import com.ttms.controller.commonController;
 import com.ttms.controller.groupController;
 import com.ttms.model.DataObject;
+import com.ttms.model.group;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -54,8 +55,16 @@ public class groupManagement extends javax.swing.JFrame {
             try {
                 DataObject dataObj = (DataObject) comboBatchDataObject.getSelectedItem();
                 int batchId = commonController.getIntOrZeroFromString(dataObj.get("batch_year"));
+                
+                int groupType = group.GROUP_TYPE_NORMAL;
+                if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Normal Group")) {
+                    groupType = group.GROUP_TYPE_NORMAL;
+                } else if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Special Group")) {
+                    groupType = group.GROUP_TYPE_SPECIAL;
+                }
+
                 boolean status = groupController.addGroupDetail(txtDetail.getText().trim(),
-                        batchId, txtGroupName.getText().trim(), comboGroupType.getSelectedItem().toString());
+                        batchId, txtGroupName.getText().trim(), groupType);
                 if (status) {
                     JOptionPane.showMessageDialog(this, "Group registered successfully !");
                     clearAll();

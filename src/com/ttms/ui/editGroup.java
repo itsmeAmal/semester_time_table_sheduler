@@ -9,7 +9,6 @@ import com.ttms.controller.batchController;
 import com.ttms.controller.commonController;
 import com.ttms.controller.groupController;
 import com.ttms.model.DataObject;
-import com.ttms.model.batch;
 import com.ttms.model.group;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,13 +77,20 @@ public class editGroup extends javax.swing.JDialog {
                 return;
             }
 
+            int groupType = group.GROUP_TYPE_NORMAL;
+            if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Normal Group")) {
+                groupType = group.GROUP_TYPE_NORMAL;
+            } else if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Special Group")) {
+                groupType = group.GROUP_TYPE_SPECIAL;
+            }
+
             group group = new group();
             group.setId(groupId);
             group.setDetail(txtDetail.getText().trim());
             group.setBatchId(commonController.getIntOrZeroFromString(dataObject.get("batch_year")));
             group.setName(txtGroupName.getText().trim());
             group.setStatus(group.ACTIVE_GROUP);
-            group.setType(comboGroupType.getSelectedItem().toString());
+            group.setType(groupType);
 
             boolean status = groupController.updateGroup(group);
 

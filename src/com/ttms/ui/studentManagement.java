@@ -30,6 +30,7 @@ public class studentManagement extends javax.swing.JFrame {
         loadStudentData();
         loadBatchDataObjectsToComboBox();
         loadGroupDataObjectsToComBox();
+        loadSpecialGroupDataObjectsToComBox();
     }
 
     private void clearAll() {
@@ -98,9 +99,19 @@ public class studentManagement extends javax.swing.JFrame {
 
     private void loadGroupDataObjectsToComBox() {
         try {
-            ResultSet rset = new groupDaoImpl().getAllGroups();
+            ResultSet rset = new groupDaoImpl().getAllNormalGroups();
             String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
             commonController.loadDataObjectsIntoComboBox(comboGroup, rset, columnList, "group_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadSpecialGroupDataObjectsToComBox() {
+        try {
+            ResultSet rset = new groupDaoImpl().getAllNormalGroups();
+            String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
+            commonController.loadDataObjectsIntoComboBox(comboSpecialGroup, rset, columnList, "group_name");
         } catch (SQLException ex) {
             Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
         }

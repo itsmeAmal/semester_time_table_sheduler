@@ -80,7 +80,7 @@ public class groupDaoImpl implements groupDao {
     public ResultSet getAllSpecialGroups() throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("select group_id, group_name, group_batch_id, group_type, "
-                + "group_detail, group_status from group_info where group_type=1");
+                + "group_detail, group_status from group_info where group_type=2");
         return ps.executeQuery();
     }
 

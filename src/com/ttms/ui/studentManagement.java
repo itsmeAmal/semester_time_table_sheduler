@@ -10,11 +10,13 @@ import com.ttms.controller.commonController;
 import com.ttms.controller.studentController;
 import com.ttms.daoimpl.groupDaoImpl;
 import com.ttms.daoimpl.studentDaoImpl;
+import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,7 +29,7 @@ public class studentManagement extends javax.swing.JFrame {
      */
     public studentManagement() {
         initComponents();
-        loadStudentData();
+        loadStudentDataWithJoinQuery();
         loadBatchDataObjectsToComboBox();
         loadGroupDataObjectsToComBox();
         loadSpecialGroupDataObjectsToComBox();
@@ -45,12 +47,19 @@ public class studentManagement extends javax.swing.JFrame {
         try {
             int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this student details ?");
             if (option == JOptionPane.YES_OPTION) {
+
+                DataObject dataObjGroup = (DataObject) comboGroup.getSelectedItem();
+                int groupid = commonController.getIntOrZeroFromString(dataObjGroup.get("group_id"));
+
+                DataObject dataObjSpecialGroup = (DataObject) comboSpecialGroup.getSelectedItem();
+                int specialGroupid = commonController.getIntOrZeroFromString(dataObjSpecialGroup.get("group_id"));
+
                 boolean status = studentController.addStudent(txtStudentName.getText().trim(), txtEmail1.getText().trim(),
-                        "", txtRegNo.getText().trim(), txtContactNo.getText().trim(), txtDetail.getText().trim(), 1, 1, 1);
+                        "", txtRegNo.getText().trim(), txtContactNo.getText().trim(), txtDetail.getText().trim(), groupid, 1, specialGroupid);
                 if (status) {
                     JOptionPane.showMessageDialog(this, "Student registered successfully !");
                     clearAll();
-                    loadStudentData();
+                    loadStudentDataWithJoinQuery();
                 }
             }
         } catch (SQLException ex) {
@@ -58,11 +67,11 @@ public class studentManagement extends javax.swing.JFrame {
         }
     }
 
-    private void loadStudentData() {
+    private void loadStudentDataWithJoinQuery() {
         try {
-            ResultSet rset = new studentDaoImpl().getAllStudents();
+            ResultSet rset = new studentDaoImpl().getAllStudentsWithOtherJoinDetails();
             String[] columnList = {"student_id", "student_reg_no", "student_name", "student_email_1", "student_contact_no", "student_batch_id",
-                "student_group_id", "student_special_id", "student_detail"};
+                "group_name", "specil_group_name", "student_detail"};
             commonController.loadDataToTable(tblStudentDetails, rset, columnList);
         } catch (SQLException ex) {
             Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
@@ -109,12 +118,34 @@ public class studentManagement extends javax.swing.JFrame {
 
     private void loadSpecialGroupDataObjectsToComBox() {
         try {
-            ResultSet rset = new groupDaoImpl().getAllNormalGroups();
+            ResultSet rset = new groupDaoImpl().getAllSpecialGroups();
             String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
             commonController.loadDataObjectsIntoComboBox(comboSpecialGroup, rset, columnList, "group_name");
         } catch (SQLException ex) {
             Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void editSelectedGroup() {
+        int selectedRaw = tblStudentDetails.getSelectedRow();
+        if (selectedRaw == -1) {
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DefaultTableModel dtm = (DefaultTableModel) tblStudentDetails.getModel();
+        int studentId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editStudent(this, true, studentId).setVisible(true);
+    }
+
+    private void viewSelectedGroup() {
+        int selectedRaw = tblStudentDetails.getSelectedRow();
+        if (selectedRaw == -1) {
+            JOptionPane.showMessageDialog(this, "Please select the row you want to view !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DefaultTableModel dtm = (DefaultTableModel) tblStudentDetails.getModel();
+        int studentId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new viewStudent(this, true, studentId).setVisible(true);
     }
 
     /**
@@ -157,6 +188,7 @@ public class studentManagement extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btViewStudentDetails = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Student Management");
@@ -164,7 +196,7 @@ public class studentManagement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblStudentDetails.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        tblStudentDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         tblStudentDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -189,14 +221,26 @@ public class studentManagement extends javax.swing.JFrame {
             tblStudentDetails.getColumnModel().getColumn(0).setMinWidth(0);
             tblStudentDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
             tblStudentDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblStudentDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblStudentDetails.getColumnModel().getColumn(1).setMinWidth(200);
+            tblStudentDetails.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblStudentDetails.getColumnModel().getColumn(1).setMaxWidth(200);
             tblStudentDetails.getColumnModel().getColumn(2).setResizable(false);
             tblStudentDetails.getColumnModel().getColumn(3).setResizable(false);
-            tblStudentDetails.getColumnModel().getColumn(4).setResizable(false);
-            tblStudentDetails.getColumnModel().getColumn(5).setResizable(false);
-            tblStudentDetails.getColumnModel().getColumn(6).setResizable(false);
-            tblStudentDetails.getColumnModel().getColumn(7).setResizable(false);
-            tblStudentDetails.getColumnModel().getColumn(8).setResizable(false);
+            tblStudentDetails.getColumnModel().getColumn(4).setMinWidth(150);
+            tblStudentDetails.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tblStudentDetails.getColumnModel().getColumn(4).setMaxWidth(150);
+            tblStudentDetails.getColumnModel().getColumn(5).setMinWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(5).setMaxWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(6).setMinWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(6).setMaxWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(7).setMinWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(7).setMaxWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(8).setMinWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(8).setPreferredWidth(0);
+            tblStudentDetails.getColumnModel().getColumn(8).setMaxWidth(0);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -438,8 +482,20 @@ public class studentManagement extends javax.swing.JFrame {
         );
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+
+        btViewStudentDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N
+        btViewStudentDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btViewStudentDetailsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -451,6 +507,8 @@ public class studentManagement extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btViewStudentDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -463,7 +521,8 @@ public class studentManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btViewStudentDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -488,6 +547,14 @@ public class studentManagement extends javax.swing.JFrame {
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         addStudent();
     }//GEN-LAST:event_btSaveActionPerformed
+
+    private void btViewStudentDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btViewStudentDetailsActionPerformed
+        viewSelectedGroup();
+    }//GEN-LAST:event_btViewStudentDetailsActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -527,6 +594,7 @@ public class studentManagement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSave;
+    private javax.swing.JButton btViewStudentDetails;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JComboBox<String> comboBatch;

@@ -22,6 +22,12 @@ public class studentDaoImpl implements studentDao {
     private String selectQuery = "select student_id, student_name, student_email_1, student_email_2, student_reg_no,"
             + " student_contact_no, student_detail, student_status, student_batch_id, student_group_id, student_special_id from student";
 
+    private String selectQuery2 = "select student_id, student_name, student_email_1, student_email_2, student_reg_no, "
+            + "student_contact_no, student_detail, student_status, student_batch_id, student_group_id, "
+            + "student_special_id, group_name, group_batch_id, group_type, group_detail, "
+            + "(select group_name from group_info where group_id=student_special_id) as specil_group_name "
+            + "from student left join group_info on group_id=student_group_id";
+
     @Override
     public boolean addStudent(student student) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
@@ -66,6 +72,10 @@ public class studentDaoImpl implements studentDao {
         ps.executeUpdate();
         ps.close();
         return true;
+    }
+
+    public ResultSet getAllStudentsWithOtherJoinDetails() throws SQLException {
+        return new commonDaoImpl().getAllRecords(selectQuery2);
     }
 
 }

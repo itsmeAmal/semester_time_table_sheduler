@@ -65,4 +65,8 @@ public class studentController {
         return student;
     }
 
+    public static ResultSet getAllStudentsWithOtherJoinDetails() throws SQLException {
+        return new studentDaoImpl().getAllStudentsWithOtherJoinDetails();
+    }
+
 }

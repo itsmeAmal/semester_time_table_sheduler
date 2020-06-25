@@ -28,8 +28,8 @@ public class studentManagement extends javax.swing.JFrame {
     public studentManagement() {
         initComponents();
         loadStudentData();
-        loadBatchToComboBox();
-        loadGroupToComboBox();
+        loadBatchDataObjectsToComboBox();
+        loadGroupDataObjectsToComBox();
     }
 
     private void clearAll() {
@@ -77,10 +77,30 @@ public class studentManagement extends javax.swing.JFrame {
         }
     }
 
+    private void loadBatchDataObjectsToComboBox() {
+        try {
+            ResultSet rset = batchController.getAllBatches();
+            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail", "batch_status"};
+            commonController.loadDataObjectsIntoComboBox(comboBatch, rset, columnList, "batch_year");
+        } catch (SQLException ex) {
+            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void loadGroupToComboBox() {
         try {
             ResultSet rset = new groupDaoImpl().getAllGroups();
             commonController.loadDataToComboBox(comboGroup, rset, "group_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadGroupDataObjectsToComBox() {
+        try {
+            ResultSet rset = new groupDaoImpl().getAllGroups();
+            String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
+            commonController.loadDataObjectsIntoComboBox(comboGroup, rset, columnList, "group_name");
         } catch (SQLException ex) {
             Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,7 +126,7 @@ public class studentManagement extends javax.swing.JFrame {
         txtContactNo = new javax.swing.JTextField();
         comboBatch = new javax.swing.JComboBox<>();
         comboGroup = new javax.swing.JComboBox<>();
-        comboGroup1 = new javax.swing.JComboBox<>();
+        comboSpecialGroup = new javax.swing.JComboBox<>();
         txtDetail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -210,9 +230,9 @@ public class studentManagement extends javax.swing.JFrame {
         comboGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Group 1", "Group 2", "Group 3", "Group 4" }));
         comboGroup.setToolTipText("Group");
 
-        comboGroup1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboGroup1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Special Group 1", "Special Group 2", "Special Group 3", "Special Group 4" }));
-        comboGroup1.setToolTipText("Special Group");
+        comboSpecialGroup.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboSpecialGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Special Group 1", "Special Group 2", "Special Group 3", "Special Group 4" }));
+        comboSpecialGroup.setToolTipText("Special Group");
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setToolTipText("Details");
@@ -335,7 +355,7 @@ public class studentManagement extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboSpecialGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -393,7 +413,7 @@ public class studentManagement extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(comboGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboSpecialGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -500,7 +520,7 @@ public class studentManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnEdit;
     private javax.swing.JComboBox<String> comboBatch;
     private javax.swing.JComboBox<String> comboGroup;
-    private javax.swing.JComboBox<String> comboGroup1;
+    private javax.swing.JComboBox<String> comboSpecialGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -5,12 +5,11 @@
  */
 package com.ttms.ui;
 
-import com.ttms.controller.courseController;
-import com.ttms.model.course;
+import com.ttms.controller.studentController;
+import com.ttms.model.student;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,7 +35,11 @@ public class editStudent extends javax.swing.JDialog {
 
     private void setDetails() {
         try {
-            course course = courseController.getCourseByCourseId(studentId);
+            student student = studentController.getStudentByStudentId(studentId);
+            txtStudentName.setText(student.getName()); 
+            txtEmail1.setText(student.getEmail1()); 
+            txtRegNo.setText(student.getRegNo()); 
+            txtContactNo.setText(student.getContactNo()); 
 
         } catch (SQLException ex) {
             Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +74,6 @@ public class editStudent extends javax.swing.JDialog {
 //            Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -392,7 +394,7 @@ public class editStudent extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
-        
+
     }//GEN-LAST:event_btSave2ActionPerformed
 
     /**

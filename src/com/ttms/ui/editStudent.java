@@ -5,11 +5,18 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.batchController;
+import com.ttms.controller.commonController;
 import com.ttms.controller.studentController;
+import com.ttms.daoimpl.groupDaoImpl;
+import com.ttms.model.DataObject;
+import com.ttms.model.batch;
 import com.ttms.model.student;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,50 +37,120 @@ public class editStudent extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         studentId = studentPrimaryKey;
+        loadGroupDataObjectsToComBox();
+        loadSpecialGroupDataObjectsToComBox();
+        loadBatchDataObjectsToComboBox();
         setDetails();
     }
 
     private void setDetails() {
         try {
             student student = studentController.getStudentByStudentId(studentId);
-            txtStudentName.setText(student.getName()); 
-            txtEmail1.setText(student.getEmail1()); 
-            txtRegNo.setText(student.getRegNo()); 
-            txtContactNo.setText(student.getContactNo()); 
-
+            txtStudentName.setText(student.getName());
+            txtEmail1.setText(student.getEmail1());
+            txtRegNo.setText(student.getRegNo());
+            txtContactNo.setText(student.getContactNo());
+            comboBatch.setSelectedItem(null);
+            comboGroup.setSelectedItem(null);
+            comboSpecialGroup.setSelectedItem(null);
+            txtDetail.setText(student.getDetail());
         } catch (SQLException ex) {
             Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    private void updateCourseDetails() {
-//
-//        try {
-//            if (txtCourseName.getText().trim().equalsIgnoreCase("") || txtCourseName.getText().trim().equalsIgnoreCase(null)) {
-//                JOptionPane.showMessageDialog(this, "Course name could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//            if (txtCourseType.getText().trim().equalsIgnoreCase("") || txtCourseType.getText().trim().equalsIgnoreCase(null)) {
-//                JOptionPane.showMessageDialog(this, "Course type could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//
-//            course course = new course();
-//            course.setDetail(txtCourseDetail.getText().trim());
-//            course.setName(txtCourseName.getText().trim());
-//            course.setType(txtCourseType.getText().trim());
-//            course.setStatus(course.ACTIVE_COURSE);
-//            course.setId(studentId);
-//
-//            boolean status = courseController.updateCourse(course);
-//            if (status) {
-//                JOptionPane.showMessageDialog(this, "Batch updated successfully !");
-//                this.dispose();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    private void loadGroupDataObjectsToComBox() {
+        try {
+            ResultSet rset = new groupDaoImpl().getAllNormalGroups();
+            String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
+            commonController.loadDataObjectsIntoComboBox(comboGroup, rset, columnList, "group_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadSpecialGroupDataObjectsToComBox() {
+        try {
+            ResultSet rset = new groupDaoImpl().getAllSpecialGroups();
+            String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
+            commonController.loadDataObjectsIntoComboBox(comboSpecialGroup, rset, columnList, "group_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadBatchDataObjectsToComboBox() {
+        try {
+            ResultSet rset = batchController.getAllBatches();
+            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail", "batch_status"};
+            commonController.loadDataObjectsIntoComboBox(comboBatch, rset, columnList, "batch_year");
+        } catch (SQLException ex) {
+            Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateStudentDetails() {
+
+        try {
+            if (txtStudentName.getText().trim().equalsIgnoreCase(null) || txtStudentName.getText().trim().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please enter student Name !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtEmail1.getText().trim().equalsIgnoreCase(null) || txtEmail1.getText().trim().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please enter student Email !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtRegNo.getText().trim().equalsIgnoreCase(null) || txtRegNo.getText().trim().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please enter student Registration No !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtContactNo.getText().trim().equalsIgnoreCase(null) || txtContactNo.getText().trim().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please enter student Contact No !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (comboBatch.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Please select batch or exit without making any change !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboGroup.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Please select group or exit without making any change !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboSpecialGroup.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Please select special group or exit without making any change !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            student student = new student();
+            student.setName(txtStudentName.getText().trim());
+            student.setId(studentId);
+            student.setContactNo(txtContactNo.getText().trim());
+            student.setDetail(txtDetail.getText().trim());
+            student.setEmail1(txtEmail1.getText().trim());
+            student.setEmail2("");
+            student.setRegNo(txtRegNo.getText().trim());
+            student.setStatus(student.ACTIVE_STUDENT);
+
+            DataObject dataObjBatch = (DataObject) comboBatch.getSelectedItem();
+            student.setBatchId(commonController.getIntOrZeroFromString(dataObjBatch.get("batch_id")));
+
+            DataObject dataObjGroup = (DataObject) comboGroup.getSelectedItem();
+            student.setGroupId(commonController.getIntOrZeroFromString(dataObjGroup.get("group_id")));
+
+            DataObject dataObjSpecialGroup = (DataObject) comboSpecialGroup.getSelectedItem();
+            student.setSpecialId(commonController.getIntOrZeroFromString(dataObjSpecialGroup.get("group_id")));
+
+            boolean status = studentController.updateStudentDetails(student);
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Student updated successfully !");
+                this.dispose();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(editStudent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,7 +165,7 @@ public class editStudent extends javax.swing.JDialog {
         btSave2 = new javax.swing.JButton();
         comboBatch = new javax.swing.JComboBox<>();
         comboGroup = new javax.swing.JComboBox<>();
-        comboGroup1 = new javax.swing.JComboBox<>();
+        comboSpecialGroup = new javax.swing.JComboBox<>();
         txtDetail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -138,9 +215,9 @@ public class editStudent extends javax.swing.JDialog {
         comboGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Group 1", "Group 2", "Group 3", "Group 4" }));
         comboGroup.setToolTipText("Group");
 
-        comboGroup1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboGroup1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Special Group 1", "Special Group 2", "Special Group 3", "Special Group 4" }));
-        comboGroup1.setToolTipText("Special Group");
+        comboSpecialGroup.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboSpecialGroup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Special Group 1", "Special Group 2", "Special Group 3", "Special Group 4" }));
+        comboSpecialGroup.setToolTipText("Special Group");
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setToolTipText("Details");
@@ -287,7 +364,7 @@ public class editStudent extends javax.swing.JDialog {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(comboSpecialGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -350,7 +427,7 @@ public class editStudent extends javax.swing.JDialog {
                         .addGroup(jPanel4Layout.createSequentialGroup()
                             .addGap(2, 2, 2)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(comboGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboSpecialGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -394,7 +471,7 @@ public class editStudent extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
-
+        updateStudentDetails();
     }//GEN-LAST:event_btSave2ActionPerformed
 
     /**
@@ -446,7 +523,7 @@ public class editStudent extends javax.swing.JDialog {
     private javax.swing.JButton btSave2;
     private javax.swing.JComboBox<String> comboBatch;
     private javax.swing.JComboBox<String> comboGroup;
-    private javax.swing.JComboBox<String> comboGroup1;
+    private javax.swing.JComboBox<String> comboSpecialGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -44,6 +44,22 @@ public class studentManagement extends javax.swing.JFrame {
     }
 
     private void addStudent() {
+        if (txtStudentName.getText().trim().equalsIgnoreCase(null) || txtStudentName.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter student Name !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtEmail1.getText().trim().equalsIgnoreCase(null) || txtEmail1.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter student Email !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtRegNo.getText().trim().equalsIgnoreCase(null) || txtRegNo.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter student Registration No !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtContactNo.getText().trim().equalsIgnoreCase(null) || txtContactNo.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter student Contact No !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try {
             int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this student details ?");
             if (option == JOptionPane.YES_OPTION) {
@@ -126,7 +142,7 @@ public class studentManagement extends javax.swing.JFrame {
         }
     }
 
-    private void editSelectedGroup() {
+    private void editSelectedStudent() {
         int selectedRaw = tblStudentDetails.getSelectedRow();
         if (selectedRaw == -1) {
             JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
@@ -553,7 +569,8 @@ public class studentManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btViewStudentDetailsActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        editSelectedStudent();
+        loadStudentDataWithJoinQuery();
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**

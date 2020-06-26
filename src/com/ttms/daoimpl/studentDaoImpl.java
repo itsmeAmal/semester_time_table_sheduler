@@ -61,7 +61,24 @@ public class studentDaoImpl implements studentDao {
 
     @Override
     public boolean updateStudent(student student) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("update student set student_name=?,"
+                + " student_email_1=?, student_email_2=?, student_reg_no=?, student_contact_no=?, student_detail=?,"
+                + " student_status=?, student_batch_id=?, student_group_id=?, student_special_id=? where student_id=?");
+        ps.setString(1, student.getName());
+        ps.setString(2, student.getEmail1());
+        ps.setString(3, student.getEmail2());
+        ps.setString(4, student.getRegNo()); 
+        ps.setString(5, student.getContactNo());
+        ps.setString(6, student.getDetail());
+        ps.setInt(7, student.ACTIVE_STUDENT);
+        ps.setInt(8, student.getBatchId());
+        ps.setInt(9, student.getGroupId());
+        ps.setInt(10, student.getSpecialId());
+        ps.setInt(11, student.getId());
+        ps.executeUpdate();
+        ps.close();
+        return true;
     }
 
     @Override

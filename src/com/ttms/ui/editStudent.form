@@ -131,7 +131,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="comboGroup1" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
+                                      <Component id="comboSpecialGroup" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -210,7 +210,7 @@
                                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" pref="44" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="comboGroup1" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                              <Component id="comboSpecialGroup" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -286,7 +286,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboGroup1">
+            <Component class="javax.swing.JComboBox" name="comboSpecialGroup">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="0"/>

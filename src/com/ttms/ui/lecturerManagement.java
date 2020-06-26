@@ -112,7 +112,7 @@ public class lecturerManagement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblLectures.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        tblLectures.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         tblLectures.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

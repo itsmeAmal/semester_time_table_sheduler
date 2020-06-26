@@ -102,7 +102,7 @@ public class timeTableScheduler extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblCourseDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        tblCourseDetail.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         tblCourseDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

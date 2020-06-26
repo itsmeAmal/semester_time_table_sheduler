@@ -80,7 +80,7 @@ public class lecturerUnavailability extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

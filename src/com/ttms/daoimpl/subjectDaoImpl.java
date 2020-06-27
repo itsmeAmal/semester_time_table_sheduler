@@ -22,7 +22,11 @@ public class subjectDaoImpl implements subjectDao {
     private String selectQuery = "select subject_id, subject_name, subject_module_code, subject_detail, subject_status, "
             + "subject_course_id, subject_course_level, subject_semester from subject";
 
+    private String selectQuery2 = "SELECT subject_id, subject_name, subject_module_code, subject_detail, subject_status, "
+            + "subject_course_id, course_name, subject_course_level, subject_semester, course_type FROM subject left join course on course_id=subject_course_id where subject_status=1";
+
     @Override
+
     public boolean addSubject(subject subject) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("insert into subject (subject_name, subject_module_code, subject_detail, "
@@ -76,6 +80,10 @@ public class subjectDaoImpl implements subjectDao {
         ps.executeQuery();
         ps.close();
         return true;
+    }
+
+    public ResultSet getActiveAndCourseJoinedSubjectDetails() throws SQLException {
+        return new commonDaoImpl().getAllRecords(selectQuery2);
     }
 
 }

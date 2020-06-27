@@ -58,4 +58,8 @@ public class subjectController {
         return subject;
     }
 
+    public static ResultSet getActiveAndCourseJoinedSubjectDetails() throws SQLException {
+        return new subjectDaoImpl().getActiveAndCourseJoinedSubjectDetails();
+    }
+
 }

@@ -5,6 +5,15 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonController;
+import com.ttms.controller.courseController;
+import com.ttms.controller.subjectController;
+import com.ttms.model.DataObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Amal
@@ -16,38 +25,69 @@ public class subjectManagement extends javax.swing.JFrame {
      */
     public subjectManagement() {
         initComponents();
-//        loadBatchesToTable();
+        loadCourseDetailsDataObjectsToComboBox();
+        loadSubjectsToTable();
     }
 
     private void clearAll() {
         txtDetail.setText("");
         txtModuleCode.setText("");
         txtSubjectName.setText("");
+        comboCourse.setSelectedIndex(0);
+        comboLevel.setSelectedIndex(0);
+        comboSemester.setSelectedIndex(0);
     }
 
-//    private void addBatch() {
-//        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
-//        if (option == JOptionPane.YES_OPTION) {
-//            try {
-//                boolean status = batchController.addBatch(txtSubjectName.getText().trim(), txtModuleCode.getText().trim(), txtDetail.getText().trim());
-//                if (status) {
-//                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
-//                    clearAll();
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(subjectManagement.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-//    private void loadBatchesToTable() {
-//        try {
-//            ResultSet rset = batchController.getAllBatches();
-//            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
-//            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(subjectManagement.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    private void loadCourseDetailsDataObjectsToComboBox() {
+        try {
+            ResultSet rset = courseController.getAllCourses();
+            String[] columnList = {"course_id", "course_name", "course_type", "course_detail", "course_satus"};
+            commonController.loadDataObjectsIntoComboBox(comboCourse, rset, columnList, "course_type");
+        } catch (SQLException ex) {
+            Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+
+    private void addSubject() {
+
+        if (txtSubjectName.getText().trim().equalsIgnoreCase(null) || txtSubjectName.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter subject name !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtModuleCode.getText().trim().equalsIgnoreCase(null) || txtModuleCode.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter module code !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Subject details ?");
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                DataObject dataObjCourse = (DataObject) comboCourse.getSelectedItem();
+                boolean status = subjectController.addSubject(comboLevel.getSelectedItem().toString(),
+                        txtDetail.getText().trim(), txtModuleCode.getText().trim(), txtSubjectName.getText().trim(),
+                        comboSemester.getSelectedItem().toString(), commonController.getIntOrZeroFromString(dataObjCourse.get("course_id")));
+                if (status) {
+                    JOptionPane.showMessageDialog(this, "Subject registered successfully !");
+                    clearAll();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void loadSubjectsToTable() {
+        try {
+            ResultSet rset = subjectController.getActiveAndCourseJoinedSubjectDetails();
+            String[] columnList = {"subject_id", "subject_name", "subject_module_code",
+                "subject_semester", "course_type", "subject_course_level", "subject_detail"};
+            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -368,6 +408,8 @@ public class subjectManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
+        addSubject();
+        loadSubjectsToTable();
     }//GEN-LAST:event_btSaveActionPerformed
 
     /**

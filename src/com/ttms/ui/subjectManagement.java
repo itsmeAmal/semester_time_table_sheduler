@@ -5,14 +5,6 @@
  */
 package com.ttms.ui;
 
-import com.ttms.controller.batchController;
-import com.ttms.controller.commonController;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Amal
@@ -24,7 +16,7 @@ public class subjectManagement extends javax.swing.JFrame {
      */
     public subjectManagement() {
         initComponents();
-        loadBatchesToTable();
+//        loadBatchesToTable();
     }
 
     private void clearAll() {
@@ -33,31 +25,29 @@ public class subjectManagement extends javax.swing.JFrame {
         txtSubjectName.setText("");
     }
 
-    private void addBatch() {
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
-        if (option == JOptionPane.YES_OPTION) {
-            try {
-                boolean status = batchController.addBatch(txtSubjectName.getText().trim(), txtModuleCode.getText().trim(), txtDetail.getText().trim());
-                if (status) {
-                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
-                    clearAll();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(subjectManagement.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private void loadBatchesToTable() {
-        try {
-            ResultSet rset = batchController.getAllBatches();
-            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
-            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
-        } catch (SQLException ex) {
-            Logger.getLogger(subjectManagement.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//    private void addBatch() {
+//        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
+//        if (option == JOptionPane.YES_OPTION) {
+//            try {
+//                boolean status = batchController.addBatch(txtSubjectName.getText().trim(), txtModuleCode.getText().trim(), txtDetail.getText().trim());
+//                if (status) {
+//                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
+//                    clearAll();
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(subjectManagement.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
+//    private void loadBatchesToTable() {
+//        try {
+//            ResultSet rset = batchController.getAllBatches();
+//            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
+//            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(subjectManagement.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,10 +71,15 @@ public class subjectManagement extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        comboGroupType = new javax.swing.JComboBox<>();
+        comboSemester = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
-        comboGroupType1 = new javax.swing.JComboBox<>();
+        comboCourse = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        comboLevel = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        Level = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
 
@@ -99,11 +94,11 @@ public class subjectManagement extends javax.swing.JFrame {
 
             },
             new String [] {
-                "batchId", "Year", "Level", "Detail "
+                "subjectId", "Subject Name", "Module Code", "Semester", "Course", "Level", "Detail / Remark"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -119,8 +114,21 @@ public class subjectManagement extends javax.swing.JFrame {
             tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
             tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
             tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(3).setResizable(false);
+            tblBatchDetails.getColumnModel().getColumn(2).setMinWidth(120);
+            tblBatchDetails.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblBatchDetails.getColumnModel().getColumn(2).setMaxWidth(120);
+            tblBatchDetails.getColumnModel().getColumn(3).setMinWidth(120);
+            tblBatchDetails.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblBatchDetails.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblBatchDetails.getColumnModel().getColumn(4).setMinWidth(130);
+            tblBatchDetails.getColumnModel().getColumn(4).setPreferredWidth(130);
+            tblBatchDetails.getColumnModel().getColumn(4).setMaxWidth(130);
+            tblBatchDetails.getColumnModel().getColumn(5).setMinWidth(100);
+            tblBatchDetails.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tblBatchDetails.getColumnModel().getColumn(5).setMaxWidth(100);
+            tblBatchDetails.getColumnModel().getColumn(6).setMinWidth(180);
+            tblBatchDetails.getColumnModel().getColumn(6).setPreferredWidth(180);
+            tblBatchDetails.getColumnModel().getColumn(6).setMaxWidth(180);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -182,51 +190,89 @@ public class subjectManagement extends javax.swing.JFrame {
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Details / Remarks");
 
-        comboGroupType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboGroupType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal Group", "Special Group" }));
-        comboGroupType.setToolTipText("Batch");
+        comboSemester.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "First Semester", "Second Semester" }));
+        comboSemester.setToolTipText("Batch");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Details / Remarks");
+        jLabel23.setText("Semester");
 
-        comboGroupType1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboGroupType1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EEE", " " }));
-        comboGroupType1.setToolTipText("Batch");
+        comboCourse.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EEE", " " }));
+        comboCourse.setToolTipText("Batch");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Course");
+
+        jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Module_Code.png"))); // NOI18N
+        jLabel5.setToolTipText("Module Code");
+
+        jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Course_Type.png"))); // NOI18N
+        jLabel6.setToolTipText("Module Code");
+
+        comboLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
+        comboLevel.setToolTipText("Batch");
+
+        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel7.setToolTipText("Module Code");
+
+        Level.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        Level.setForeground(new java.awt.Color(255, 255, 255));
+        Level.setText("Course Level");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel2)
-                .addGap(10, 10, 10)
-                .addComponent(txtSubjectName, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(comboGroupType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboGroupType1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtSubjectName, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(11, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Level, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -243,22 +289,32 @@ public class subjectManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboGroupType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(comboSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboGroupType1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Level)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -275,7 +331,7 @@ public class subjectManagement extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -300,9 +356,7 @@ public class subjectManagement extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +368,6 @@ public class subjectManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        addBatch();
     }//GEN-LAST:event_btSaveActionPerformed
 
     /**
@@ -360,11 +413,13 @@ public class subjectManagement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Level;
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JComboBox<String> comboGroupType;
-    private javax.swing.JComboBox<String> comboGroupType1;
+    private javax.swing.JComboBox<String> comboCourse;
+    private javax.swing.JComboBox<String> comboLevel;
+    private javax.swing.JComboBox<String> comboSemester;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -373,6 +428,9 @@ public class subjectManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

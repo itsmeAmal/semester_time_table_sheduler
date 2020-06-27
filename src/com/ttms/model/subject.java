@@ -10,12 +10,18 @@ package com.ttms.model;
  * @author Nethmi Dasanayaka
  */
 public class subject {
-    
+
+    public static int ACTIVE_SUBJECT = 1;
+    public static int INACTIVE_SUBJECT = 0;
+
     private int id;
     private String name;
     private String moduleCode;
     private String detail;
     private int status;
+    private int courseId;
+    private String courseLevel;
+    private String semester;
 
     /**
      * @return the id
@@ -86,5 +92,47 @@ public class subject {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
+    /**
+     * @return the courseId
+     */
+    public int getCourseId() {
+        return courseId;
+    }
+
+    /**
+     * @param courseId the courseId to set
+     */
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    /**
+     * @return the courseLevel
+     */
+    public String getCourseLevel() {
+        return courseLevel;
+    }
+
+    /**
+     * @param courseLevel the courseLevel to set
+     */
+    public void setCourseLevel(String courseLevel) {
+        this.courseLevel = courseLevel;
+    }
+
+    /**
+     * @return the semester
+     */
+    public String getSemester() {
+        return semester;
+    }
+
+    /**
+     * @param semester the semester to set
+     */
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
 }

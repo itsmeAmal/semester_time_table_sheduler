@@ -19,17 +19,21 @@ import java.sql.SQLException;
  */
 public class subjectDaoImpl implements subjectDao {
 
-    private String selectQuery = "select subject_id, subject_name, subject_module_code, subject_detail, subject_status from subject";
+    private String selectQuery = "select subject_id, subject_name, subject_module_code, subject_detail, subject_status, "
+            + "subject_course_id, subject_course_level, subject_semester from subject";
 
     @Override
     public boolean addSubject(subject subject) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("insert into subject (subject_name, subject_module_code, subject_detail, "
-                + " subject_status) values (?,?,?,?)");
+                + " subject_status, subject_course_id, subject_course_level, subject_semester) values (?,?,?,?,?,?,?)");
         ps.setString(1, subject.getName());
         ps.setString(2, subject.getModuleCode());
         ps.setString(3, subject.getDetail());
         ps.setInt(4, subject.getStatus());
+        ps.setInt(5, subject.getCourseId());
+        ps.setString(6, subject.getCourseLevel());
+        ps.setString(7, subject.getSemester());
         ps.executeUpdate();
         ps.close();
         return true;
@@ -49,12 +53,16 @@ public class subjectDaoImpl implements subjectDao {
     public boolean updateSubject(subject subject) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("update subject set subject_name=?, subject_module_code=?, "
-                + " subject_detail=?, subject_status=? where subject_id=?");
+                + " subject_detail=?, subject_status=?, subject_course_id=?, subject_course_level=?, subject_semester=?"
+                + " where subject_id=?");
         ps.setString(1, subject.getName());
         ps.setString(2, subject.getModuleCode());
         ps.setString(3, subject.getDetail());
         ps.setInt(4, subject.getStatus());
-        ps.setInt(5, subject.getId());
+        ps.setInt(5, subject.getCourseId());
+        ps.setString(6, subject.getCourseLevel());
+        ps.setString(7, subject.getSemester());
+        ps.setInt(8, subject.getId());
         ps.executeUpdate();
         ps.close();
         return true;

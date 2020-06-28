@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class batchManagement extends javax.swing.JFrame {
+public class manageRooms extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public batchManagement() {
+    public manageRooms() {
         initComponents();
         loadBatchesToTable();
     }
@@ -44,7 +44,7 @@ public class batchManagement extends javax.swing.JFrame {
                     clearAll();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(batchManagement.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -55,7 +55,7 @@ public class batchManagement extends javax.swing.JFrame {
             String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
             commonController.loadDataToTable(tblBatchDetails, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(batchManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -330,14 +330,42 @@ public class batchManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(batchManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(batchManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(batchManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(batchManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageRooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -346,7 +374,7 @@ public class batchManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new batchManagement().setVisible(true);
+                new manageRooms().setVisible(true);
             }
         });
     }

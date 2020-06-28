@@ -22,12 +22,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class studentManagement extends javax.swing.JFrame {
+public class manageStudents extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public studentManagement() {
+    public manageStudents() {
         initComponents();
         loadStudentDataWithJoinQuery();
         loadBatchDataObjectsToComboBox();
@@ -79,7 +79,7 @@ public class studentManagement extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -90,7 +90,7 @@ public class studentManagement extends javax.swing.JFrame {
                 "group_name", "specil_group_name", "student_detail"};
             commonController.loadDataToTable(tblStudentDetails, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -99,7 +99,7 @@ public class studentManagement extends javax.swing.JFrame {
             ResultSet rset = batchController.getAllBatches();
             commonController.loadDataToComboBox(comboBatch, rset, "batch_year");
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -109,7 +109,7 @@ public class studentManagement extends javax.swing.JFrame {
             String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail", "batch_status"};
             commonController.loadDataObjectsIntoComboBox(comboBatch, rset, columnList, "batch_year");
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -118,7 +118,7 @@ public class studentManagement extends javax.swing.JFrame {
             ResultSet rset = new groupDaoImpl().getAllGroups();
             commonController.loadDataToComboBox(comboGroup, rset, "group_name");
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -128,7 +128,7 @@ public class studentManagement extends javax.swing.JFrame {
             String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
             commonController.loadDataObjectsIntoComboBox(comboGroup, rset, columnList, "group_name");
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -138,7 +138,7 @@ public class studentManagement extends javax.swing.JFrame {
             String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail", "group_status"};
             commonController.loadDataObjectsIntoComboBox(comboSpecialGroup, rset, columnList, "group_name");
         } catch (SQLException ex) {
-            Logger.getLogger(studentManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageStudents.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -208,7 +208,6 @@ public class studentManagement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Student Management");
-        setMaximumSize(new java.awt.Dimension(1352, 680));
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -590,21 +589,23 @@ public class studentManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(studentManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(studentManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(studentManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(studentManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new studentManagement().setVisible(true);
+                new manageStudents().setVisible(true);
             }
         });
     }

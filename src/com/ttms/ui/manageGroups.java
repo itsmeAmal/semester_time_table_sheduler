@@ -21,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class groupManagement extends javax.swing.JFrame {
+public class manageGroups extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public groupManagement() {
+    public manageGroups() {
         initComponents();
         loadBatchObjectsToComboBox();
         loadDataToTable();
@@ -45,7 +45,7 @@ public class groupManagement extends javax.swing.JFrame {
             ResultSet rset = batchController.getAllBatches();
             commonController.loadDataObjectsIntoComboBox(comboBatchDataObject, rset, columnList, "batch_year");
         } catch (SQLException ex) {
-            Logger.getLogger(groupManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageGroups.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -70,7 +70,7 @@ public class groupManagement extends javax.swing.JFrame {
                     clearAll();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(groupManagement.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(manageGroups.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -81,7 +81,7 @@ public class groupManagement extends javax.swing.JFrame {
             String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail"};
             commonController.loadDataToTable(tblGroupDetails, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(groupManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageGroups.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -378,14 +378,22 @@ public class groupManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(groupManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(groupManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(groupManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(groupManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageGroups.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -398,7 +406,7 @@ public class groupManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new groupManagement().setVisible(true);
+                new manageGroups().setVisible(true);
             }
         });
     }

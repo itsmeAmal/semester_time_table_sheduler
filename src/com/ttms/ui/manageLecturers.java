@@ -19,12 +19,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class lecturerManagement extends javax.swing.JFrame {
+public class manageLecturers extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public lecturerManagement() {
+    public manageLecturers() {
         initComponents();
         loadLecturerData();
     }
@@ -49,7 +49,7 @@ public class lecturerManagement extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(lecturerManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageLecturers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -59,7 +59,7 @@ public class lecturerManagement extends javax.swing.JFrame {
             String[] columnList = {"lecturer_id", "lecturer_name", "lecturer_email", "lecturer_contact_no", "lecturer_detail"};
             commonController.loadDataToTable(tblLectures, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(lecturerManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageLecturers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -108,7 +108,6 @@ public class lecturerManagement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lecturer Management");
-        setMaximumSize(new java.awt.Dimension(1352, 680));
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -387,14 +386,18 @@ public class lecturerManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(lecturerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageLecturers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(lecturerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageLecturers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(lecturerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageLecturers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(lecturerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageLecturers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -403,7 +406,7 @@ public class lecturerManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new lecturerManagement().setVisible(true);
+                new manageLecturers().setVisible(true);
             }
         });
     }

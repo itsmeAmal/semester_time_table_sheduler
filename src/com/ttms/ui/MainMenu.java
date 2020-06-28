@@ -474,15 +474,15 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new studentManagement().setVisible(true);
+        new manageStudents().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        new lecturerManagement().setVisible(true);
+        new manageLecturers().setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        new subjectManagement().setVisible(true);
+        new manageSubjects().setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -490,19 +490,19 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void lblCourseManagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCourseManagementMouseClicked
-        new courseManagement().setVisible(true);
+        new manageCourses().setVisible(true);
     }//GEN-LAST:event_lblCourseManagementMouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
-        new batchManagement().setVisible(true);
+        new manageBatches().setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
 
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        new groupManagement().setVisible(true);
+        new manageGroups().setVisible(true);
     }//GEN-LAST:event_jLabel14MouseClicked
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        new lecturerUnavailability().setVisible(true);
+        new manageLecturerUnavailability().setVisible(true);
     }//GEN-LAST:event_jLabel16MouseClicked
 
     /**

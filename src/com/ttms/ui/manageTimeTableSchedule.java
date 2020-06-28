@@ -5,8 +5,8 @@
  */
 package com.ttms.ui;
 
-import com.ttms.controller.batchController;
 import com.ttms.controller.commonController;
+import com.ttms.controller.courseController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,56 +18,57 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class roomManagement extends javax.swing.JFrame {
+public class manageTimeTableSchedule extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public roomManagement() {
+    public manageTimeTableSchedule() {
         initComponents();
-        loadBatchesToTable();
+        loadCoursesToTable();
     }
 
     private void clearAll() {
-        txtDetail.setText("");
-        txtLevel.setText("");
-        txtYear.setText("");
+        txtCourseDetail.setText("");
+        txtCourseName.setText("");
+        comboCourseType.setSelectedItem(null);
     }
 
-    private void addBatch() {
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
+    private void addCourse() {
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this course details?");
         if (option == JOptionPane.YES_OPTION) {
             try {
-                boolean status = batchController.addBatch(txtYear.getText().trim(), txtLevel.getText().trim(), txtDetail.getText().trim());
+                boolean status = courseController.addCourse(txtCourseName.getText().trim(),
+                        txtCourseDetail.getText().trim(), comboCourseType.getSelectedItem().toString());
                 if (status) {
-                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
+                    JOptionPane.showMessageDialog(this, "Course registered successfully !");
                     clearAll();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(roomManagement.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(manageTimeTableSchedule.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    private void loadBatchesToTable() {
+    private void loadCoursesToTable() {
         try {
-            ResultSet rset = batchController.getAllBatches();
-            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
-            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
+            ResultSet rset = courseController.getAllCourses();
+            String[] columnList = {"course_id", "course_name", "course_type", "course_detail"};
+            commonController.loadDataToTable(tblCourseDetail, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(roomManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageTimeTableSchedule.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void editSelectedBatch() {
-        int selectedRaw = tblBatchDetails.getSelectedRow();
+    private void editSelectedCourse() {
+        int selectedRaw = tblCourseDetail.getSelectedRow();
         if (selectedRaw == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        DefaultTableModel dtm = (DefaultTableModel) tblBatchDetails.getModel();
-        int batchId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
-        new editBatch(this, true, batchId).setVisible(true);
+        DefaultTableModel dtm = (DefaultTableModel) tblCourseDetail.getModel();
+        int courseId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editCourse(this, true, courseId).setVisible(true);
     }
 
     /**
@@ -81,11 +82,10 @@ public class roomManagement extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBatchDetails = new javax.swing.JTable();
+        tblCourseDetail = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        txtYear = new javax.swing.JTextField();
-        txtLevel = new javax.swing.JTextField();
-        txtDetail = new javax.swing.JTextField();
+        txtCourseName = new javax.swing.JTextField();
+        txtCourseDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -93,6 +93,7 @@ public class roomManagement extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        comboCourseType = new javax.swing.JComboBox<>();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
 
@@ -101,13 +102,13 @@ public class roomManagement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblCourseDetail.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        tblCourseDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "batchId", "Year", "Level", "Detail "
+                "courseId", "Course Name", "Type", "Detail / Remark"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -118,36 +119,35 @@ public class roomManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBatchDetails.setRowHeight(20);
-        tblBatchDetails.setRowMargin(2);
-        tblBatchDetails.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblBatchDetails);
-        if (tblBatchDetails.getColumnModel().getColumnCount() > 0) {
-            tblBatchDetails.getColumnModel().getColumn(0).setMinWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(3).setResizable(false);
+        tblCourseDetail.setRowHeight(20);
+        tblCourseDetail.setRowMargin(2);
+        tblCourseDetail.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblCourseDetail);
+        if (tblCourseDetail.getColumnModel().getColumnCount() > 0) {
+            tblCourseDetail.getColumnModel().getColumn(0).setMinWidth(0);
+            tblCourseDetail.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblCourseDetail.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblCourseDetail.getColumnModel().getColumn(1).setMinWidth(200);
+            tblCourseDetail.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblCourseDetail.getColumnModel().getColumn(1).setMaxWidth(200);
+            tblCourseDetail.getColumnModel().getColumn(2).setMinWidth(100);
+            tblCourseDetail.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblCourseDetail.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblCourseDetail.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear.setToolTipText("Name");
-        txtYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtYear.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtCourseName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtCourseName.setToolTipText("Course Name");
+        txtCourseName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtCourseName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
-        txtLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtLevel.setToolTipText("Email 1");
-        txtLevel.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtLevel.setSelectionColor(new java.awt.Color(255, 255, 0));
-
-        txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
-        txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtCourseDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtCourseDetail.setToolTipText("Details / Remarks");
+        txtCourseDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtCourseDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,7 +157,7 @@ public class roomManagement extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Course_Type.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,15 +177,19 @@ public class roomManagement extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Batch Details / Remarks");
+        jLabel16.setText("Details / Remarks");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Batch Level");
+        jLabel17.setText("Course Type");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Batch Year");
+        jLabel18.setText("Course Name");
+
+        comboCourseType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboCourseType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Batch 1", "Batch 2", "Batch 3", "Batch 4" }));
+        comboCourseType.setToolTipText("Course Type");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -194,31 +198,33 @@ public class roomManagement extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(9, Short.MAX_VALUE)
+                        .addContainerGap(7, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                    .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(comboCourseType, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 5, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(txtCourseName)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel2)
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtYear, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))))
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(txtCourseDetail)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btSave)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -229,20 +235,20 @@ public class roomManagement extends javax.swing.JFrame {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboCourseType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(txtCourseDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -304,13 +310,12 @@ public class roomManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        addBatch();
-        loadBatchesToTable();
+        addCourse();
+        loadCoursesToTable();
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        editSelectedBatch();
-        loadBatchesToTable();
+        editSelectedCourse();
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**
@@ -330,14 +335,38 @@ public class roomManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(roomManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageTimeTableSchedule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(roomManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageTimeTableSchedule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(roomManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageTimeTableSchedule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(roomManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageTimeTableSchedule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -350,7 +379,7 @@ public class roomManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new roomManagement().setVisible(true);
+                new manageTimeTableSchedule().setVisible(true);
             }
         });
     }
@@ -359,6 +388,7 @@ public class roomManagement extends javax.swing.JFrame {
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JComboBox<String> comboCourseType;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -368,9 +398,8 @@ public class roomManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBatchDetails;
-    private javax.swing.JTextField txtDetail;
-    private javax.swing.JTextField txtLevel;
-    private javax.swing.JTextField txtYear;
+    private javax.swing.JTable tblCourseDetail;
+    private javax.swing.JTextField txtCourseDetail;
+    private javax.swing.JTextField txtCourseName;
     // End of variables declaration//GEN-END:variables
 }

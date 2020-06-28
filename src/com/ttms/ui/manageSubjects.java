@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class subjectManagement extends javax.swing.JFrame {
+public class manageSubjects extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public subjectManagement() {
+    public manageSubjects() {
         initComponents();
         loadCourseDetailsDataObjectsToComboBox();
         loadSubjectsToTable();
@@ -49,7 +49,7 @@ public class subjectManagement extends javax.swing.JFrame {
             commonController.loadDataObjectsIntoComboBox(comboCourse, rset, columnList, "course_type");
             comboCourse.addItem(subject.COMMON_SUBJECT);
         } catch (SQLException ex) {
-            Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
@@ -81,7 +81,7 @@ public class subjectManagement extends javax.swing.JFrame {
                     setDefaults();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
         }
     }
@@ -93,7 +93,7 @@ public class subjectManagement extends javax.swing.JFrame {
                 "subject_semester", "course_type", "subject_course_level", "subject_detail"};
             commonController.loadDataToTable(tblSubjectDetails, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
@@ -459,14 +459,22 @@ public class subjectManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageSubjects.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -479,7 +487,7 @@ public class subjectManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new subjectManagement().setVisible(true);
+                new manageSubjects().setVisible(true);
             }
         });
     }

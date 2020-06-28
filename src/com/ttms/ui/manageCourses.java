@@ -18,12 +18,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Amal
  */
-public class courseManagement extends javax.swing.JFrame {
+public class manageCourses extends javax.swing.JFrame {
 
     /**
      * Creates new form addStudent
      */
-    public courseManagement() {
+    public manageCourses() {
         initComponents();
         loadCoursesToTable();
     }
@@ -45,7 +45,7 @@ public class courseManagement extends javax.swing.JFrame {
                     clearAll();
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(courseManagement.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(manageCourses.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -56,7 +56,7 @@ public class courseManagement extends javax.swing.JFrame {
             String[] columnList = {"course_id", "course_name", "course_type", "course_detail"};
             commonController.loadDataToTable(tblCourseDetail, rset, columnList);
         } catch (SQLException ex) {
-            Logger.getLogger(courseManagement.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(manageCourses.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -336,14 +336,22 @@ public class courseManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(courseManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageCourses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(courseManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageCourses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(courseManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageCourses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(courseManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(manageCourses.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -356,7 +364,7 @@ public class courseManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new courseManagement().setVisible(true);
+                new manageCourses().setVisible(true);
             }
         });
     }

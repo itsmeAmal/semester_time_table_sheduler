@@ -9,6 +9,7 @@ import com.ttms.controller.commonController;
 import com.ttms.controller.courseController;
 import com.ttms.controller.subjectController;
 import com.ttms.model.DataObject;
+import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -38,7 +39,7 @@ public class subjectManagement extends javax.swing.JFrame {
         comboCourse.setSelectedIndex(0);
         comboLevel.setSelectedIndex(0);
         comboSemester.setSelectedIndex(0);
-        comboCourse.setSelectedItem("Common Subject");
+        comboCourse.setSelectedItem(subject.COMMON_SUBJECT);
     }
 
     private void loadCourseDetailsDataObjectsToComboBox() {
@@ -46,7 +47,7 @@ public class subjectManagement extends javax.swing.JFrame {
             ResultSet rset = courseController.getAllCourses();
             String[] columnList = {"course_id", "course_name", "course_type", "course_detail", "course_satus"};
             commonController.loadDataObjectsIntoComboBox(comboCourse, rset, columnList, "course_type");
-            comboCourse.addItem("Common Subject");
+            comboCourse.addItem(subject.COMMON_SUBJECT);
         } catch (SQLException ex) {
             Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -68,7 +69,7 @@ public class subjectManagement extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             try {
                 int courseId = 0;
-                if (!comboCourse.getSelectedItem().toString().equalsIgnoreCase("Common Subject")) {
+                if (!comboCourse.getSelectedItem().toString().equalsIgnoreCase(subject.COMMON_SUBJECT)) {
                     DataObject dataObjCourse = (DataObject) comboCourse.getSelectedItem();
                     courseId = commonController.getIntOrZeroFromString(dataObjCourse.get("course_id"));
                 }
@@ -250,7 +251,7 @@ public class subjectManagement extends javax.swing.JFrame {
         jLabel22.setText("Details / Remarks");
 
         comboSemester.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "First Semester", "Second Semester" }));
+        comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semester A", "Semester B" }));
         comboSemester.setToolTipText("Batch");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N

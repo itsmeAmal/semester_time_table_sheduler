@@ -46,6 +46,7 @@ public class subjectController {
         ResultSet rset = getSubjectByOneAttribute("subject_id", commonConstants.Sql.EQUAL, Integer.toString(subjectId));
         subject subject = null;
         while (rset.next()) {
+            subject = new subject();
             subject.setCourseId(rset.getInt("subject_course_id"));
             subject.setCourseLevel(rset.getString("subject_course_level"));
             subject.setSemester(rset.getString("subject_semester"));

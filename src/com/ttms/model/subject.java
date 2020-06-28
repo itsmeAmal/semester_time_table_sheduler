@@ -13,6 +13,7 @@ public class subject {
 
     public static int ACTIVE_SUBJECT = 1;
     public static int INACTIVE_SUBJECT = 0;
+    public static String COMMON_SUBJECT = "Common";
 
     private int id;
     private String name;

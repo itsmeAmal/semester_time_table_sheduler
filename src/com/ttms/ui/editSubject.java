@@ -8,10 +8,12 @@ package com.ttms.ui;
 import com.ttms.controller.commonController;
 import com.ttms.controller.courseController;
 import com.ttms.controller.subjectController;
+import com.ttms.model.DataObject;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,9 +44,9 @@ public class editSubject extends javax.swing.JDialog {
             txtSubjectName.setText(subject.getName());
             txtModuleCode.setText(subject.getModuleCode());
             txtDetail.setText(subject.getDetail());
-            comboSemester.setSelectedIndex(0);
-            comboLevel.setSelectedIndex(0);
-            comboCourse.setSelectedIndex(0);
+            comboSemester.setSelectedItem(subject.getSemester());
+            comboLevel.setSelectedItem(subject.getCourseLevel());
+            comboCourse.setSelectedItem(null);
         } catch (SQLException ex) {
             Logger.getLogger(editSubject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -55,52 +57,58 @@ public class editSubject extends javax.swing.JDialog {
             ResultSet rset = courseController.getAllCourses();
             String[] columnList = {"course_id", "course_name", "course_type", "course_detail", "course_satus"};
             commonController.loadDataObjectsIntoComboBox(comboCourse, rset, columnList, "course_type");
+            comboCourse.addItem(subject.COMMON_SUBJECT);
         } catch (SQLException ex) {
             Logger.getLogger(editSubject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
 
-//    private void updateGroupDetails() {
-//
-//        DataObject dataObject = (DataObject) comboBatchDataObject.getSelectedItem();
-//
-//        try {
-//            if (txtGroupName.getText().trim().equalsIgnoreCase("")
-//                    || txtGroupName.getText().trim().equalsIgnoreCase(null)) {
-//                JOptionPane.showMessageDialog(this, "Year could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//            if (dataObject.equals(null)
-//                    || dataObject.equals("")) {
-//                JOptionPane.showMessageDialog(this, "Batch could not be empty ! ", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//
-//            int groupType = group.GROUP_TYPE_NORMAL;
-//            if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Normal Group")) {
-//                groupType = group.GROUP_TYPE_NORMAL;
-//            } else if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Special Group")) {
-//                groupType = group.GROUP_TYPE_SPECIAL;
-//            }
-//
-//            group group = new group();
-//            group.setId(subjectId);
-//            group.setDetail(txtDetail.getText().trim());
-//            group.setBatchId(commonController.getIntOrZeroFromString(dataObject.get("batch_year")));
-//            group.setName(txtGroupName.getText().trim());
-//            group.setStatus(group.ACTIVE_GROUP);
-//            group.setType(groupType);
-//
-//            boolean status = groupController.updateGroup(group);
-//
-//            if (status) {
-//                JOptionPane.showMessageDialog(this, "Group details updated successfully !");
-//                this.dispose();
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(editSubject.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    private void updateSubjectDetails() {
+
+        try {
+            if (txtSubjectName.getText().trim().equalsIgnoreCase(null) || txtSubjectName.getText().trim().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please enter subject name !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (txtModuleCode.getText().trim().equalsIgnoreCase(null) || txtModuleCode.getText().trim().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please enter module code !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (comboCourse.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this, "Please select course !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int courseId = 0;
+            if (!comboCourse.getSelectedItem().toString().equalsIgnoreCase(subject.COMMON_SUBJECT)) {
+                DataObject dataObjCourse = (DataObject) comboCourse.getSelectedItem();
+                courseId = commonController.getIntOrZeroFromString(dataObjCourse.get("course_id"));
+            }
+
+            subject subject = new subject();
+            subject.setCourseId(courseId);
+            subject.setCourseLevel(comboLevel.getSelectedItem().toString());
+            subject.setDetail(txtDetail.getText().trim());
+            subject.setModuleCode(txtModuleCode.getText().trim());
+            subject.setName(txtSubjectName.getText().trim());
+            subject.setSemester(comboSemester.getSelectedItem().toString());
+            subject.setId(subjectId);
+            subject.setStatus(subject.ACTIVE_SUBJECT);
+
+            boolean status = subjectController.updateSubject(subject);
+
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Subject details updated successfully !");
+                this.dispose();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(editSubject.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -202,7 +210,7 @@ public class editSubject extends javax.swing.JDialog {
         jLabel22.setText("Details / Remarks");
 
         comboSemester.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "First Semester", "Second Semester" }));
+        comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semester A", "Semester B" }));
         comboSemester.setToolTipText("Batch");
 
         txtSubjectName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -359,7 +367,7 @@ public class editSubject extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
-//        updateGroupDetails();
+        updateSubjectDetails();
     }//GEN-LAST:event_btSave2ActionPerformed
 
     /**

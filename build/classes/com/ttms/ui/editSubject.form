@@ -346,8 +346,8 @@
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
-                    <StringItem index="0" value="First Semester"/>
-                    <StringItem index="1" value="Second Semester"/>
+                    <StringItem index="0" value="Semester A"/>
+                    <StringItem index="1" value="Semester B"/>
                   </StringArray>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Batch"/>

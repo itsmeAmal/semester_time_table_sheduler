@@ -107,12 +107,12 @@ public class editCourse extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtCourseName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtCourseName.setToolTipText("Name");
+        txtCourseName.setToolTipText("Course name");
         txtCourseName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtCourseName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtCourseDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtCourseDetail.setToolTipText("Details");
+        txtCourseDetail.setToolTipText("Details / Remarks");
         txtCourseDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtCourseDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -134,7 +134,7 @@ public class editCourse extends javax.swing.JDialog {
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));
         btSave2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave2.setToolTipText("Update new batch");
+        btSave2.setToolTipText("Update course details");
         btSave2.setBorder(null);
         btSave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class editCourse extends javax.swing.JDialog {
         jLabel18.setText("Course Name");
 
         txtCourseType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtCourseType.setToolTipText("Name");
+        txtCourseType.setToolTipText("Course type");
         txtCourseType.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtCourseType.setSelectionColor(new java.awt.Color(255, 255, 0));
 

@@ -10,7 +10,10 @@ package com.ttms.model;
  * @author Amal
  */
 public class room {
-    
+
+    public static int ACTIVE_ROOM = 1;
+    public static int INACTIVE_ROOM = 0;
+
     private int id;
     private String name;
     private String code;
@@ -86,5 +89,5 @@ public class room {
     public void setStatus(int status) {
         this.status = status;
     }
-    
+
 }

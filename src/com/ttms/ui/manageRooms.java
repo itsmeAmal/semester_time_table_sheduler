@@ -25,49 +25,46 @@ public class manageRooms extends javax.swing.JFrame {
      */
     public manageRooms() {
         initComponents();
-        loadBatchesToTable();
     }
 
     private void clearAll() {
-        txtDetail.setText("");
-        txtLevel.setText("");
-        txtYear.setText("");
+        txtDetails.setText("");
+        txtRoomCode.setText("");
+        txtRoomName.setText("");
     }
 
-    private void addBatch() {
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
-        if (option == JOptionPane.YES_OPTION) {
-            try {
-                boolean status = batchController.addBatch(txtYear.getText().trim(), txtLevel.getText().trim(), txtDetail.getText().trim());
-                if (status) {
-                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
-                    clearAll();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private void loadBatchesToTable() {
-        try {
-            ResultSet rset = batchController.getAllBatches();
-            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
-            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
-        } catch (SQLException ex) {
-            Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+//    private void addBatch() {
+//        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
+//        if (option == JOptionPane.YES_OPTION) {
+//            try {
+//                boolean status = batchController.addBatch(txtRoomName.getText().trim(), txtRoomCode.getText().trim(), txtDetails.getText().trim());
+//                if (status) {
+//                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
+//                    clearAll();
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
+//    private void loadBatchesToTable() {
+//        try {
+//            ResultSet rset = batchController.getAllBatches();
+//            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
+//            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     private void editSelectedBatch() {
         int selectedRaw = tblBatchDetails.getSelectedRow();
         if (selectedRaw == -1) {
-            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         DefaultTableModel dtm = (DefaultTableModel) tblBatchDetails.getModel();
-        int batchId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
-        new editBatch(this, true, batchId).setVisible(true);
+        int roomId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editBatch(this, true, roomId).setVisible(true);
     }
 
     /**
@@ -83,9 +80,9 @@ public class manageRooms extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBatchDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        txtYear = new javax.swing.JTextField();
-        txtLevel = new javax.swing.JTextField();
-        txtDetail = new javax.swing.JTextField();
+        txtRoomName = new javax.swing.JTextField();
+        txtRoomCode = new javax.swing.JTextField();
+        txtDetails = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -97,7 +94,7 @@ public class manageRooms extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Batch Management");
+        setTitle("Room Management");
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -107,7 +104,7 @@ public class manageRooms extends javax.swing.JFrame {
 
             },
             new String [] {
-                "batchId", "Year", "Level", "Detail "
+                "roomId", "Room Name", "Room Code", "Detail / Remarks"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -134,30 +131,30 @@ public class manageRooms extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear.setToolTipText("Name");
-        txtYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtYear.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtRoomName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtRoomName.setToolTipText("Room Name");
+        txtRoomName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtRoomName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
-        txtLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtLevel.setToolTipText("Email 1");
-        txtLevel.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtLevel.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtRoomCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtRoomCode.setToolTipText("Room Code");
+        txtRoomCode.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtRoomCode.setSelectionColor(new java.awt.Color(255, 255, 0));
 
-        txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
-        txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtDetails.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtDetails.setToolTipText("Details / Remarks");
+        txtDetails.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtDetails.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Room.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Room_Id.png"))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -167,7 +164,7 @@ public class manageRooms extends javax.swing.JFrame {
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
         btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave.setToolTipText("Add new batch");
+        btSave.setToolTipText("Add new room");
         btSave.setBorder(null);
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,15 +174,15 @@ public class manageRooms extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Batch Details / Remarks");
+        jLabel16.setText("Room Details / Remarks");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Batch Level");
+        jLabel17.setText("Room Code");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Batch Year");
+        jLabel18.setText("Room Name");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -195,30 +192,32 @@ public class manageRooms extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(9, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                    .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtRoomCode, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel2)
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtYear, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))))
+                                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                    .addComponent(txtRoomName)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btSave)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                                            .addComponent(txtDetails))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -230,18 +229,18 @@ public class manageRooms extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRoomName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRoomCode, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,13 +303,12 @@ public class manageRooms extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        addBatch();
-        loadBatchesToTable();
+
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         editSelectedBatch();
-        loadBatchesToTable();
+
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**
@@ -393,8 +391,8 @@ public class manageRooms extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBatchDetails;
-    private javax.swing.JTextField txtDetail;
-    private javax.swing.JTextField txtLevel;
-    private javax.swing.JTextField txtYear;
+    private javax.swing.JTextField txtDetails;
+    private javax.swing.JTextField txtRoomCode;
+    private javax.swing.JTextField txtRoomName;
     // End of variables declaration//GEN-END:variables
 }

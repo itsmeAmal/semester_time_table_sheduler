@@ -54,7 +54,7 @@ public class subjectController {
             subject.setId(rset.getInt("subject_id"));
             subject.setModuleCode(rset.getString("subject_module_code"));
             subject.setDetail(rset.getString("subject_detail"));
-            subject.setStatus(subject.ACTIVE_SUBJECT);
+            subject.setStatus(rset.getInt("subject_status"));
         }
         return subject;
     }

@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,15 +28,17 @@ public class subjectManagement extends javax.swing.JFrame {
         initComponents();
         loadCourseDetailsDataObjectsToComboBox();
         loadSubjectsToTable();
+        setDefaults();
     }
 
-    private void clearAll() {
+    private void setDefaults() {
         txtDetail.setText("");
         txtModuleCode.setText("");
         txtSubjectName.setText("");
         comboCourse.setSelectedIndex(0);
         comboLevel.setSelectedIndex(0);
         comboSemester.setSelectedIndex(0);
+        comboCourse.setSelectedItem("Common Subject");
     }
 
     private void loadCourseDetailsDataObjectsToComboBox() {
@@ -43,6 +46,7 @@ public class subjectManagement extends javax.swing.JFrame {
             ResultSet rset = courseController.getAllCourses();
             String[] columnList = {"course_id", "course_name", "course_type", "course_detail", "course_satus"};
             commonController.loadDataObjectsIntoComboBox(comboCourse, rset, columnList, "course_type");
+            comboCourse.addItem("Common Subject");
         } catch (SQLException ex) {
             Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -63,13 +67,17 @@ public class subjectManagement extends javax.swing.JFrame {
         int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Subject details ?");
         if (option == JOptionPane.YES_OPTION) {
             try {
-                DataObject dataObjCourse = (DataObject) comboCourse.getSelectedItem();
+                int courseId = 0;
+                if (!comboCourse.getSelectedItem().toString().equalsIgnoreCase("Common Subject")) {
+                    DataObject dataObjCourse = (DataObject) comboCourse.getSelectedItem();
+                    courseId = commonController.getIntOrZeroFromString(dataObjCourse.get("course_id"));
+                }
                 boolean status = subjectController.addSubject(comboLevel.getSelectedItem().toString(),
                         txtDetail.getText().trim(), txtModuleCode.getText().trim(), txtSubjectName.getText().trim(),
-                        comboSemester.getSelectedItem().toString(), commonController.getIntOrZeroFromString(dataObjCourse.get("course_id")));
+                        comboSemester.getSelectedItem().toString(), courseId);
                 if (status) {
                     JOptionPane.showMessageDialog(this, "Subject registered successfully !");
-                    clearAll();
+                    setDefaults();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -82,10 +90,21 @@ public class subjectManagement extends javax.swing.JFrame {
             ResultSet rset = subjectController.getActiveAndCourseJoinedSubjectDetails();
             String[] columnList = {"subject_id", "subject_name", "subject_module_code",
                 "subject_semester", "course_type", "subject_course_level", "subject_detail"};
-            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
+            commonController.loadDataToTable(tblSubjectDetails, rset, columnList);
         } catch (SQLException ex) {
             Logger.getLogger(subjectManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+    }
+
+    private void editSelectedCourse() {
+        int selectedRaw = tblSubjectDetails.getSelectedRow();
+        if (selectedRaw == -1) {
+            JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        DefaultTableModel dtm = (DefaultTableModel) tblSubjectDetails.getModel();
+        int subjectId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
+        new editSubject(this, true, subjectId).setVisible(true);
     }
 
     /**
@@ -99,7 +118,7 @@ public class subjectManagement extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBatchDetails = new javax.swing.JTable();
+        tblSubjectDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtSubjectName = new javax.swing.JTextField();
         txtModuleCode = new javax.swing.JTextField();
@@ -128,8 +147,8 @@ public class subjectManagement extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblSubjectDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        tblSubjectDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -145,30 +164,30 @@ public class subjectManagement extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBatchDetails.setRowHeight(20);
-        tblBatchDetails.setRowMargin(2);
-        tblBatchDetails.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblBatchDetails);
-        if (tblBatchDetails.getColumnModel().getColumnCount() > 0) {
-            tblBatchDetails.getColumnModel().getColumn(0).setMinWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setMinWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(2).setMaxWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(3).setMinWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(3).setMaxWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(4).setMinWidth(130);
-            tblBatchDetails.getColumnModel().getColumn(4).setPreferredWidth(130);
-            tblBatchDetails.getColumnModel().getColumn(4).setMaxWidth(130);
-            tblBatchDetails.getColumnModel().getColumn(5).setMinWidth(100);
-            tblBatchDetails.getColumnModel().getColumn(5).setPreferredWidth(100);
-            tblBatchDetails.getColumnModel().getColumn(5).setMaxWidth(100);
-            tblBatchDetails.getColumnModel().getColumn(6).setMinWidth(180);
-            tblBatchDetails.getColumnModel().getColumn(6).setPreferredWidth(180);
-            tblBatchDetails.getColumnModel().getColumn(6).setMaxWidth(180);
+        tblSubjectDetails.setRowHeight(20);
+        tblSubjectDetails.setRowMargin(2);
+        tblSubjectDetails.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblSubjectDetails);
+        if (tblSubjectDetails.getColumnModel().getColumnCount() > 0) {
+            tblSubjectDetails.getColumnModel().getColumn(0).setMinWidth(0);
+            tblSubjectDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblSubjectDetails.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblSubjectDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblSubjectDetails.getColumnModel().getColumn(2).setMinWidth(120);
+            tblSubjectDetails.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblSubjectDetails.getColumnModel().getColumn(2).setMaxWidth(120);
+            tblSubjectDetails.getColumnModel().getColumn(3).setMinWidth(120);
+            tblSubjectDetails.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblSubjectDetails.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblSubjectDetails.getColumnModel().getColumn(4).setMinWidth(130);
+            tblSubjectDetails.getColumnModel().getColumn(4).setPreferredWidth(130);
+            tblSubjectDetails.getColumnModel().getColumn(4).setMaxWidth(130);
+            tblSubjectDetails.getColumnModel().getColumn(5).setMinWidth(100);
+            tblSubjectDetails.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tblSubjectDetails.getColumnModel().getColumn(5).setMaxWidth(100);
+            tblSubjectDetails.getColumnModel().getColumn(6).setMinWidth(180);
+            tblSubjectDetails.getColumnModel().getColumn(6).setPreferredWidth(180);
+            tblSubjectDetails.getColumnModel().getColumn(6).setMaxWidth(180);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -362,6 +381,11 @@ public class subjectManagement extends javax.swing.JFrame {
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -411,6 +435,11 @@ public class subjectManagement extends javax.swing.JFrame {
         addSubject();
         loadSubjectsToTable();
     }//GEN-LAST:event_btSaveActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        editSelectedCourse();
+        loadSubjectsToTable();
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,7 +505,7 @@ public class subjectManagement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBatchDetails;
+    private javax.swing.JTable tblSubjectDetails;
     private javax.swing.JTextField txtDetail;
     private javax.swing.JTextField txtModuleCode;
     private javax.swing.JTextField txtSubjectName;

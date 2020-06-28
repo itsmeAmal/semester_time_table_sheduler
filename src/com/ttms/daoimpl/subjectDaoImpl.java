@@ -23,7 +23,8 @@ public class subjectDaoImpl implements subjectDao {
             + "subject_course_id, subject_course_level, subject_semester from subject";
 
     private String selectQuery2 = "SELECT subject_id, subject_name, subject_module_code, subject_detail, subject_status, "
-            + "subject_course_id, course_name, subject_course_level, subject_semester, course_type FROM subject left join course on course_id=subject_course_id where subject_status=1";
+            + "subject_course_id, if(subject_course_id=0, 'Common', course_type) as course_type, subject_course_level, "
+            + "subject_semester FROM subject left join course on course_id=subject_course_id where subject_status=1";
 
     @Override
 

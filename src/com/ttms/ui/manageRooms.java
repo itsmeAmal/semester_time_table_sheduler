@@ -81,7 +81,7 @@ public class manageRooms extends javax.swing.JFrame {
         }
         DefaultTableModel dtm = (DefaultTableModel) tblRoomDetails.getModel();
         int roomId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
-        new editBatch(this, true, roomId).setVisible(true);
+        new editRoom(this, true, roomId).setVisible(true);
     }
 
     /**
@@ -324,8 +324,8 @@ public class manageRooms extends javax.swing.JFrame {
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-//        editSelectedBatch();
-//        loadRoomDetails();
+        editSelectedBatch();
+        loadRoomDetails();
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**

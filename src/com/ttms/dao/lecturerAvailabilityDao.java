@@ -17,7 +17,7 @@ public interface lecturerAvailabilityDao {
 
     boolean addLecturerAvailability(lecturerAvailability availability) throws SQLException;
 
-    ResultSet getAllAvailableLectures() throws SQLException;
+    ResultSet getAllUnavailableLecturerRecords() throws SQLException;
 
     ResultSet getAvailableLectureByOneAttribute(String attribute, String condition, String value) throws SQLException;
 

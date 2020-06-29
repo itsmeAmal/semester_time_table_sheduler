@@ -14,6 +14,9 @@ import java.sql.Time;
  */
 public class lecturerAvailability {
 
+    public static int ACTIVE_AVAILABILITY_RECORD = 1;
+    public static int INACTIVE_AVAILABILITY_RECORD = 0;
+
     private int id;
     private int lecturerId;
     private Date unavailableDate;
@@ -121,4 +124,3 @@ public class lecturerAvailability {
     }
 
 }
-

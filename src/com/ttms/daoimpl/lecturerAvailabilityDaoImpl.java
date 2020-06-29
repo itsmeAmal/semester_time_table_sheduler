@@ -41,7 +41,7 @@ public class lecturerAvailabilityDaoImpl implements lecturerAvailabilityDao {
     }
 
     @Override
-    public ResultSet getAllAvailableLectures() throws SQLException {
+    public ResultSet getAllUnavailableLecturerRecords() throws SQLException {
         return new commonDaoImpl().getAllRecords(selectQuery);
     }
 

@@ -24,7 +24,7 @@ public class roomDaoImpl implements roomDao {
     @Override
     public boolean addRoom(room room) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("insert into room(room_name, room_code, room_detail, room_status) values (?,?,?,?,?)");
+        PreparedStatement ps = con.prepareStatement("insert into room(room_name, room_code, room_detail, room_status) values (?,?,?,?)");
         ps.setString(1, room.getName());
         ps.setString(2, room.getCode());
         ps.setString(3, room.getDetail());

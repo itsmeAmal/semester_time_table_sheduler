@@ -7,6 +7,7 @@ package com.ttms.ui;
 
 import com.ttms.controller.batchController;
 import com.ttms.controller.commonController;
+import com.ttms.controller.roomController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ public class manageRooms extends javax.swing.JFrame {
      */
     public manageRooms() {
         initComponents();
+        loadRoomDetails();
     }
 
     private void clearAll() {
@@ -33,36 +35,51 @@ public class manageRooms extends javax.swing.JFrame {
         txtRoomName.setText("");
     }
 
-//    private void addBatch() {
-//        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Batch details ?");
-//        if (option == JOptionPane.YES_OPTION) {
-//            try {
-//                boolean status = batchController.addBatch(txtRoomName.getText().trim(), txtRoomCode.getText().trim(), txtDetails.getText().trim());
-//                if (status) {
-//                    JOptionPane.showMessageDialog(this, "Batch registered successfully !");
-//                    clearAll();
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-//    private void loadBatchesToTable() {
-//        try {
-//            ResultSet rset = batchController.getAllBatches();
-//            String[] columnList = {"batch_id", "batch_year", "batch_level", "batch_detail"};
-//            commonController.loadDataToTable(tblBatchDetails, rset, columnList);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
+    private void addRoom() {
+
+        if (txtRoomName.getText().trim().equalsIgnoreCase(null) || txtRoomName.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter Room Name !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtRoomCode.getText().trim().equalsIgnoreCase(null) || txtRoomCode.getText().trim().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please enter Room Code !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to save this Room details ?");
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                boolean status = roomController.addRoomDetails(txtRoomCode.getText().trim(),
+                        txtDetails.getText().trim(), txtRoomName.getText().trim());
+
+                if (status) {
+                    JOptionPane.showMessageDialog(this, "Room registered successfully !");
+                    clearAll();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void loadRoomDetails() {
+        try {
+            ResultSet rset = roomController.getAllRoomDetails();
+            String[] columnList = {"room_id", "room_name", "room_code", "room_detail"};
+            commonController.loadDataToTable(tblRoomDetails, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(manageRooms.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void editSelectedBatch() {
-        int selectedRaw = tblBatchDetails.getSelectedRow();
+        int selectedRaw = tblRoomDetails.getSelectedRow();
         if (selectedRaw == -1) {
             JOptionPane.showMessageDialog(this, "Please select the row you want to update !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        DefaultTableModel dtm = (DefaultTableModel) tblBatchDetails.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tblRoomDetails.getModel();
         int roomId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
         new editBatch(this, true, roomId).setVisible(true);
     }
@@ -78,7 +95,7 @@ public class manageRooms extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBatchDetails = new javax.swing.JTable();
+        tblRoomDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtRoomName = new javax.swing.JTextField();
         txtRoomCode = new javax.swing.JTextField();
@@ -98,8 +115,8 @@ public class manageRooms extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblRoomDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        tblRoomDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -115,17 +132,17 @@ public class manageRooms extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBatchDetails.setRowHeight(20);
-        tblBatchDetails.setRowMargin(2);
-        tblBatchDetails.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblBatchDetails);
-        if (tblBatchDetails.getColumnModel().getColumnCount() > 0) {
-            tblBatchDetails.getColumnModel().getColumn(0).setMinWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(3).setResizable(false);
+        tblRoomDetails.setRowHeight(20);
+        tblRoomDetails.setRowMargin(2);
+        tblRoomDetails.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblRoomDetails);
+        if (tblRoomDetails.getColumnModel().getColumnCount() > 0) {
+            tblRoomDetails.getColumnModel().getColumn(0).setMinWidth(0);
+            tblRoomDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblRoomDetails.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblRoomDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblRoomDetails.getColumnModel().getColumn(2).setResizable(false);
+            tblRoomDetails.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -303,12 +320,12 @@ public class manageRooms extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-
+        addRoom();
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        editSelectedBatch();
-
+//        editSelectedBatch();
+//        loadRoomDetails();
     }//GEN-LAST:event_btnEditActionPerformed
 
     /**
@@ -390,7 +407,7 @@ public class manageRooms extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBatchDetails;
+    private javax.swing.JTable tblRoomDetails;
     private javax.swing.JTextField txtDetails;
     private javax.swing.JTextField txtRoomCode;
     private javax.swing.JTextField txtRoomName;

@@ -486,7 +486,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-//        new roomM().setVisible(true);
+        new manageRooms().setVisible(true);
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void lblCourseManagementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCourseManagementMouseClicked

@@ -18,7 +18,7 @@ import java.sql.Time;
  */
 public class lecturerUnavailabilityController {
 
-    public static boolean lecturerUnavailability(int lecturerId, Date unavailableDate,
+    public static boolean addLecturerUnavailability(int lecturerId, Date unavailableDate,
             Time unavailableTimeFrom, Time unavailableTimeTo, String detail) throws SQLException {
         lecturerAvailability availability = new lecturerAvailability();
         availability.setLecturerId(lecturerId);
@@ -54,6 +54,10 @@ public class lecturerUnavailabilityController {
             availability.setLecturerId(rset.getInt("lecturer_availablity_lec_id"));
         }
         return availability;
+    }
+
+    public static boolean updateLecturerUnavailability(lecturerAvailability availability) throws SQLException {
+        return new lecturerAvailabilityDaoImpl().updateAvailableLecture(availability);
     }
 
 }

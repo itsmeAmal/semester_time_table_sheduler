@@ -7,10 +7,13 @@ package com.ttms.ui;
 
 import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
+import com.ttms.controller.lecturerUnavailabilityController;
+import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Amal
@@ -38,6 +41,13 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(manageLecturerUnavailability.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void addLecturerUnavailabilityDetails() {
+        DataObject dataObj = (DataObject) comboLecturerDataObjects.getSelectedItem();
+        int lecturerId = commonController.getIntOrZeroFromString(dataObj.get("lecturer_availablity_lec_id"));
+//        String unavailableDate = com
+//        boolean status = lecturerUnavailabilityController.addLecturerUnavailability(lecturerId, unavailableDate, unavailableTimeFrom, unavailableTimeTo, detail);
     }
 
     /**
@@ -258,15 +268,11 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtYear)))))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtYear)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

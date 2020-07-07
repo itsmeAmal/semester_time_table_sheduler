@@ -10,6 +10,7 @@ import com.ttms.controller.lecturerController;
 import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,7 +30,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
     private void clearAll() {
         txtDetail.setText("");
-        txtYear.setText("");
     }
 
     private void loadLecturerDataObjectToComboBox() {
@@ -62,7 +62,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBatchDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        txtYear = new javax.swing.JTextField();
         txtDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -77,10 +76,10 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         comboToHours = new javax.swing.JComboBox<>();
         comboToMinutes = new javax.swing.JComboBox<>();
         comboToAmPm = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        calUnavDate = new com.toedter.calendar.JDateChooser();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
 
@@ -129,16 +128,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        txtYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear.setToolTipText("Name");
-        txtYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtYear.setSelectionColor(new java.awt.Color(255, 255, 0));
-        txtYear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtYearActionPerformed(evt);
-            }
-        });
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setToolTipText("Details");
@@ -240,12 +229,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Date Format (yyyy-mm-dd)");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Unavailability Details / Remarks");
@@ -257,6 +240,9 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Lecturer Name");
+
+        calUnavDate.setToolTipText("Unavailable Date");
+        calUnavDate.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,8 +256,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtYear)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(calUnavDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,18 +280,15 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                         .addComponent(comboToMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboToAmPm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboFromHours, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboFromMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboFromAmPm, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboFromHours, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboFromMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboFromAmPm, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -321,12 +303,10 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtYear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(calUnavDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,12 +344,12 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 881, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -427,10 +407,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private void comboToAmPmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboToAmPmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboToAmPmActionPerformed
-
-    private void txtYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtYearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtYearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -502,6 +478,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private com.toedter.calendar.JDateChooser calUnavDate;
     private javax.swing.JComboBox<String> comboFromAmPm;
     private javax.swing.JComboBox<String> comboFromHours;
     private javax.swing.JComboBox<String> comboFromMinutes;
@@ -509,7 +486,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboToAmPm;
     private javax.swing.JComboBox<String> comboToHours;
     private javax.swing.JComboBox<String> comboToMinutes;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -523,6 +499,5 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBatchDetails;
     private javax.swing.JTextField txtDetail;
-    private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
 }

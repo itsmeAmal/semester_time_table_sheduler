@@ -5,6 +5,7 @@
  */
 package com.ttms.controller;
 
+import com.toedter.calendar.JDateChooser;
 import com.ttms.model.DataObject;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -22,6 +23,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Amal
  */
 public class commonController {
+    
+    public static java.sql.Date getMysqlDateFromJDateChooser(JDateChooser dateChooser){
+        if(dateChooser.getDate() == null){
+            return null;
+        }
+        java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
+        return sqlDate;
+    }
 
     public static java.sql.Date getCurrentJavaSqlDate() {
         java.util.Date today = new java.util.Date();

@@ -7,7 +7,6 @@ package com.ttms.ui;
 
 import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
-import com.ttms.controller.lecturerUnavailabilityController;
 import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;

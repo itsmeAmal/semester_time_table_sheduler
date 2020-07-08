@@ -7,6 +7,7 @@ package com.ttms.ui;
 
 import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
+import com.ttms.controller.lecturerUnavailabilityController;
 import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,10 +44,20 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     }
 
     private void addLecturerUnavailabilityDetails() {
-        DataObject dataObj = (DataObject) comboLecturerDataObjects.getSelectedItem();
-        int lecturerId = commonController.getIntOrZeroFromString(dataObj.get("lecturer_availablity_lec_id"));
-//        String unavailableDate = com
-//        boolean status = lecturerUnavailabilityController.addLecturerUnavailability(lecturerId, unavailableDate, unavailableTimeFrom, unavailableTimeTo, detail);
+        try {
+            DataObject dataObj = (DataObject) comboLecturerDataObjects.getSelectedItem();
+            int lecturerId = commonController.getIntOrZeroFromString(dataObj.get("lecturer_id"));
+            String fromTimeString = comboFromHours.getSelectedItem().toString() + ":" + comboFromMinutes.getSelectedItem().toString() + ":" + "00";
+            String toTimeString = comboToHours.getSelectedItem().toString() + ":" + comboToMinutes.getSelectedItem().toString() + ":" + "00";
+            
+            System.out.println(fromTimeString);
+            System.out.println(toTimeString);
+            
+            boolean status = lecturerUnavailabilityController.addLecturerUnavailability(lecturerId, 
+                    commonController.getMysqlDateFromJDateChooser(calUnavDate), fromTimeString, toTimeString, txtDetail.getText().trim());
+        } catch (SQLException ex) {
+            Logger.getLogger(manageLecturerUnavailability.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -72,10 +83,8 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         comboFromMinutes = new javax.swing.JComboBox<>();
         comboFromHours = new javax.swing.JComboBox<>();
-        comboFromAmPm = new javax.swing.JComboBox<>();
         comboToHours = new javax.swing.JComboBox<>();
         comboToMinutes = new javax.swing.JComboBox<>();
-        comboToAmPm = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -185,7 +194,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         });
 
         comboFromHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboFromHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        comboFromHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
         comboFromHours.setToolTipText("Group");
         comboFromHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,17 +202,8 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
             }
         });
 
-        comboFromAmPm.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboFromAmPm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
-        comboFromAmPm.setToolTipText("Group");
-        comboFromAmPm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboFromAmPmActionPerformed(evt);
-            }
-        });
-
         comboToHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboToHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        comboToHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
         comboToHours.setToolTipText("Group");
         comboToHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,15 +220,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
             }
         });
 
-        comboToAmPm.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboToAmPm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
-        comboToAmPm.setToolTipText("Group");
-        comboToAmPm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboToAmPmActionPerformed(evt);
-            }
-        });
-
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Unavailability Details / Remarks");
@@ -242,7 +233,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jLabel20.setText("Lecturer Name");
 
         calUnavDate.setToolTipText("Unavailable Date");
-        calUnavDate.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        calUnavDate.setFocusCycleRoot(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -278,17 +269,18 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                         .addComponent(comboToHours, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboToMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboToAmPm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboFromHours, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboFromMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboFromAmPm, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboFromHours, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboFromMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -308,15 +300,12 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                     .addComponent(calUnavDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboFromAmPm, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(comboFromHours, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comboFromMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboToAmPm, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(comboToHours, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comboToMinutes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -382,6 +371,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         clearAll();
+        addLecturerUnavailabilityDetails();
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void comboFromMinutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFromMinutesActionPerformed
@@ -392,10 +382,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboFromHoursActionPerformed
 
-    private void comboFromAmPmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFromAmPmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboFromAmPmActionPerformed
-
     private void comboToHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboToHoursActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboToHoursActionPerformed
@@ -403,10 +389,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private void comboToMinutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboToMinutesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboToMinutesActionPerformed
-
-    private void comboToAmPmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboToAmPmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboToAmPmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,11 +461,9 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private com.toedter.calendar.JDateChooser calUnavDate;
-    private javax.swing.JComboBox<String> comboFromAmPm;
     private javax.swing.JComboBox<String> comboFromHours;
     private javax.swing.JComboBox<String> comboFromMinutes;
     private javax.swing.JComboBox<String> comboLecturerDataObjects;
-    private javax.swing.JComboBox<String> comboToAmPm;
     private javax.swing.JComboBox<String> comboToHours;
     private javax.swing.JComboBox<String> comboToMinutes;
     private javax.swing.JLabel jLabel16;

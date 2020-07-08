@@ -31,8 +31,8 @@ public class lecturerAvailabilityDaoImpl implements lecturerAvailabilityDao {
                 + " lecturer_availablity_detail) values (?,?,?,?,?,?)");
         ps.setInt(1, availability.getLecturerId());
         ps.setDate(2, availability.getUnavailableDate());
-        ps.setTime(3, availability.getUnavailableTimeFrom());
-        ps.setTime(4, availability.getUnavailableTimeTo());
+        ps.setString(3, availability.getUnavailableTimeFrom());
+        ps.setString(4, availability.getUnavailableTimeTo());
         ps.setInt(5, availability.getStatus());
         ps.setString(6, availability.getDetail());
         ps.executeUpdate();
@@ -58,8 +58,8 @@ public class lecturerAvailabilityDaoImpl implements lecturerAvailabilityDao {
                 + " lecturer_availablity_status=?, lecturer_availablity_detail=? where lecturer_availablity_id=?");
         ps.setInt(1, availability.getLecturerId());
         ps.setDate(2, availability.getUnavailableDate());
-        ps.setTime(3, availability.getUnavailableTimeFrom());
-        ps.setTime(4, availability.getUnavailableTimeTo());
+        ps.setString(3, availability.getUnavailableTimeFrom());
+        ps.setString(4, availability.getUnavailableTimeTo());
         ps.setInt(5, availability.getStatus());
         ps.setString(6, availability.getDetail());
         ps.setInt(7, availability.getId());

@@ -10,7 +10,6 @@ import com.ttms.model.lecturerAvailability;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 
 /**
  *
@@ -19,7 +18,7 @@ import java.sql.Time;
 public class lecturerUnavailabilityController {
 
     public static boolean addLecturerUnavailability(int lecturerId, Date unavailableDate,
-            Time unavailableTimeFrom, Time unavailableTimeTo, String detail) throws SQLException {
+            String unavailableTimeFrom, String unavailableTimeTo, String detail) throws SQLException {
         lecturerAvailability availability = new lecturerAvailability();
         availability.setLecturerId(lecturerId);
         availability.setUnavailableDate(unavailableDate);
@@ -48,8 +47,8 @@ public class lecturerUnavailabilityController {
             availability.setDetail(rset.getString("lecturer_availablity_detail"));
             availability.setStatus(rset.getInt("lecturer_availablity_status"));
             availability.setUnavailableDate(rset.getDate("lecturer_availablity_unavailable_date"));
-            availability.setUnavailableTimeFrom(rset.getTime("lecturer_availablity_unavailable_time_from"));
-            availability.setUnavailableTimeTo(rset.getTime("lecturer_availablity_unavailable_time_to"));
+            availability.setUnavailableTimeFrom(rset.getString("lecturer_availablity_unavailable_time_from"));
+            availability.setUnavailableTimeTo(rset.getString("lecturer_availablity_unavailable_time_to"));
             availability.setId(rset.getInt("lecturer_availablity_id"));
             availability.setLecturerId(rset.getInt("lecturer_availablity_lec_id"));
         }

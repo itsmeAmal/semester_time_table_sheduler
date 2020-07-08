@@ -20,8 +20,8 @@ public class lecturerAvailability {
     private int id;
     private int lecturerId;
     private Date unavailableDate;
-    private Time unavailableTimeFrom;
-    private Time unavailableTimeTo;
+    private String unavailableTimeFrom;
+    private String unavailableTimeTo;
     private int status;
     private String detail;
 
@@ -70,28 +70,28 @@ public class lecturerAvailability {
     /**
      * @return the unavailableTimeFrom
      */
-    public Time getUnavailableTimeFrom() {
+    public String getUnavailableTimeFrom() {
         return unavailableTimeFrom;
     }
 
     /**
      * @param unavailableTimeFrom the unavailableTimeFrom to set
      */
-    public void setUnavailableTimeFrom(Time unavailableTimeFrom) {
+    public void setUnavailableTimeFrom(String unavailableTimeFrom) {
         this.unavailableTimeFrom = unavailableTimeFrom;
     }
 
     /**
      * @return the unavailableTimeTo
      */
-    public Time getUnavailableTimeTo() {
+    public String getUnavailableTimeTo() {
         return unavailableTimeTo;
     }
 
     /**
      * @param unavailableTimeTo the unavailableTimeTo to set
      */
-    public void setUnavailableTimeTo(Time unavailableTimeTo) {
+    public void setUnavailableTimeTo(String unavailableTimeTo) {
         this.unavailableTimeTo = unavailableTimeTo;
     }
 

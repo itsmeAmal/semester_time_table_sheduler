@@ -105,6 +105,8 @@ public class manageLecturers extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        txtContactNo1 = new javax.swing.JTextField();
+        btnEdit1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lecturer Management");
@@ -306,7 +308,7 @@ public class manageLecturers extends javax.swing.JFrame {
                     .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 322, 643));
@@ -317,10 +319,25 @@ public class manageLecturers extends javax.swing.JFrame {
                 btnEditActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1236, 25, 40, 40));
+        jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 20, 40, 40));
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1294, 25, 40, 40));
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 20, 40, 40));
+
+        txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtContactNo1.setToolTipText("Contact No");
+        txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtContactNo1.setSelectionColor(new java.awt.Color(255, 255, 0));
+        jPanel1.add(txtContactNo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 340, 40));
+
+        btnEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
+        btnEdit1.setToolTipText("Search");
+        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEdit1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEdit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 40, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1340, -1));
 
@@ -338,6 +355,10 @@ public class manageLecturers extends javax.swing.JFrame {
         editSelectedCourse();
         loadLecturerData();
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEdit1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -386,6 +407,7 @@ public class manageLecturers extends javax.swing.JFrame {
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnEdit1;
     private javax.swing.JComboBox<String> comboTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel19;
@@ -401,6 +423,7 @@ public class manageLecturers extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLectures;
     private javax.swing.JTextField txtContactNo;
+    private javax.swing.JTextField txtContactNo1;
     private javax.swing.JTextField txtDetail;
     private javax.swing.JTextField txtEmail1;
     private javax.swing.JTextField txtName;

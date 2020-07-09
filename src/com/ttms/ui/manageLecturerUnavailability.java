@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,10 +28,13 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     public manageLecturerUnavailability() {
         initComponents();
         loadLecturerDataObjectToComboBox();
+        loadDataToTable();
     }
 
     private void clearAll() {
         txtDetail.setText("");
+        calUnavDate.setDate(null);
+        comboLecturerDataObjects.setSelectedIndex(0);
     }
 
     private void loadLecturerDataObjectToComboBox() {
@@ -44,17 +48,38 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     }
 
     private void addLecturerUnavailabilityDetails() {
+        if (calUnavDate.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Please select date !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int option = JOptionPane.showConfirmDialog(this, "Correct all data entered ?");
+        if (option == JOptionPane.YES_OPTION) {
+            try {
+                DataObject dataObj = (DataObject) comboLecturerDataObjects.getSelectedItem();
+                int lecturerId = commonController.getIntOrZeroFromString(dataObj.get("lecturer_id"));
+                String fromTimeString = comboFromHours.getSelectedItem().toString() + ":" + comboFromMinutes.getSelectedItem().toString() + ":" + "00";
+                String toTimeString = comboToHours.getSelectedItem().toString() + ":" + comboToMinutes.getSelectedItem().toString() + ":" + "00";
+
+                boolean status = lecturerUnavailabilityController.addLecturerUnavailability(lecturerId,
+                        commonController.getMysqlDateFromJDateChooser(calUnavDate), fromTimeString,
+                        toTimeString, txtDetail.getText().trim());
+
+                if (status) {
+                    JOptionPane.showMessageDialog(this, "Record added successfully !", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(manageLecturerUnavailability.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void loadDataToTable() {
         try {
-            DataObject dataObj = (DataObject) comboLecturerDataObjects.getSelectedItem();
-            int lecturerId = commonController.getIntOrZeroFromString(dataObj.get("lecturer_id"));
-            String fromTimeString = comboFromHours.getSelectedItem().toString() + ":" + comboFromMinutes.getSelectedItem().toString() + ":" + "00";
-            String toTimeString = comboToHours.getSelectedItem().toString() + ":" + comboToMinutes.getSelectedItem().toString() + ":" + "00";
-            
-            System.out.println(fromTimeString);
-            System.out.println(toTimeString);
-            
-            boolean status = lecturerUnavailabilityController.addLecturerUnavailability(lecturerId, 
-                    commonController.getMysqlDateFromJDateChooser(calUnavDate), fromTimeString, toTimeString, txtDetail.getText().trim());
+            ResultSet rset = lecturerUnavailabilityController.getLecUnavaDetailsWithJoinQuery();
+            String[] columnList = {"lecturer_availablity_id", "lecturer_name", "lecturer_availablity_unavailable_date",
+                "lecturer_availablity_unavailable_time_from", "lecturer_availablity_unavailable_time_to", "lecturer_availablity_detail"};
+            commonController.loadDataToTable(tblLecturerUnavailableDetails, rset, columnList);
         } catch (SQLException ex) {
             Logger.getLogger(manageLecturerUnavailability.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,7 +96,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBatchDetails = new javax.swing.JTable();
+        tblLecturerUnavailableDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -97,8 +122,8 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblLecturerUnavailableDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        tblLecturerUnavailableDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -114,25 +139,25 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBatchDetails.setRowHeight(20);
-        tblBatchDetails.setRowMargin(2);
-        tblBatchDetails.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblBatchDetails);
-        if (tblBatchDetails.getColumnModel().getColumnCount() > 0) {
-            tblBatchDetails.getColumnModel().getColumn(0).setMinWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setMinWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(2).setMaxWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(3).setMinWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(3).setMaxWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(4).setMinWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(4).setMaxWidth(120);
-            tblBatchDetails.getColumnModel().getColumn(5).setResizable(false);
+        tblLecturerUnavailableDetails.setRowHeight(20);
+        tblLecturerUnavailableDetails.setRowMargin(2);
+        tblLecturerUnavailableDetails.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblLecturerUnavailableDetails);
+        if (tblLecturerUnavailableDetails.getColumnModel().getColumnCount() > 0) {
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(0).setMinWidth(0);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(2).setMinWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(2).setMaxWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(3).setMinWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(4).setMinWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(4).setMaxWidth(120);
+            tblLecturerUnavailableDetails.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -370,8 +395,9 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        clearAll();
         addLecturerUnavailabilityDetails();
+        clearAll();
+        loadDataToTable();
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void comboFromMinutesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFromMinutesActionPerformed
@@ -477,7 +503,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBatchDetails;
+    private javax.swing.JTable tblLecturerUnavailableDetails;
     private javax.swing.JTextField txtDetail;
     // End of variables declaration//GEN-END:variables
 }

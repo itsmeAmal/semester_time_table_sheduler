@@ -59,4 +59,8 @@ public class lecturerUnavailabilityController {
         return new lecturerAvailabilityDaoImpl().updateAvailableLecture(availability);
     }
 
+    public static ResultSet getLecUnavaDetailsWithJoinQuery() throws SQLException {
+        return new lecturerAvailabilityDaoImpl().getLecUnavaDetailsWithJoinQuery();
+    }
+
 }

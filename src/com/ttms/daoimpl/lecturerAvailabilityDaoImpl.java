@@ -77,5 +77,15 @@ public class lecturerAvailabilityDaoImpl implements lecturerAvailabilityDao {
         ps.close();
         return true;
     }
+    
+    public ResultSet getLecUnavaDetailsWithJoinQuery()throws SQLException{
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select lecturer_availablity_id, lecturer_availablity_lec_id, "
+                + " lecturer_availablity_unavailable_date, lecturer_availablity_unavailable_time_from, "
+                + " lecturer_availablity_unavailable_time_to, lecturer_availablity_status, lecturer_name,"
+                + " lecturer_availablity_detail from lecturer_availablity left join lecturer on "
+                + " lecturer_availablity_lec_id=lecturer_id");
+        return ps.executeQuery();
+    }
 
 }

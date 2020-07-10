@@ -331,6 +331,11 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("DELIVERY PLAN");
         jLabel18.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel18MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -499,6 +504,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         new manageLecturerUnavailability().setVisible(true);
     }//GEN-LAST:event_jLabel16MouseClicked
+
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+        new manageDeliveryPlan().setVisible(true);
+    }//GEN-LAST:event_jLabel18MouseClicked
 
     /**
      * @param args the command line arguments

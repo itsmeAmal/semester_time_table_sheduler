@@ -650,6 +650,9 @@
                     <Property name="text" type="java.lang.String" value="DELIVERY PLAN"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel18MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -6,6 +6,7 @@
 package com.ttms.ui;
 
 import com.ttms.controller.batchController;
+import com.ttms.controller.commonConstants;
 import com.ttms.controller.commonController;
 import com.ttms.controller.groupController;
 import com.ttms.model.DataObject;
@@ -55,7 +56,7 @@ public class manageGroups extends javax.swing.JFrame {
             try {
                 DataObject dataObj = (DataObject) comboBatchDataObject.getSelectedItem();
                 int batchId = commonController.getIntOrZeroFromString(dataObj.get("batch_year"));
-                
+
                 int groupType = group.GROUP_TYPE_NORMAL;
                 if (comboGroupType.getSelectedItem().toString().equalsIgnoreCase("Normal Group")) {
                     groupType = group.GROUP_TYPE_NORMAL;
@@ -96,6 +97,16 @@ public class manageGroups extends javax.swing.JFrame {
         new editGroup(this, true, groupId).setVisible(true);
     }
 
+    private void searchGroupByGroupName(String groupName) {
+        try {
+            String[] columnList = {"group_id", "group_name", "group_batch_id", "group_type", "group_detail"};
+            ResultSet rset = groupController.getGroupByOneAttribute("group_name", commonConstants.Sql.LIKE, "%" + groupName + "%");
+            commonController.loadDataToTable(tblGroupDetails, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(manageGroups.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,8 +135,7 @@ public class manageGroups extends javax.swing.JFrame {
         comboGroupType = new javax.swing.JComboBox<>();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        btnEdit1 = new javax.swing.JButton();
-        txtContactNo1 = new javax.swing.JTextField();
+        txtSearchByGroupName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Group Management");
@@ -306,18 +316,15 @@ public class manageGroups extends javax.swing.JFrame {
             }
         });
 
-        btnEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btnEdit1.setToolTipText("Search");
-        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit1ActionPerformed(evt);
+        txtSearchByGroupName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtSearchByGroupName.setToolTipText("Contact No");
+        txtSearchByGroupName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtSearchByGroupName.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtSearchByGroupName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchByGroupNameKeyReleased(evt);
             }
         });
-
-        txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtContactNo1.setToolTipText("Contact No");
-        txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtContactNo1.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -328,9 +335,7 @@ public class manageGroups extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtContactNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchByGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -348,8 +353,7 @@ public class manageGroups extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContactNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearchByGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -381,9 +385,9 @@ public class manageGroups extends javax.swing.JFrame {
         loadDataToTable();
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit1ActionPerformed
+    private void txtSearchByGroupNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchByGroupNameKeyReleased
+        searchGroupByGroupName(txtSearchByGroupName.getText().trim());
+    }//GEN-LAST:event_txtSearchByGroupNameKeyReleased
 
     /**
      * @param args the command line arguments
@@ -439,7 +443,6 @@ public class manageGroups extends javax.swing.JFrame {
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnEdit1;
     private javax.swing.JComboBox<String> comboBatchDataObject;
     private javax.swing.JComboBox<String> comboGroupType;
     private javax.swing.JLabel jLabel2;
@@ -454,8 +457,8 @@ public class manageGroups extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblGroupDetails;
-    private javax.swing.JTextField txtContactNo1;
     private javax.swing.JTextField txtDetail;
     private javax.swing.JTextField txtGroupName;
+    private javax.swing.JTextField txtSearchByGroupName;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,9 +50,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" pref="537" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="txtContactNo1" min="-2" pref="340" max="-2" attributes="0"/>
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="btnEdit1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="txtSearchCourseName" min="-2" pref="340" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnEdit" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -71,8 +69,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnDelete" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="btnEdit" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="txtContactNo1" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnEdit1" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="txtSearchCourseName" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="605" max="-2" attributes="0"/>
@@ -384,18 +381,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnEdit1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ttms/labelIcons2/searchIcon.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Search"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit1ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtContactNo1">
+        <Component class="javax.swing.JTextField" name="txtSearchCourseName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Ubuntu" size="18" style="0"/>
@@ -408,6 +394,9 @@
               <Color blue="0" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchCourseNameKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -5,13 +5,13 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonConstants;
 import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
 import com.ttms.controller.lecturerUnavailabilityController;
 import com.ttms.model.DataObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -85,6 +85,18 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         }
     }
 
+    private void searchLecAvaiByLecName(String searchByLecName) {
+        try {
+            ResultSet rset = lecturerUnavailabilityController.getAvailableLectureByOneAttributeWithJoinQuery("lecturer_name",
+                    commonConstants.Sql.LIKE, "%" + searchByLecName + "%");
+            String[] columnList = {"lecturer_availablity_id", "lecturer_name", "lecturer_availablity_unavailable_date",
+                "lecturer_availablity_unavailable_time_from", "lecturer_availablity_unavailable_time_to", "lecturer_availablity_detail"};
+            commonController.loadDataToTable(tblLecturerUnavailableDetails, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(manageLecturerUnavailability.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,8 +127,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         calUnavDate = new com.toedter.calendar.JDateChooser();
         btnDelete = new javax.swing.JButton();
-        btnEdit1 = new javax.swing.JButton();
-        txtContactNo1 = new javax.swing.JTextField();
+        txtSearchLecUnavailability = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lecturer Unavailability");
@@ -355,18 +366,15 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
 
-        btnEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btnEdit1.setToolTipText("Search");
-        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit1ActionPerformed(evt);
+        txtSearchLecUnavailability.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtSearchLecUnavailability.setToolTipText("Contact No");
+        txtSearchLecUnavailability.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtSearchLecUnavailability.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtSearchLecUnavailability.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchLecUnavailabilityKeyReleased(evt);
             }
         });
-
-        txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtContactNo1.setToolTipText("Contact No");
-        txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtContactNo1.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -378,9 +386,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1007, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtContactNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSearchLecUnavailability, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -393,8 +399,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtContactNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSearchLecUnavailability, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -438,9 +443,9 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboToMinutesActionPerformed
 
-    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit1ActionPerformed
+    private void txtSearchLecUnavailabilityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchLecUnavailabilityKeyReleased
+        searchLecAvaiByLecName(txtSearchLecUnavailability.getText().trim());
+    }//GEN-LAST:event_txtSearchLecUnavailabilityKeyReleased
 
     /**
      * @param args the command line arguments
@@ -511,7 +516,6 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSave;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit1;
     private com.toedter.calendar.JDateChooser calUnavDate;
     private javax.swing.JComboBox<String> comboFromHours;
     private javax.swing.JComboBox<String> comboFromMinutes;
@@ -530,7 +534,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLecturerUnavailableDetails;
-    private javax.swing.JTextField txtContactNo1;
     private javax.swing.JTextField txtDetail;
+    private javax.swing.JTextField txtSearchLecUnavailability;
     // End of variables declaration//GEN-END:variables
 }

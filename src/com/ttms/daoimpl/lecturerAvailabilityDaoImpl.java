@@ -23,6 +23,12 @@ public class lecturerAvailabilityDaoImpl implements lecturerAvailabilityDao {
             + " lecturer_availablity_unavailable_time_from, lecturer_availablity_unavailable_time_to, lecturer_availablity_status,"
             + " lecturer_availablity_detail from lecturer_availablity";
 
+    private String selectQuery2 = "select lecturer_availablity_id, lecturer_availablity_lec_id, "
+            + " lecturer_availablity_unavailable_date, lecturer_availablity_unavailable_time_from, "
+            + " lecturer_availablity_unavailable_time_to, lecturer_availablity_status, lecturer_name, "
+            + " lecturer_availablity_detail from lecturer_availablity left join lecturer on"
+            + " lecturer_availablity_lec_id=lecturer_id";
+
     @Override
     public boolean addLecturerAvailability(lecturerAvailability availability) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
@@ -77,15 +83,15 @@ public class lecturerAvailabilityDaoImpl implements lecturerAvailabilityDao {
         ps.close();
         return true;
     }
-    
-    public ResultSet getLecUnavaDetailsWithJoinQuery()throws SQLException{
+
+    public ResultSet getLecUnavaDetailsWithJoinQuery() throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("select lecturer_availablity_id, lecturer_availablity_lec_id, "
-                + " lecturer_availablity_unavailable_date, lecturer_availablity_unavailable_time_from, "
-                + " lecturer_availablity_unavailable_time_to, lecturer_availablity_status, lecturer_name,"
-                + " lecturer_availablity_detail from lecturer_availablity left join lecturer on "
-                + " lecturer_availablity_lec_id=lecturer_id");
+        PreparedStatement ps = con.prepareStatement(selectQuery2);
         return ps.executeQuery();
+    }
+
+    public ResultSet getAvailableLectureByOneAttributeWithJoinQuery(String attribute, String condition, String value) throws SQLException {
+        return new commonDaoImpl().getResultByAttribute(selectQuery2, attribute, condition, value);
     }
 
 }

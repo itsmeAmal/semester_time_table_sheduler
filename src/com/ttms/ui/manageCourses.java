@@ -180,7 +180,7 @@ public class manageCourses extends javax.swing.JFrame {
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
         btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave.setToolTipText("Add new course");
+        btSave.setToolTipText("Add New Course");
         btSave.setBorder(null);
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +190,7 @@ public class manageCourses extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("Details / Remarks");
+        jLabel16.setText("Course Details / Remarks");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -269,9 +269,10 @@ public class manageCourses extends javax.swing.JFrame {
         );
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Course Details");
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
-        btnEdit.setToolTipText("edit selected course");
+        btnEdit.setToolTipText("Edit Course Details");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -279,7 +280,7 @@ public class manageCourses extends javax.swing.JFrame {
         });
 
         txtSearchCourseName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtSearchCourseName.setToolTipText("Contact No");
+        txtSearchCourseName.setToolTipText("Search by Course Name / Type");
         txtSearchCourseName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtSearchCourseName.setSelectionColor(new java.awt.Color(255, 255, 0));
         txtSearchCourseName.addKeyListener(new java.awt.event.KeyAdapter() {

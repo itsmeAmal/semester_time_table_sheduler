@@ -181,7 +181,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/labelIcons2/saveIcon_green.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Update new batch"/>
+                <Property name="toolTipText" type="java.lang.String" value="Update New Lecturer"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>

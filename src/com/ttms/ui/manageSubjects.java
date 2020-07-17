@@ -207,7 +207,7 @@ public class manageSubjects extends javax.swing.JFrame {
         txtModuleCode.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Subject Details / Remarks");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -250,11 +250,11 @@ public class manageSubjects extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Details / Remarks");
+        jLabel22.setText("Module Details / Remarks");
 
         comboSemester.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semester A", "Semester B" }));
-        comboSemester.setToolTipText("Batch");
+        comboSemester.setToolTipText("Semester");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
@@ -262,7 +262,7 @@ public class manageSubjects extends javax.swing.JFrame {
 
         comboCourse.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EEE", " " }));
-        comboCourse.setToolTipText("Batch");
+        comboCourse.setToolTipText("Course");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -282,7 +282,7 @@ public class manageSubjects extends javax.swing.JFrame {
 
         comboLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
-        comboLevel.setToolTipText("Batch");
+        comboLevel.setToolTipText("Course Level");
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -382,8 +382,10 @@ public class manageSubjects extends javax.swing.JFrame {
         );
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Subject Details");
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.setToolTipText("Edit Subject Details");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -399,7 +401,7 @@ public class manageSubjects extends javax.swing.JFrame {
         });
 
         txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtContactNo1.setToolTipText("Contact No");
+        txtContactNo1.setToolTipText("Search by Module Code / Semester / Course / Level");
         txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtContactNo1.setSelectionColor(new java.awt.Color(255, 255, 0));
 

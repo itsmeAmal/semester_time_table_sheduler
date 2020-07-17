@@ -110,7 +110,7 @@ public class editRoom extends javax.swing.JDialog {
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));
         btSave2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave2.setToolTipText("Update new batch");
+        btSave2.setToolTipText("Update New Room");
         btSave2.setBorder(null);
         btSave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

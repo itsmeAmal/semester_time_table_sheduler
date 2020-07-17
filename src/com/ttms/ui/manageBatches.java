@@ -147,17 +147,17 @@ public class manageBatches extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear.setToolTipText("Name");
+        txtYear.setToolTipText("Batch Year");
         txtYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtYear.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtLevel.setToolTipText("Email 1");
+        txtLevel.setToolTipText("Batch Level");
         txtLevel.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtLevel.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -179,7 +179,7 @@ public class manageBatches extends javax.swing.JFrame {
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
         btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave.setToolTipText("Add new batch");
+        btSave.setToolTipText("Add New Batch");
         btSave.setBorder(null);
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +206,7 @@ public class manageBatches extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(9, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -261,8 +261,10 @@ public class manageBatches extends javax.swing.JFrame {
         );
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Batch Details");
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.setToolTipText("Edit Batch Details");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -270,7 +272,7 @@ public class manageBatches extends javax.swing.JFrame {
         });
 
         txtSearchYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtSearchYear.setToolTipText("Search by year");
+        txtSearchYear.setToolTipText("Search by Year / Level");
         txtSearchYear.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtSearchYear.setSelectionColor(new java.awt.Color(255, 255, 0));
         txtSearchYear.addKeyListener(new java.awt.event.KeyAdapter() {

@@ -328,7 +328,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -362,7 +362,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Email 1"/>
+                <Property name="toolTipText" type="java.lang.String" value="Email "/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -461,7 +461,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Details"/>
+                <Property name="toolTipText" type="java.lang.String" value="Details / Remarks"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -591,7 +591,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Detail"/>
+                <Property name="text" type="java.lang.String" value="Student Details / Remarks"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -678,6 +678,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/ttms/labelIcons2/editIcon.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Edit Student Details"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
@@ -688,6 +689,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/ttms/labelIcons2/deleteIcon.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Delete Student Details"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btViewStudentDetails">
@@ -695,6 +697,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/ttms/labelIcons2/viewButton.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Veiw Student Details"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btViewStudentDetailsActionPerformed"/>
@@ -705,7 +708,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Ubuntu" size="18" style="0"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Contact No"/>
+            <Property name="toolTipText" type="java.lang.String" value="Search by Student Name / Registration Number"/>
             <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>

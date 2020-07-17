@@ -182,7 +182,7 @@ public class manageGroups extends javax.swing.JFrame {
         txtGroupName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -214,7 +214,7 @@ public class manageGroups extends javax.swing.JFrame {
 
         comboBatchDataObject.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboBatchDataObject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Batch 1", "Batch 2", "Batch 3", "Batch 4" }));
-        comboBatchDataObject.setToolTipText("Batch");
+        comboBatchDataObject.setToolTipText("Batch Year");
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -235,11 +235,11 @@ public class manageGroups extends javax.swing.JFrame {
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Detail / Remarks");
+        jLabel23.setText("Group Details / Remarks");
 
         comboGroupType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboGroupType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal Group", "Special Group" }));
-        comboGroupType.setToolTipText("Batch");
+        comboGroupType.setToolTipText("Group Type");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -308,8 +308,10 @@ public class manageGroups extends javax.swing.JFrame {
         );
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Group Details");
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.setToolTipText("Edit Group Details");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -317,7 +319,7 @@ public class manageGroups extends javax.swing.JFrame {
         });
 
         txtSearchByGroupName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtSearchByGroupName.setToolTipText("Contact No");
+        txtSearchByGroupName.setToolTipText("Search by Group Name / Batch");
         txtSearchByGroupName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtSearchByGroupName.setSelectionColor(new java.awt.Color(255, 255, 0));
         txtSearchByGroupName.addKeyListener(new java.awt.event.KeyAdapter() {

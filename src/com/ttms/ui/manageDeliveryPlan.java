@@ -111,7 +111,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         comboTitle.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboTitle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
-        comboTitle.setToolTipText("Title");
+        comboTitle.setToolTipText("Level");
         comboTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTitleActionPerformed(evt);
@@ -133,7 +133,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         txtDetail.setEditable(false);
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setText("Module Name");
-        txtDetail.setToolTipText("Details / Remarks");
+        txtDetail.setToolTipText("Module Name");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -160,13 +160,15 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         comboTitle3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboTitle3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20" }));
-        comboTitle3.setToolTipText("Title");
+        comboTitle3.setToolTipText("Class Contact Week");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+
+        jDateChooser4.setToolTipText("Week Begining Date");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
@@ -180,16 +182,18 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Calender Week");
 
+        jDateChooser3.setToolTipText("Calender Week");
+
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("Class Contact Week");
+        jLabel25.setText("Lecturer");
 
         comboTitle4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboTitle4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab" }));
-        comboTitle4.setToolTipText("Title");
+        comboTitle4.setToolTipText("Type ");
 
         btnEdit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
         btnEdit2.setToolTipText("Search");
@@ -204,7 +208,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         comboTitle2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboTitle2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecturer" }));
-        comboTitle2.setToolTipText("Title");
+        comboTitle2.setToolTipText("Lecturer");
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Lecturer.png"))); // NOI18N
@@ -212,7 +216,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
         btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave.setToolTipText("Apply");
+        btSave.setToolTipText("Add Delivery Plan");
         btSave.setBorder(null);
         btSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,7 +378,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 260));

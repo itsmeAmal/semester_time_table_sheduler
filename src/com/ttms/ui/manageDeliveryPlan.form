@@ -150,7 +150,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -369,7 +369,7 @@
                         <StringItem index="2" value="Level 6"/>
                       </StringArray>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Title"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Level"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTitleActionPerformed"/>
@@ -423,7 +423,7 @@
                       <Font name="Ubuntu" size="18" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Module Name"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Details / Remarks"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Module Name"/>
                     <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
@@ -508,7 +508,7 @@
                         <StringItem index="19" value="Week 20"/>
                       </StringArray>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Title"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Class Contact Week"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -531,6 +531,9 @@
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser4">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="Week Begining Date"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel27">
                   <Properties>
@@ -566,6 +569,9 @@
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser3">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="Calender Week"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
@@ -583,7 +589,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Class Contact Week"/>
+                    <Property name="text" type="java.lang.String" value="Lecturer"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="comboTitle4">
@@ -598,7 +604,7 @@
                         <StringItem index="2" value="Lab"/>
                       </StringArray>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Title"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Type "/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -633,7 +639,7 @@
                         <StringItem index="0" value="Lecturer"/>
                       </StringArray>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Title"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Lecturer"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -658,7 +664,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/ttms/labelIcons2/saveIcon_green.png"/>
                     </Property>
-                    <Property name="toolTipText" type="java.lang.String" value="Apply"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Add Delivery Plan"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>

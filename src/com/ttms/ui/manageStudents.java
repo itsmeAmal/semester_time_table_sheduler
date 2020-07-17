@@ -264,7 +264,7 @@ public class manageStudents extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtStudentName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtStudentName.setToolTipText("Name");
+        txtStudentName.setToolTipText("Student Name");
         txtStudentName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -280,7 +280,7 @@ public class manageStudents extends javax.swing.JFrame {
         });
 
         txtEmail1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtEmail1.setToolTipText("Email 1");
+        txtEmail1.setToolTipText("Email ");
         txtEmail1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtEmail1.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -307,7 +307,7 @@ public class manageStudents extends javax.swing.JFrame {
         comboSpecialGroup.setToolTipText("Special Group");
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -354,7 +354,7 @@ public class manageStudents extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Detail");
+        jLabel9.setText("Student Details / Remarks");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -499,6 +499,7 @@ public class manageStudents extends javax.swing.JFrame {
         );
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.setToolTipText("Edit Student Details");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -506,8 +507,10 @@ public class manageStudents extends javax.swing.JFrame {
         });
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Student Details");
 
         btViewStudentDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N
+        btViewStudentDetails.setToolTipText("Veiw Student Details");
         btViewStudentDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btViewStudentDetailsActionPerformed(evt);
@@ -515,7 +518,7 @@ public class manageStudents extends javax.swing.JFrame {
         });
 
         txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtContactNo1.setToolTipText("Contact No");
+        txtContactNo1.setToolTipText("Search by Student Name / Registration Number");
         txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtContactNo1.setSelectionColor(new java.awt.Color(255, 255, 0));
 

@@ -314,6 +314,7 @@ public class manageLecturers extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 322, 643));
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btnEdit.setToolTipText("Edit Lecturer Details");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -322,10 +323,11 @@ public class manageLecturers extends javax.swing.JFrame {
         jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 20, 40, 40));
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Lecturer Details");
         jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 20, 40, 40));
 
         txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtContactNo1.setToolTipText("Contact No");
+        txtContactNo1.setToolTipText("Search by Name");
         txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtContactNo1.setSelectionColor(new java.awt.Color(255, 255, 0));
         jPanel1.add(txtContactNo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 340, 40));

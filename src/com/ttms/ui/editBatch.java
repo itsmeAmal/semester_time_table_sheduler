@@ -101,12 +101,12 @@ public class editBatch extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtYear2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtYear2.setToolTipText("Name");
+        txtYear2.setToolTipText("Batch Year");
         txtYear2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtYear2.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtLevel2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtLevel2.setToolTipText("Email 1");
+        txtLevel2.setToolTipText("Batch Level");
         txtLevel2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtLevel2.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -133,7 +133,7 @@ public class editBatch extends javax.swing.JDialog {
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));
         btSave2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave2.setToolTipText("Update new batch");
+        btSave2.setToolTipText("Update New batch");
         btSave2.setBorder(null);
         btSave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

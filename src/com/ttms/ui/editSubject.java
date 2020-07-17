@@ -151,7 +151,7 @@ public class editSubject extends javax.swing.JDialog {
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));
         btSave2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave2.setToolTipText("Update new batch");
+        btSave2.setToolTipText("Update New Subject");
         btSave2.setBorder(null);
         btSave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +185,7 @@ public class editSubject extends javax.swing.JDialog {
 
         comboLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
-        comboLevel.setToolTipText("Batch");
+        comboLevel.setToolTipText("Course Level");
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -207,11 +207,11 @@ public class editSubject extends javax.swing.JDialog {
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("Details / Remarks");
+        jLabel22.setText("Module Details / Remarks");
 
         comboSemester.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboSemester.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semester A", "Semester B" }));
-        comboSemester.setToolTipText("Batch");
+        comboSemester.setToolTipText("Semester");
 
         txtSubjectName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtSubjectName.setToolTipText("Subject Name");
@@ -229,10 +229,10 @@ public class editSubject extends javax.swing.JDialog {
 
         comboCourse.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EEE", " " }));
-        comboCourse.setToolTipText("Batch");
+        comboCourse.setToolTipText("Course");
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Subject Details / Remarks");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 

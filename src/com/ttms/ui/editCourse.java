@@ -107,7 +107,7 @@ public class editCourse extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtCourseName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtCourseName.setToolTipText("Course name");
+        txtCourseName.setToolTipText("Course Name");
         txtCourseName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtCourseName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -134,7 +134,7 @@ public class editCourse extends javax.swing.JDialog {
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));
         btSave2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave2.setToolTipText("Update course details");
+        btSave2.setToolTipText("Update Course Details");
         btSave2.setBorder(null);
         btSave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class editCourse extends javax.swing.JDialog {
         jLabel18.setText("Course Name");
 
         txtCourseType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtCourseType.setToolTipText("Course type");
+        txtCourseType.setToolTipText("Course Type");
         txtCourseType.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtCourseType.setSelectionColor(new java.awt.Color(255, 255, 0));
 

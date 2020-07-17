@@ -182,7 +182,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -203,7 +203,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
 
         comboLecturerDataObjects.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboLecturerDataObjects.setToolTipText("Group");
+        comboLecturerDataObjects.setToolTipText("Lecturer Name");
 
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -229,7 +229,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         comboFromMinutes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboFromMinutes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "10", "20", "30", "40", "50" }));
-        comboFromMinutes.setToolTipText("Group");
+        comboFromMinutes.setToolTipText("Unavialable TIme [From]");
         comboFromMinutes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboFromMinutesActionPerformed(evt);
@@ -238,7 +238,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         comboFromHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboFromHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
-        comboFromHours.setToolTipText("Group");
+        comboFromHours.setToolTipText("Unavialable TIme [From]");
         comboFromHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboFromHoursActionPerformed(evt);
@@ -247,7 +247,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         comboToHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboToHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
-        comboToHours.setToolTipText("Group");
+        comboToHours.setToolTipText("Unavialable TIme [To]");
         comboToHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboToHoursActionPerformed(evt);
@@ -256,7 +256,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
 
         comboToMinutes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboToMinutes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "10", "20", "30", "40", "50" }));
-        comboToMinutes.setToolTipText("Group");
+        comboToMinutes.setToolTipText("Unavialable TIme [To]");
         comboToMinutes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboToMinutesActionPerformed(evt);
@@ -365,9 +365,10 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         );
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete Lecturer Unavialable Details");
 
         txtSearchLecUnavailability.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtSearchLecUnavailability.setToolTipText("Contact No");
+        txtSearchLecUnavailability.setToolTipText("Search by Lecturer name");
         txtSearchLecUnavailability.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtSearchLecUnavailability.setSelectionColor(new java.awt.Color(255, 255, 0));
         txtSearchLecUnavailability.addKeyListener(new java.awt.event.KeyAdapter() {

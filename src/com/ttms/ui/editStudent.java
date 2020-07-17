@@ -199,7 +199,7 @@ public class editStudent extends javax.swing.JDialog {
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));
         btSave2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon_green.png"))); // NOI18N
-        btSave2.setToolTipText("Update new batch");
+        btSave2.setToolTipText("Update New Student");
         btSave2.setBorder(null);
         btSave2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,7 +220,7 @@ public class editStudent extends javax.swing.JDialog {
         comboSpecialGroup.setToolTipText("Special Group");
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details");
+        txtDetail.setToolTipText("Details / Remarks");
         txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -286,7 +286,7 @@ public class editStudent extends javax.swing.JDialog {
         jLabel13.setText("Contact No");
 
         txtStudentName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtStudentName.setToolTipText("Name");
+        txtStudentName.setToolTipText("Student Name");
         txtStudentName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -299,7 +299,7 @@ public class editStudent extends javax.swing.JDialog {
         jLabel15.setText("Email");
 
         txtEmail1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtEmail1.setToolTipText("Email 1");
+        txtEmail1.setToolTipText("Email ");
         txtEmail1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtEmail1.setSelectionColor(new java.awt.Color(255, 255, 0));
 

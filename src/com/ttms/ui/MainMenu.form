@@ -457,6 +457,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/ttms/menuIcons/course_128x128.png"/>
                     </Property>
+                    <Property name="toolTipText" type="java.lang.String" value="Courses"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblCourseManagementMouseClicked"/>

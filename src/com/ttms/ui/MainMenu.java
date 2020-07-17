@@ -208,6 +208,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         lblCourseManagement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCourseManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/menuIcons/course_128x128.png"))); // NOI18N
+        lblCourseManagement.setToolTipText("Courses");
         lblCourseManagement.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCourseManagementMouseClicked(evt);

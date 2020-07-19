@@ -5,10 +5,12 @@
  */
 package com.ttms.controller;
 
+import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.daoimpl.subjectDaoImpl;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -62,5 +64,9 @@ public class subjectController {
     public static ResultSet getActiveAndCourseJoinedSubjectDetails() throws SQLException {
         return new subjectDaoImpl().getActiveAndCourseJoinedSubjectDetails();
     }
-
+    
+    public static ResultSet getSubjectByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException {
+        return new subjectDaoImpl().getSubjectByMoreAttributes(attributeConditionValueList, operator);
+    }
+    
 }

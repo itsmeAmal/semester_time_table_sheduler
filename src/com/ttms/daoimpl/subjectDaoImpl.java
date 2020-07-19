@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -85,6 +86,10 @@ public class subjectDaoImpl implements subjectDao {
 
     public ResultSet getActiveAndCourseJoinedSubjectDetails() throws SQLException {
         return new commonDaoImpl().getAllRecords(selectQuery2);
+    }
+
+    public ResultSet getSubjectByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException {
+        return new commonDaoImpl().getResultByAttributesWithJoinOperator(selectQuery, attributeConditionValueList, operator);
     }
 
 }

@@ -5,17 +5,63 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonController;
+import com.ttms.controller.lecturerController;
+import com.ttms.controller.roomController;
+import com.ttms.controller.subjectController;
+import com.ttms.model.subject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Amal
  */
 public class manageDeliveryPlan extends javax.swing.JFrame {
 
+    subject subject = null;
+
     /**
      * Creates new form addStudent
      */
     public manageDeliveryPlan() {
         initComponents();
+        loadRoomDataObjectsToCombo();
+        loadLecturerDataObjectsToCombo();
+    }
+
+    private void loadModuleToCombo() {
+        try {
+            String[] columnList = {"subject_module_code", "subject_id", "subject_name",
+                "subject_detail", "subject_status", "subject_course_id", "subject_course_level", "subject_semester"};
+            ResultSet rset = subjectController.getAllSubjects();
+            commonController.loadDataObjectsIntoComboBox(comboModuleCode, rset, columnList, "subject_module_code");
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadRoomDataObjectsToCombo() {
+        try {
+            ResultSet rset = roomController.getAllRoomDetails();
+            String[] columnList = {"room_id", "room_name", "room_code", "room_detail", "room_status"};
+            commonController.loadDataObjectsIntoComboBox(comboLocation, rset, columnList, "room_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadLecturerDataObjectsToCombo() {
+        try {
+            ResultSet rset = lecturerController.getAllLecturers();
+            String[] columnList = {"lecturer_id", "lecturer_title", "lecturer_name",
+                "lecturer_email", "lecturer_contact_no", "lecturer_detail", "lecturer_status"};
+            commonController.loadDataObjectsIntoComboBox(comboLecturer, rset, columnList, "lecturer_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -149,8 +195,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel20.setText("Module Code");
 
         comboModuleCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboModuleCode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Module Code" }));
         comboModuleCode.setToolTipText("Title");
+        comboModuleCode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
@@ -422,9 +468,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(calCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel8))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -443,7 +487,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(62, 62, 62))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                                .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(comboLocation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jLabel13)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -640,7 +686,19 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 
     private void btSearchModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchModuleActionPerformed
-        // TODO add your handling code here:
+        try {
+            searchSubject searchSub = new searchSubject(this, true);
+            searchSub.setVisible(true);
+            int subjectId = searchSub.getSelectedSubjectId();
+            if (subjectId != 0) {
+                subject = subjectController.getSubjectBySubjectId(subjectId);
+                comboModuleCode.removeAllItems();
+                comboModuleCode.addItem(subject.getModuleCode());
+                txtModuleName.setText(subject.getName());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btSearchModuleActionPerformed
 
     private void btSearchLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchLecturerActionPerformed

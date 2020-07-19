@@ -29,59 +29,59 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblLectures = new javax.swing.JTable();
+        tblDeliveryReportData = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        comboTitle = new javax.swing.JComboBox<>();
+        comboLevel = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
-        comboTitle1 = new javax.swing.JComboBox<>();
+        comboModuleCode = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
-        txtDetail = new javax.swing.JTextField();
+        txtModuleName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnEdit1 = new javax.swing.JButton();
-        comboTitle3 = new javax.swing.JComboBox<>();
+        btSearchModule = new javax.swing.JButton();
+        calContactWeek = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jDateChooser4 = new com.toedter.calendar.JDateChooser();
+        calWeekBeginningDate = new com.toedter.calendar.JDateChooser();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        calCalenderWeek = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        comboTitle4 = new javax.swing.JComboBox<>();
-        btnEdit2 = new javax.swing.JButton();
+        comboType = new javax.swing.JComboBox<>();
+        btSearchLecturer = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        comboTitle2 = new javax.swing.JComboBox<>();
+        comboLecturer = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        btSave = new javax.swing.JButton();
+        btAddDataToMainTble = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        comboTitle5 = new javax.swing.JComboBox<>();
+        comboLocation = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        comboTitle6 = new javax.swing.JComboBox<>();
+        comboHours = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        comboTitle7 = new javax.swing.JComboBox<>();
+        checkBoxRepeatStudents = new javax.swing.JCheckBox();
+        comboYear = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        comboTitle8 = new javax.swing.JComboBox<>();
+        tblPreferenceDay = new javax.swing.JTable();
+        comboPreferenceDay = new javax.swing.JComboBox<>();
         jLabel29 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        btnEdit3 = new javax.swing.JButton();
-        btnEdit4 = new javax.swing.JButton();
+        btRemoveFromPrefTable = new javax.swing.JButton();
+        btAddToPreferenceTable = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtRemark = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        btnEdit5 = new javax.swing.JButton();
-        btnEdit6 = new javax.swing.JButton();
+        btPreviewFullDetails = new javax.swing.JButton();
+        btRemoveDataFromMainTable = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -89,33 +89,40 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblLectures.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tblLectures.setModel(new javax.swing.table.DefaultTableModel(
+        tblDeliveryReportData.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        tblDeliveryReportData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Level", "Module Code", "Cale. Week", "Type", "Lecturer"
+                "Calender Week", "Class Cont. Week", "Week Beginning", "Lecture", "Tutorial", "Lab", "Remarks"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblLectures.setRowHeight(20);
-        tblLectures.setRowMargin(2);
-        tblLectures.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblLectures);
-        if (tblLectures.getColumnModel().getColumnCount() > 0) {
-            tblLectures.getColumnModel().getColumn(0).setResizable(false);
-            tblLectures.getColumnModel().getColumn(1).setResizable(false);
-            tblLectures.getColumnModel().getColumn(2).setResizable(false);
-            tblLectures.getColumnModel().getColumn(3).setResizable(false);
-            tblLectures.getColumnModel().getColumn(4).setResizable(false);
+        tblDeliveryReportData.setRowHeight(20);
+        tblDeliveryReportData.setRowMargin(2);
+        tblDeliveryReportData.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblDeliveryReportData);
+        if (tblDeliveryReportData.getColumnModel().getColumnCount() > 0) {
+            tblDeliveryReportData.getColumnModel().getColumn(0).setMinWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setMaxWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(1).setMinWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(1).setMaxWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(2).setMinWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(2).setMaxWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setResizable(false);
+            tblDeliveryReportData.getColumnModel().getColumn(4).setResizable(false);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -128,12 +135,12 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Level");
 
-        comboTitle.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
-        comboTitle.setToolTipText("Level");
-        comboTitle.addActionListener(new java.awt.event.ActionListener() {
+        comboLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
+        comboLevel.setToolTipText("Level");
+        comboLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTitleActionPerformed(evt);
+                comboLevelActionPerformed(evt);
             }
         });
 
@@ -141,20 +148,20 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Module Code");
 
-        comboTitle1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Module Code" }));
-        comboTitle1.setToolTipText("Title");
+        comboModuleCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboModuleCode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Module Code" }));
+        comboModuleCode.setToolTipText("Title");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Module Name");
 
-        txtDetail.setEditable(false);
-        txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setText("Module Name");
-        txtDetail.setToolTipText("Module Name");
-        txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
+        txtModuleName.setEditable(false);
+        txtModuleName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        txtModuleName.setText("Module Name");
+        txtModuleName.setToolTipText("Module Name");
+        txtModuleName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        txtModuleName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,17 +176,17 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
 
-        btnEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btnEdit1.setToolTipText("Search");
-        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
+        btSearchModule.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
+        btSearchModule.setToolTipText("Search");
+        btSearchModule.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit1ActionPerformed(evt);
+                btSearchModuleActionPerformed(evt);
             }
         });
 
-        comboTitle3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20" }));
-        comboTitle3.setToolTipText("Class Contact Week");
+        calContactWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        calContactWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20" }));
+        calContactWeek.setToolTipText("Class Contact Week");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
@@ -187,7 +194,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
 
-        jDateChooser4.setToolTipText("Week Begining Date");
+        calWeekBeginningDate.setToolTipText("Week Begining Date");
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,7 +208,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Calender Week");
 
-        jDateChooser3.setToolTipText("Calender Week");
+        calCalenderWeek.setToolTipText("Calender Week");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
@@ -210,36 +217,36 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Lecturer");
 
-        comboTitle4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab" }));
-        comboTitle4.setToolTipText("Type ");
+        comboType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab" }));
+        comboType.setToolTipText("Type ");
 
-        btnEdit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btnEdit2.setToolTipText("Search");
-        btnEdit2.addActionListener(new java.awt.event.ActionListener() {
+        btSearchLecturer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
+        btSearchLecturer.setToolTipText("Search");
+        btSearchLecturer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit2ActionPerformed(evt);
+                btSearchLecturerActionPerformed(evt);
             }
         });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Type.png"))); // NOI18N
 
-        comboTitle2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecturer" }));
-        comboTitle2.setToolTipText("Lecturer");
+        comboLecturer.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboLecturer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecturer" }));
+        comboLecturer.setToolTipText("Lecturer");
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Lecturer.png"))); // NOI18N
 
-        btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btSave.setForeground(new java.awt.Color(255, 255, 255));
-        btSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
-        btSave.setToolTipText("Add Delivery Plan");
-        btSave.setBorder(null);
-        btSave.addActionListener(new java.awt.event.ActionListener() {
+        btAddDataToMainTble.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btAddDataToMainTble.setForeground(new java.awt.Color(255, 255, 255));
+        btAddDataToMainTble.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
+        btAddDataToMainTble.setToolTipText("Add Delivery Plan");
+        btAddDataToMainTble.setBorder(null);
+        btAddDataToMainTble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSaveActionPerformed(evt);
+                btAddDataToMainTbleActionPerformed(evt);
             }
         });
 
@@ -247,9 +254,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Type");
 
-        comboTitle5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "room" }));
-        comboTitle5.setToolTipText("Type ");
+        comboLocation.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "room" }));
+        comboLocation.setToolTipText("Type ");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Room.png"))); // NOI18N
@@ -261,24 +268,24 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Hours.png"))); // NOI18N
 
-        comboTitle6.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00.30", "01.00", "01.30", "02.00", "02.30", "03.00", "03.30", "04.00", "04.30", "05.00" }));
-        comboTitle6.setToolTipText("Type ");
+        comboHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00.30", "01.00", "01.30", "02.00", "02.30", "03.00", "03.30", "04.00", "04.30", "05.00" }));
+        comboHours.setToolTipText("Type ");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Lecture Hours");
 
-        jCheckBox1.setText("Repeat Students Available");
+        checkBoxRepeatStudents.setText("Repeat Students Available");
 
-        comboTitle7.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        comboTitle7.setToolTipText("Lecturer");
+        comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        comboYear.setToolTipText("Lecturer");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPreferenceDay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -294,16 +301,16 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        jScrollPane2.setViewportView(tblPreferenceDay);
+        if (tblPreferenceDay.getColumnModel().getColumnCount() > 0) {
+            tblPreferenceDay.getColumnModel().getColumn(0).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
-        comboTitle8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboTitle8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
-        comboTitle8.setToolTipText("Type ");
+        comboPreferenceDay.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboPreferenceDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" }));
+        comboPreferenceDay.setToolTipText("Type ");
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
@@ -312,19 +319,19 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Week.png"))); // NOI18N
 
-        btnEdit3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btnEdit3.setToolTipText("Search");
-        btnEdit3.addActionListener(new java.awt.event.ActionListener() {
+        btRemoveFromPrefTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btRemoveFromPrefTable.setToolTipText("Search");
+        btRemoveFromPrefTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit3ActionPerformed(evt);
+                btRemoveFromPrefTableActionPerformed(evt);
             }
         });
 
-        btnEdit4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
-        btnEdit4.setToolTipText("Search");
-        btnEdit4.addActionListener(new java.awt.event.ActionListener() {
+        btAddToPreferenceTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
+        btAddToPreferenceTable.setToolTipText("Search");
+        btAddToPreferenceTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit4ActionPerformed(evt);
+                btAddToPreferenceTableActionPerformed(evt);
             }
         });
 
@@ -358,13 +365,13 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(comboTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(68, 68, 68)
@@ -379,7 +386,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(comboTitle6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(comboHours, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(18, 18, 18))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +400,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboTitle8, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(comboPreferenceDay, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -402,22 +409,22 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))))
+                                                .addComponent(txtRemark, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnEdit3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnEdit4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(calCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboTitle5, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -427,7 +434,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtModuleName, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jLabel6)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -436,21 +443,21 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(62, 62, 62))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                                .addComponent(comboTitle4, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jLabel13)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jCheckBox1)
-                                                    .addComponent(comboTitle7, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                    .addComponent(checkBoxRepeatStudents)
+                                                    .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(comboTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(comboModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btSearchModule, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jLabel11))
                                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -458,15 +465,15 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(calWeekBeginningDate, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jLabel7)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(comboTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(comboLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btAddDataToMainTble, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -483,14 +490,14 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(comboTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)
-                            .addComponent(comboTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboTitle6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboTitle8, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnEdit4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboHours, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboPreferenceDay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -506,14 +513,14 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jDateChooser4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(calWeekBeginningDate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel11)
                                                 .addComponent(jLabel7)
-                                                .addComponent(comboTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(btnEdit2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(comboLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel3)
-                                        .addComponent(comboTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(comboModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btSearchModule, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -523,14 +530,14 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                         .addGap(7, 7, 7)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel4)
-                                            .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtModuleName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel6)
-                                            .addComponent(comboTitle7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel13)))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel21)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(comboTitle4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel26)
@@ -539,22 +546,22 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(comboTitle5)
+                                        .addComponent(comboLocation)
                                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(calCalenderWeek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jCheckBox1))
-                                    .addComponent(btSave))
+                                        .addComponent(checkBoxRepeatStudents))
+                                    .addComponent(btAddDataToMainTble))
                                 .addContainerGap(12, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel15)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnEdit3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel14)
@@ -578,19 +585,19 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 .addGap(127, 127, 127))
         );
 
-        btnEdit5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N
-        btnEdit5.setToolTipText("Search");
-        btnEdit5.addActionListener(new java.awt.event.ActionListener() {
+        btPreviewFullDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N
+        btPreviewFullDetails.setToolTipText("Search");
+        btPreviewFullDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit5ActionPerformed(evt);
+                btPreviewFullDetailsActionPerformed(evt);
             }
         });
 
-        btnEdit6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btnEdit6.setToolTipText("Search");
-        btnEdit6.addActionListener(new java.awt.event.ActionListener() {
+        btRemoveDataFromMainTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
+        btRemoveDataFromMainTable.setToolTipText("Search");
+        btRemoveDataFromMainTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEdit6ActionPerformed(evt);
+                btRemoveDataFromMainTableActionPerformed(evt);
             }
         });
 
@@ -603,8 +610,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEdit5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -615,9 +622,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnEdit5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(650, 650, 650))
         );
@@ -628,37 +635,37 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
+    private void btAddDataToMainTbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTbleActionPerformed
 
-    }//GEN-LAST:event_btSaveActionPerformed
+    }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 
-    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
+    private void btSearchModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchModuleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit1ActionPerformed
+    }//GEN-LAST:event_btSearchModuleActionPerformed
 
-    private void btnEdit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit2ActionPerformed
+    private void btSearchLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchLecturerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit2ActionPerformed
+    }//GEN-LAST:event_btSearchLecturerActionPerformed
 
-    private void comboTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTitleActionPerformed
+    private void comboLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLevelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboTitleActionPerformed
+    }//GEN-LAST:event_comboLevelActionPerformed
 
-    private void btnEdit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit3ActionPerformed
+    private void btRemoveFromPrefTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveFromPrefTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit3ActionPerformed
+    }//GEN-LAST:event_btRemoveFromPrefTableActionPerformed
 
-    private void btnEdit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit4ActionPerformed
+    private void btAddToPreferenceTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddToPreferenceTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit4ActionPerformed
+    }//GEN-LAST:event_btAddToPreferenceTableActionPerformed
 
-    private void btnEdit5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit5ActionPerformed
+    private void btPreviewFullDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPreviewFullDetailsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit5ActionPerformed
+    }//GEN-LAST:event_btPreviewFullDetailsActionPerformed
 
-    private void btnEdit6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit6ActionPerformed
+    private void btRemoveDataFromMainTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveDataFromMainTableActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEdit6ActionPerformed
+    }//GEN-LAST:event_btRemoveDataFromMainTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -711,25 +718,25 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btSave;
-    private javax.swing.JButton btnEdit1;
-    private javax.swing.JButton btnEdit2;
-    private javax.swing.JButton btnEdit3;
-    private javax.swing.JButton btnEdit4;
-    private javax.swing.JButton btnEdit5;
-    private javax.swing.JButton btnEdit6;
-    private javax.swing.JComboBox<String> comboTitle;
-    private javax.swing.JComboBox<String> comboTitle1;
-    private javax.swing.JComboBox<String> comboTitle2;
-    private javax.swing.JComboBox<String> comboTitle3;
-    private javax.swing.JComboBox<String> comboTitle4;
-    private javax.swing.JComboBox<String> comboTitle5;
-    private javax.swing.JComboBox<String> comboTitle6;
-    private javax.swing.JComboBox<String> comboTitle7;
-    private javax.swing.JComboBox<String> comboTitle8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
-    private com.toedter.calendar.JDateChooser jDateChooser4;
+    private javax.swing.JButton btAddDataToMainTble;
+    private javax.swing.JButton btAddToPreferenceTable;
+    private javax.swing.JButton btPreviewFullDetails;
+    private javax.swing.JButton btRemoveDataFromMainTable;
+    private javax.swing.JButton btRemoveFromPrefTable;
+    private javax.swing.JButton btSearchLecturer;
+    private javax.swing.JButton btSearchModule;
+    private com.toedter.calendar.JDateChooser calCalenderWeek;
+    private javax.swing.JComboBox<String> calContactWeek;
+    private com.toedter.calendar.JDateChooser calWeekBeginningDate;
+    private javax.swing.JCheckBox checkBoxRepeatStudents;
+    private javax.swing.JComboBox<String> comboHours;
+    private javax.swing.JComboBox<String> comboLecturer;
+    private javax.swing.JComboBox<String> comboLevel;
+    private javax.swing.JComboBox<String> comboLocation;
+    private javax.swing.JComboBox<String> comboModuleCode;
+    private javax.swing.JComboBox<String> comboPreferenceDay;
+    private javax.swing.JComboBox<String> comboType;
+    private javax.swing.JComboBox<String> comboYear;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -762,9 +769,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tblLectures;
-    private javax.swing.JTextField txtDetail;
+    private javax.swing.JTable tblDeliveryReportData;
+    private javax.swing.JTable tblPreferenceDay;
+    private javax.swing.JTextField txtModuleName;
+    private javax.swing.JTextField txtRemark;
     // End of variables declaration//GEN-END:variables
 }

@@ -46,8 +46,8 @@
                   <Component id="jScrollPane1" min="-2" pref="1144" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnEdit5" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="btnEdit6" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btPreviewFullDetails" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btRemoveDataFromMainTable" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="11" max="32767" attributes="0"/>
               </Group>
@@ -61,9 +61,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="btnEdit5" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btPreviewFullDetails" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnEdit6" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btRemoveDataFromMainTable" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" min="-2" pref="329" max="-2" attributes="0"/>
                   </Group>
@@ -80,23 +80,35 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblLectures">
+            <Component class="javax.swing.JTable" name="tblDeliveryReportData">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="14" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
-                    <Column editable="false" title="Level" type="java.lang.Object"/>
-                    <Column editable="false" title="Module Code" type="java.lang.Object"/>
-                    <Column editable="false" title="Cale. Week" type="java.lang.Object"/>
-                    <Column editable="false" title="Type" type="java.lang.Object"/>
-                    <Column editable="false" title="Lecturer" type="java.lang.Object"/>
+                  <Table columnCount="7" rowCount="0">
+                    <Column editable="false" title="Calender Week" type="java.lang.Object"/>
+                    <Column editable="false" title="Class Cont. Week" type="java.lang.Object"/>
+                    <Column editable="false" title="Week Beginning" type="java.lang.Object"/>
+                    <Column editable="false" title="Lecture" type="java.lang.Object"/>
+                    <Column editable="false" title="Tutorial" type="java.lang.Object"/>
+                    <Column editable="true" title="Lab" type="java.lang.Object"/>
+                    <Column editable="false" title="Remarks" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="150" minWidth="150" prefWidth="150" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -111,7 +123,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -191,13 +203,13 @@
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="jLabel19" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="comboTitle" min="-2" pref="210" max="-2" attributes="0"/>
+                                                  <Component id="comboLevel" min="-2" pref="210" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel28" min="-2" pref="251" max="-2" attributes="0"/>
-                                                      <Component id="comboTitle3" min="-2" pref="251" max="-2" attributes="0"/>
+                                                      <Component id="calContactWeek" min="-2" pref="251" max="-2" attributes="0"/>
                                                       <Component id="jLabel27" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -219,7 +231,7 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="comboTitle6" max="32767" attributes="0"/>
+                                                  <Component id="comboHours" max="32767" attributes="0"/>
                                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
@@ -237,7 +249,7 @@
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel30" min="-2" pref="143" max="-2" attributes="0"/>
-                                                      <Component id="comboTitle8" min="-2" pref="171" max="-2" attributes="0"/>
+                                                      <Component id="comboPreferenceDay" min="-2" pref="171" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
@@ -248,15 +260,15 @@
                                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                           <Component id="jLabel29" min="-2" pref="143" max="-2" attributes="0"/>
                                                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                                                          <Component id="jTextField1" alignment="0" pref="169" max="32767" attributes="0"/>
+                                                          <Component id="txtRemark" alignment="0" pref="169" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="btnEdit3" min="-2" pref="40" max="-2" attributes="0"/>
-                                              <Component id="btnEdit4" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <Component id="btRemoveFromPrefTable" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <Component id="btAddToPreferenceTable" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -267,11 +279,11 @@
                                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jDateChooser3" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <Component id="calCalenderWeek" min="-2" pref="210" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="comboTitle5" min="-2" pref="248" max="-2" attributes="0"/>
+                                          <Component id="comboLocation" min="-2" pref="248" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
@@ -282,7 +294,7 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel26" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="txtDetail" min="-2" pref="210" max="-2" attributes="0"/>
+                                                          <Component id="txtModuleName" min="-2" pref="210" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                                       </Group>
@@ -294,13 +306,13 @@
                                                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" alignment="1" attributes="0">
-                                                          <Component id="comboTitle4" min="-2" pref="248" max="-2" attributes="0"/>
+                                                          <Component id="comboType" min="-2" pref="248" max="-2" attributes="0"/>
                                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace max="32767" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="comboTitle7" min="-2" pref="241" max="-2" attributes="0"/>
+                                                              <Component id="checkBoxRepeatStudents" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="comboYear" min="-2" pref="241" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                   </Group>
@@ -310,9 +322,9 @@
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
-                                                          <Component id="comboTitle1" min="-2" pref="164" max="-2" attributes="0"/>
+                                                          <Component id="comboModuleCode" min="-2" pref="164" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="btnEdit1" min="-2" pref="40" max="-2" attributes="0"/>
+                                                          <Component id="btSearchModule" min="-2" pref="40" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                       </Group>
@@ -322,13 +334,13 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel21" min="-2" pref="193" max="-2" attributes="0"/>
                                                       <Group type="102" attributes="0">
-                                                          <Component id="jDateChooser4" min="-2" pref="251" max="-2" attributes="0"/>
+                                                          <Component id="calWeekBeginningDate" min="-2" pref="251" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                          <Component id="comboTitle2" min="-2" pref="195" max="-2" attributes="0"/>
+                                                          <Component id="comboLecturer" min="-2" pref="195" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="btnEdit2" min="-2" pref="40" max="-2" attributes="0"/>
+                                                          <Component id="btSearchLecturer" min="-2" pref="40" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
@@ -336,7 +348,7 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btSave" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="btAddDataToMainTble" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -358,15 +370,15 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <Component id="comboTitle" min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Component id="comboLevel" min="-2" pref="44" max="-2" attributes="0"/>
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                      <Component id="comboTitle3" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Component id="calContactWeek" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="comboTitle6" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                                          <Component id="comboTitle8" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                          <Component id="comboHours" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                          <Component id="comboPreferenceDay" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="btnEdit4" min="-2" pref="40" max="-2" attributes="0"/>
+                                      <Component id="btAddToPreferenceTable" min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -386,17 +398,17 @@
                                               <Group type="103" groupAlignment="1" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="jDateChooser4" min="-2" pref="44" max="-2" attributes="0"/>
+                                                          <Component id="calWeekBeginningDate" min="-2" pref="44" max="-2" attributes="0"/>
                                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="comboTitle2" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
+                                                          <Component id="comboLecturer" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="btnEdit2" min="-2" pref="40" max="-2" attributes="0"/>
+                                                      <Component id="btSearchLecturer" min="-2" pref="40" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="comboTitle1" min="-2" pref="44" max="-2" attributes="0"/>
+                                                  <Component id="comboModuleCode" min="-2" pref="44" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="btnEdit1" min="-2" pref="40" max="-2" attributes="0"/>
+                                              <Component id="btSearchModule" min="-2" pref="40" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -408,16 +420,16 @@
                                                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="txtDetail" min="-2" pref="44" max="-2" attributes="0"/>
+                                                      <Component id="txtModuleName" min="-2" pref="44" max="-2" attributes="0"/>
                                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="comboTitle7" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                                                      <Component id="comboYear" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="comboTitle4" min="-2" pref="44" max="-2" attributes="0"/>
+                                                  <Component id="comboType" min="-2" pref="44" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -429,13 +441,13 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="comboTitle5" max="32767" attributes="0"/>
+                                                  <Component id="comboLocation" max="32767" attributes="0"/>
                                                   <Component id="jLabel9" max="32767" attributes="0"/>
-                                                  <Component id="jDateChooser3" max="32767" attributes="0"/>
+                                                  <Component id="calCalenderWeek" max="32767" attributes="0"/>
                                                   <Component id="jLabel8" max="32767" attributes="0"/>
-                                                  <Component id="jCheckBox1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="checkBoxRepeatStudents" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="btSave" min="-2" max="-2" attributes="0"/>
+                                              <Component id="btAddDataToMainTble" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace pref="12" max="32767" attributes="0"/>
                                       </Group>
@@ -444,11 +456,11 @@
                                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="btnEdit3" min="-2" pref="40" max="-2" attributes="0"/>
+                                                      <Component id="btRemoveFromPrefTable" min="-2" pref="40" max="-2" attributes="0"/>
                                                       <Component id="jScrollPane2" min="-2" pref="112" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jTextField1" min="-2" pref="44" max="-2" attributes="0"/>
+                                                  <Component id="txtRemark" min="-2" pref="44" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
@@ -476,7 +488,7 @@
                     <Property name="text" type="java.lang.String" value="Level"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle">
+                <Component class="javax.swing.JComboBox" name="comboLevel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -491,7 +503,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Level"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTitleActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboLevelActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -508,7 +520,7 @@
                     <Property name="text" type="java.lang.String" value="Module Code"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle1">
+                <Component class="javax.swing.JComboBox" name="comboModuleCode">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -535,7 +547,7 @@
                     <Property name="text" type="java.lang.String" value="Module Name"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtDetail">
+                <Component class="javax.swing.JTextField" name="txtModuleName">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -587,7 +599,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnEdit1">
+                <Component class="javax.swing.JButton" name="btSearchModule">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/ttms/labelIcons2/searchIcon.png"/>
@@ -595,10 +607,10 @@
                     <Property name="toolTipText" type="java.lang.String" value="Search"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSearchModuleActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle3">
+                <Component class="javax.swing.JComboBox" name="calContactWeek">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -649,7 +661,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser4">
+                <Component class="com.toedter.calendar.JDateChooser" name="calWeekBeginningDate">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Week Begining Date"/>
                   </Properties>
@@ -687,7 +699,7 @@
                     <Property name="text" type="java.lang.String" value="Calender Week"/>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser3">
+                <Component class="com.toedter.calendar.JDateChooser" name="calCalenderWeek">
                   <Properties>
                     <Property name="toolTipText" type="java.lang.String" value="Calender Week"/>
                   </Properties>
@@ -711,7 +723,7 @@
                     <Property name="text" type="java.lang.String" value="Lecturer"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle4">
+                <Component class="javax.swing.JComboBox" name="comboType">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -729,7 +741,7 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnEdit2">
+                <Component class="javax.swing.JButton" name="btSearchLecturer">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/ttms/labelIcons2/searchIcon.png"/>
@@ -737,7 +749,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Search"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSearchLecturerActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
@@ -748,7 +760,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle2">
+                <Component class="javax.swing.JComboBox" name="comboLecturer">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -772,7 +784,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btSave">
+                <Component class="javax.swing.JButton" name="btAddDataToMainTble">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="1"/>
@@ -789,7 +801,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSaveActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAddDataToMainTbleActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel21">
@@ -803,7 +815,7 @@
                     <Property name="text" type="java.lang.String" value="Type"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle5">
+                <Component class="javax.swing.JComboBox" name="comboLocation">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -846,7 +858,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle6">
+                <Component class="javax.swing.JComboBox" name="comboHours">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -882,12 +894,12 @@
                     <Property name="text" type="java.lang.String" value="Lecture Hours"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+                <Component class="javax.swing.JCheckBox" name="checkBoxRepeatStudents">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Repeat Students Available"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="comboTitle7">
+                <Component class="javax.swing.JComboBox" name="comboYear">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -928,7 +940,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="tblPreferenceDay">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="2" rowCount="0">
@@ -957,7 +969,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="comboTitle8">
+                <Component class="javax.swing.JComboBox" name="comboPreferenceDay">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Ubuntu" size="18" style="0"/>
@@ -998,7 +1010,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnEdit3">
+                <Component class="javax.swing.JButton" name="btRemoveFromPrefTable">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/ttms/labelIcons2/deleteIcon.png"/>
@@ -1006,10 +1018,10 @@
                     <Property name="toolTipText" type="java.lang.String" value="Search"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit3ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRemoveFromPrefTableActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnEdit4">
+                <Component class="javax.swing.JButton" name="btAddToPreferenceTable">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/ttms/labelIcons2/addToTableSmall.png"/>
@@ -1017,7 +1029,7 @@
                     <Property name="toolTipText" type="java.lang.String" value="Search"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit4ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAddToPreferenceTableActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel30">
@@ -1042,7 +1054,7 @@
                     <Property name="text" type="java.lang.String" value="Year"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="txtRemark">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel32">
                   <Properties>
@@ -1067,7 +1079,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnEdit5">
+        <Component class="javax.swing.JButton" name="btPreviewFullDetails">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/ttms/labelIcons2/viewButton.png"/>
@@ -1075,10 +1087,10 @@
             <Property name="toolTipText" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btPreviewFullDetailsActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnEdit6">
+        <Component class="javax.swing.JButton" name="btRemoveDataFromMainTable">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/ttms/labelIcons2/deleteIcon.png"/>
@@ -1086,7 +1098,7 @@
             <Property name="toolTipText" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit6ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRemoveDataFromMainTableActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

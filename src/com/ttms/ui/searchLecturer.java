@@ -7,7 +7,7 @@ package com.ttms.ui;
 
 import com.ttms.controller.commonConstants;
 import com.ttms.controller.commonController;
-import com.ttms.controller.subjectController;
+import com.ttms.controller.lecturerController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,11 +34,10 @@ public class searchLecturer extends javax.swing.JDialog {
     public searchLecturer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        loadSubjectsToTable(txtSearchBySubNameOrCode.getText().trim());
+        loadLecturersToTable(txtSearchBySubNameOrCode.getText().trim());
     }
 
-    private void loadSubjectsToTable(String lecturerNameOrEmailOrContactNoOrTitle) {
-        //lecturer_id, , , , , lecturer_detail, lecturer_status
+    private void loadLecturersToTable(String lecturerNameOrEmailOrContactNoOrTitle) {
         try {
             ArrayList<String[]> attributeConditionValueList = new ArrayList<>();
 
@@ -54,16 +53,15 @@ public class searchLecturer extends javax.swing.JDialog {
             String[] arr4 = {"lecturer_contact_no", commonConstants.Sql.LIKE, "%" + lecturerNameOrEmailOrContactNoOrTitle + "%"};
             attributeConditionValueList.add(arr4);
 
-            ResultSet rset = subjectController.getSubjectByMoreAttributes(attributeConditionValueList, commonConstants.Sql.OR);
-            String[] columnList = {"subject_id", "subject_name", "subject_module_code",
-                "subject_semester", "subject_course_level", "subject_detail"};
+            ResultSet rset = lecturerController.getLecturerByMoreAttributes(attributeConditionValueList, commonConstants.Sql.OR);
+            String[] columnList = {"lecturer_id", "lecturer_title", "lecturer_name", "lecturer_email", "lecturer_contact_no"};
             commonController.loadDataToTable(tblSubjectDetails, rset, columnList);
         } catch (SQLException ex) {
             Logger.getLogger(searchLecturer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public int getSelectedSubjectId() {
+    public int getSelectedLecturerId() {
         return lecturerId;
     }
 
@@ -250,7 +248,7 @@ public class searchLecturer extends javax.swing.JDialog {
             lecturerId = commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRaw, 0).toString());
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Please select subject !", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select lecturer !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btOkButtonActionPerformed
 
@@ -259,7 +257,7 @@ public class searchLecturer extends javax.swing.JDialog {
     }//GEN-LAST:event_btSearchActionPerformed
 
     private void txtSearchBySubNameOrCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBySubNameOrCodeKeyReleased
-        loadSubjectsToTable(txtSearchBySubNameOrCode.getText().trim());
+        loadLecturersToTable(txtSearchBySubNameOrCode.getText().trim());
     }//GEN-LAST:event_txtSearchBySubNameOrCodeKeyReleased
 
     /**

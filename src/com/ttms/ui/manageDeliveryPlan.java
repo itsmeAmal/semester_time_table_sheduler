@@ -9,11 +9,14 @@ import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
 import com.ttms.controller.roomController;
 import com.ttms.controller.subjectController;
+import com.ttms.model.lecturer;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +25,7 @@ import java.util.logging.Logger;
 public class manageDeliveryPlan extends javax.swing.JFrame {
 
     subject subject = null;
+    lecturer lecturer = null;
 
     /**
      * Creates new form addStudent
@@ -29,7 +33,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     public manageDeliveryPlan() {
         initComponents();
         loadRoomDataObjectsToCombo();
-        loadLecturerDataObjectsToCombo();
+        setDefaults();
     }
 
     private void loadModuleToCombo() {
@@ -61,6 +65,38 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             commonController.loadDataObjectsIntoComboBox(comboLecturer, rset, columnList, "lecturer_name");
         } catch (SQLException ex) {
             Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void setDefaults() {
+        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+        dtm.setRowCount(0);
+    }
+
+    private void addPreferenceDateToTable() {
+        boolean status = false;
+        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+        Object[] obj = {Integer.toString(comboPreferenceDay.getSelectedIndex()), comboPreferenceDay.getSelectedItem().toString()};
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            if (commonController.getIntOrZeroFromString(tblPreferenceDay.getValueAt(i, 0).toString()) == comboPreferenceDay.getSelectedIndex()) {
+                status = true;
+                break;
+            }
+        }
+        if (!status) {
+            dtm.addRow(obj);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void removeSelectedPreferenceDate() {
+        int selectedRaw = tblPreferenceDay.getSelectedRow();
+        if (selectedRaw != -1) {
+            DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+            dtm.removeRow(selectedRaw);
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a day to remove from tble !", "Error !", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -279,7 +315,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Type.png"))); // NOI18N
 
         comboLecturer.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboLecturer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecturer" }));
         comboLecturer.setToolTipText("Lecturer");
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -459,7 +494,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btAddDataToMainTble, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -518,8 +554,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                                 .addComponent(comboLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btAddDataToMainTble, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -549,9 +584,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel20)
                                 .addComponent(jLabel27))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel25)
-                                .addComponent(jLabel29)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel29)
+                                .addComponent(jLabel25)))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -590,14 +625,12 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                     .addComponent(jLabel23)
                                     .addComponent(jLabel32))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(comboLocation)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(calCalenderWeek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(checkBoxRepeatStudents))
-                                    .addComponent(btAddDataToMainTble))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboLocation)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(calCalenderWeek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(checkBoxRepeatStudents))
                                 .addContainerGap(12, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -607,7 +640,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                             .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btAddDataToMainTble))))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel14)
@@ -702,7 +737,18 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }//GEN-LAST:event_btSearchModuleActionPerformed
 
     private void btSearchLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchLecturerActionPerformed
-        // TODO add your handling code here:
+        searchLecturer searchLec = new searchLecturer(this, true);
+        searchLec.setVisible(true);
+        int lecturerId = searchLec.getSelectedLecturerId();
+        if (lecturerId != 0) {
+            try {
+                lecturer = lecturerController.getLecturerByLecturerId(lecturerId);
+                comboLecturer.removeAllItems();
+                comboLecturer.addItem(lecturer.getName());
+            } catch (SQLException ex) {
+                Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_btSearchLecturerActionPerformed
 
     private void comboLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLevelActionPerformed
@@ -710,11 +756,11 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }//GEN-LAST:event_comboLevelActionPerformed
 
     private void btRemoveFromPrefTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveFromPrefTableActionPerformed
-        // TODO add your handling code here:
+        removeSelectedPreferenceDate();
     }//GEN-LAST:event_btRemoveFromPrefTableActionPerformed
 
     private void btAddToPreferenceTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddToPreferenceTableActionPerformed
-        // TODO add your handling code here:
+        addPreferenceDateToTable();
     }//GEN-LAST:event_btAddToPreferenceTableActionPerformed
 
     private void btPreviewFullDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPreviewFullDetailsActionPerformed

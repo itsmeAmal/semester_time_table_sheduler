@@ -9,6 +9,7 @@ import com.ttms.daoimpl.lecturerDaoImpl;
 import com.ttms.model.lecturer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,6 +56,10 @@ public class lecturerController {
             lecturer.setStatus(rset.getInt("lecturer_status"));
         }
         return lecturer;
+    }
+
+    public static ResultSet getLecturerByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException {
+        return new lecturerDaoImpl().getLecturerByMoreAttributes(attributeConditionValueList, operator);
     }
 
 }

@@ -100,6 +100,50 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         }
     }
 
+    private void addToMainTable() {
+        Object[] column = {
+            calCalenderWeek.getDate().toString(),
+            calContactWeek.getSelectedItem().toString(),
+            calWeekBeginningDate.getDate().toString(),
+            "lecture",
+            "tutorial",
+            "lab",
+            txtRemark.getText().trim(),
+            comboLevel.getSelectedItem().toString(),
+            comboModuleCode.getSelectedItem().toString(),
+            comboType.getSelectedItem().toString(),
+            comboLocation.getSelectedItem().toString(),
+            comboHours.getSelectedItem().toString(),
+            comboLecturer.getSelectedItem().toString(),
+            comboYear.getSelectedItem().toString(),
+            true};
+
+        DefaultTableModel dtm = (DefaultTableModel) tblDeliveryReportData.getModel();
+        dtm.addRow(column);
+
+        int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            clearData();
+        }
+    }
+
+    private void clearData() {
+        calContactWeek.setSelectedIndex(0);
+        calCalenderWeek.setDate(null);
+        calWeekBeginningDate.setDate(null);
+        txtRemark.setText(null);
+        comboLevel.setSelectedIndex(0);
+        comboModuleCode.setSelectedItem(null);
+        comboModuleCode.removeAllItems();
+        comboType.setSelectedIndex(0);
+        comboLocation.setSelectedIndex(0);
+        comboHours.setSelectedIndex(0);
+        comboLecturer.setSelectedItem(null);
+        comboLecturer.removeAllItems();
+        comboYear.setSelectedIndex(0);
+        checkBoxRepeatStudents.setSelected(false);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,12 +221,19 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Calender Week", "Class Cont. Week", "Week Beginning", "Lecture", "Tutorial", "Lab", "Remarks"
+                "Calender Week", "Class Cont. Week", "Week Beginning", "Lecture", "Tutorial", "Lab", "Remarks", "hid_level", "hid_module code", "hid_type", "hid_location", "hid_lecture hours", "hid_lecturer", "hid_year", "hid_repeat students"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -205,6 +256,30 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             tblDeliveryReportData.getColumnModel().getColumn(3).setResizable(false);
             tblDeliveryReportData.getColumnModel().getColumn(4).setResizable(false);
             tblDeliveryReportData.getColumnModel().getColumn(6).setResizable(false);
+            tblDeliveryReportData.getColumnModel().getColumn(7).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(7).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(8).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(8).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(8).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(9).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(9).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(9).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(10).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(10).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(11).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(11).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(11).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(12).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(12).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(12).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(13).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(13).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(13).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(14).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(14).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(14).setMaxWidth(0);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -574,9 +649,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(comboHours, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboPreferenceDay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboHours, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboPreferenceDay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -718,7 +792,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAddDataToMainTbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTbleActionPerformed
-
+        addToMainTable();
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 
     private void btSearchModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchModuleActionPerformed

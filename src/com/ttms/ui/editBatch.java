@@ -111,7 +111,7 @@ public class editBatch extends javax.swing.JDialog {
         txtLevel2.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtDetail2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail2.setToolTipText("Details");
+        txtDetail2.setToolTipText("Details / Remarks");
         txtDetail2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtDetail2.setSelectionColor(new java.awt.Color(255, 255, 0));
 

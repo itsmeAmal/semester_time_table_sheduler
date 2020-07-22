@@ -95,7 +95,7 @@ public class searchLecturer extends javax.swing.JDialog {
         btOkButton.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btOkButton.setForeground(new java.awt.Color(255, 255, 255));
         btOkButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/okButton.png"))); // NOI18N
-        btOkButton.setToolTipText("Update New Subject");
+        btOkButton.setToolTipText("Add Lecturer");
         btOkButton.setBorder(null);
         btOkButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class searchLecturer extends javax.swing.JDialog {
         jLabel20.setText("Search by Name, Email, Title or Contact No");
 
         txtSearchBySubNameOrCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtSearchBySubNameOrCode.setToolTipText("Subject Name");
+        txtSearchBySubNameOrCode.setToolTipText("Search by Name / Email / Title / Contact No");
         txtSearchBySubNameOrCode.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtSearchBySubNameOrCode.setSelectionColor(new java.awt.Color(255, 255, 0));
         txtSearchBySubNameOrCode.addKeyListener(new java.awt.event.KeyAdapter() {

@@ -432,6 +432,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Lecture Hours");
 
+        checkBoxRepeatStudents.setBackground(new java.awt.Color(0, 0, 102));
+        checkBoxRepeatStudents.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRepeatStudents.setText("Repeat Students Available");
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N

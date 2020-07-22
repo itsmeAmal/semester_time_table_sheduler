@@ -330,7 +330,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel20.setText("Module Code");
 
         comboModuleCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboModuleCode.setToolTipText("Title");
+        comboModuleCode.setToolTipText("Module Code");
         comboModuleCode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
@@ -436,7 +436,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         comboLocation.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "room" }));
-        comboLocation.setToolTipText("Type ");
+        comboLocation.setToolTipText("Location");
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Room.png"))); // NOI18N
@@ -450,7 +450,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         comboHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00.30", "01.00", "01.30", "02.00", "02.30", "03.00", "03.30", "04.00", "04.30", "05.00" }));
-        comboHours.setToolTipText("Type ");
+        comboHours.setToolTipText("Lecture Hours");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
@@ -459,10 +459,11 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         checkBoxRepeatStudents.setBackground(new java.awt.Color(0, 0, 102));
         checkBoxRepeatStudents.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRepeatStudents.setText("Repeat Students Available");
+        checkBoxRepeatStudents.setToolTipText("Repeat Students Available");
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        comboYear.setToolTipText("Lecturer");
+        comboYear.setToolTipText("Year");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
@@ -483,6 +484,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblPreferenceDay.setToolTipText("Priority Level");
         jScrollPane2.setViewportView(tblPreferenceDay);
         if (tblPreferenceDay.getColumnModel().getColumnCount() > 0) {
             tblPreferenceDay.getColumnModel().getColumn(0).setMinWidth(0);
@@ -492,7 +494,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
         comboPreferenceDay.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboPreferenceDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" }));
-        comboPreferenceDay.setToolTipText("Type ");
+        comboPreferenceDay.setToolTipText("Preference Date");
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
@@ -502,7 +504,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Week.png"))); // NOI18N
 
         btRemoveFromPrefTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btRemoveFromPrefTable.setToolTipText("Search");
+        btRemoveFromPrefTable.setToolTipText("Delete Preference Date");
         btRemoveFromPrefTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRemoveFromPrefTableActionPerformed(evt);
@@ -510,7 +512,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         });
 
         btAddToPreferenceTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
-        btAddToPreferenceTable.setToolTipText("Search");
+        btAddToPreferenceTable.setToolTipText("Add Preference Date");
         btAddToPreferenceTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAddToPreferenceTableActionPerformed(evt);
@@ -524,6 +526,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Year");
+
+        txtRemark.setToolTipText("Remarks");
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
@@ -733,7 +737,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                     .addComponent(calCalenderWeek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(checkBoxRepeatStudents))
-                                .addContainerGap(12, Short.MAX_VALUE))
+                                .addContainerGap(22, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -767,7 +771,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         );
 
         btPreviewFullDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N
-        btPreviewFullDetails.setToolTipText("Search");
+        btPreviewFullDetails.setToolTipText("Show Delivery Plan Details");
         btPreviewFullDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPreviewFullDetailsActionPerformed(evt);
@@ -775,7 +779,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         });
 
         btRemoveDataFromMainTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btRemoveDataFromMainTable.setToolTipText("Search");
+        btRemoveDataFromMainTable.setToolTipText("Delete Dilivery Plan Details");
         btRemoveDataFromMainTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRemoveDataFromMainTableActionPerformed(evt);

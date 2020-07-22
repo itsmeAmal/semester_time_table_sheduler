@@ -195,7 +195,7 @@ public class editSubject extends javax.swing.JDialog {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Subject Name");
+        jLabel20.setText("Module Name");
 
         Level.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         Level.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,7 +214,7 @@ public class editSubject extends javax.swing.JDialog {
         comboSemester.setToolTipText("Semester");
 
         txtSubjectName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtSubjectName.setToolTipText("Subject Name");
+        txtSubjectName.setToolTipText("Module Name");
         txtSubjectName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtSubjectName.setSelectionColor(new java.awt.Color(255, 255, 0));
 

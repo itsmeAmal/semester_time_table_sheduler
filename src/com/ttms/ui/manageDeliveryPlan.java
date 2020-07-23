@@ -13,6 +13,7 @@ import com.ttms.model.lecturer;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -71,6 +72,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private void setDefaults() {
         DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
         dtm.setRowCount(0);
+        comboCalenderWeek.removeAllItems();
+        comboLecturer.removeAllItems();
+        comboModuleCode.removeAllItems();
     }
 
     private void addPreferenceDateToTable() {
@@ -106,7 +110,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select module !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (calCalenderWeek.getDate() == null || calCalenderWeek.getDate().toString().equalsIgnoreCase("")) {
+        if (comboCalenderWeek.getSelectedItem() == null || comboCalenderWeek.getSelectedItem().toString().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Please select calender week !", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -120,7 +124,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         }
 
         Object[] column = {
-            calCalenderWeek.getDate().toString(),
+            comboCalenderWeek.getSelectedItem().toString(),
             calContactWeek.getSelectedItem().toString(),
             calWeekBeginningDate.getDate().toString(),
             "lecture",
@@ -147,7 +151,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
     private void clearData() {
         calContactWeek.setSelectedIndex(0);
-        calCalenderWeek.setDate(null);
+        comboCalenderWeek.setSelectedItem(null);
         calWeekBeginningDate.setDate(null);
         txtRemark.setText(null);
         comboLevel.setSelectedIndex(0);
@@ -160,6 +164,17 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         comboLecturer.removeAllItems();
         comboYear.setSelectedIndex(0);
         checkBoxRepeatStudents.setSelected(false);
+    }
+
+    private void setDateRelatedComponentData() {
+        if (calWeekBeginningDate.getDate() != null) {
+            String selectedDateString = new SimpleDateFormat("w").format(calWeekBeginningDate.getDate()).toString();
+            String selectedYearSring = new SimpleDateFormat("y").format(calWeekBeginningDate.getDate()).toString();
+            comboCalenderWeek.removeAllItems();
+            comboYear.removeAllItems();
+            comboCalenderWeek.addItem("CW " + selectedDateString);
+            comboYear.addItem(selectedYearSring);
+        }
     }
 
     /**
@@ -194,7 +209,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        calCalenderWeek = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         comboType = new javax.swing.JComboBox<>();
@@ -225,6 +239,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         txtRemark = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        comboCalenderWeek = new javax.swing.JComboBox<>();
         btPreviewFullDetails = new javax.swing.JButton();
         btRemoveDataFromMainTable = new javax.swing.JButton();
         btAddDataToMainTble1 = new javax.swing.JButton();
@@ -378,6 +393,26 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
 
         calWeekBeginningDate.setToolTipText("Week Begining Date");
+        calWeekBeginningDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                calWeekBeginningDateFocusLost(evt);
+            }
+        });
+        calWeekBeginningDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                calWeekBeginningDateMouseExited(evt);
+            }
+        });
+        calWeekBeginningDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calWeekBeginningDatePropertyChange(evt);
+            }
+        });
+        calWeekBeginningDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                calWeekBeginningDateKeyReleased(evt);
+            }
+        });
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
@@ -390,8 +425,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Calender Week");
-
-        calCalenderWeek.setToolTipText("Calender Week");
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
@@ -464,7 +497,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         checkBoxRepeatStudents.setToolTipText("Repeat Students Available");
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
         comboYear.setToolTipText("Year");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -538,6 +570,9 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Remarks.png"))); // NOI18N
 
+        comboCalenderWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboCalenderWeek.setToolTipText("Lecturer");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -577,20 +612,34 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                         .addComponent(checkBoxRepeatStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calWeekBeginningDate, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(calWeekBeginningDate, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboCalenderWeek, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
@@ -650,7 +699,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(comboLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -731,8 +780,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(calCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(comboCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel28)
                                                 .addGap(9, 9, 9)
@@ -836,7 +885,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -861,7 +910,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAddDataToMainTbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTbleActionPerformed
-        addToMainTable();
+//        addToMainTable();
+        setDateRelatedComponentData();
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 
     private void btSearchModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchModuleActionPerformed
@@ -918,6 +968,22 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private void btAddDataToMainTble1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTble1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btAddDataToMainTble1ActionPerformed
+
+    private void calWeekBeginningDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calWeekBeginningDateKeyReleased
+
+    }//GEN-LAST:event_calWeekBeginningDateKeyReleased
+
+    private void calWeekBeginningDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_calWeekBeginningDateFocusLost
+
+    }//GEN-LAST:event_calWeekBeginningDateFocusLost
+
+    private void calWeekBeginningDateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calWeekBeginningDateMouseExited
+
+    }//GEN-LAST:event_calWeekBeginningDateMouseExited
+
+    private void calWeekBeginningDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calWeekBeginningDatePropertyChange
+        setDateRelatedComponentData();
+    }//GEN-LAST:event_calWeekBeginningDatePropertyChange
 
     /**
      * @param args the command line arguments
@@ -978,10 +1044,10 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private javax.swing.JButton btRemoveFromPrefTable;
     private javax.swing.JButton btSearchLecturer;
     private javax.swing.JButton btSearchModule;
-    private com.toedter.calendar.JDateChooser calCalenderWeek;
     private javax.swing.JComboBox<String> calContactWeek;
     private com.toedter.calendar.JDateChooser calWeekBeginningDate;
     private javax.swing.JCheckBox checkBoxRepeatStudents;
+    private javax.swing.JComboBox<String> comboCalenderWeek;
     private javax.swing.JComboBox<String> comboHours;
     private javax.swing.JComboBox<String> comboLecturer;
     private javax.swing.JComboBox<String> comboLevel;

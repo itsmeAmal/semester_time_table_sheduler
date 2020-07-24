@@ -35,6 +35,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         initComponents();
         loadRoomDataObjectsToCombo();
         setDefaults();
+
     }
 
     private void loadModuleToCombo() {
@@ -75,6 +76,17 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         comboCalenderWeek.removeAllItems();
         comboLecturer.removeAllItems();
         comboModuleCode.removeAllItems();
+        calContactWeek.removeAllItems();
+        //------------------------------
+        comboType.setSelectedItem(null);
+        comboHours.setSelectedItem(null);
+        comboLocation.setSelectedItem(null);
+        comboLevel.setSelectedItem(null);
+        comboPreferenceDay.setSelectedItem(null);
+    }
+
+    private void setInitials() {
+
     }
 
     private void addPreferenceDateToTable() {

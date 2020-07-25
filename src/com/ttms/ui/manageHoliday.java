@@ -5,13 +5,18 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonConstants;
 import com.ttms.controller.commonController;
 import com.ttms.controller.holidayController;
+import com.ttms.daoimpl.commonDaoImpl;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Amal
@@ -77,7 +82,28 @@ public class manageHoliday extends javax.swing.JFrame {
 
     }
 
-    private void searchByBatchYear(String year) {
+    private void searchByDatesAndDetail(String searchValue) {
+        try {
+            ArrayList<String[]> attributeCOnditionValueList = new ArrayList<>();
+
+            String[] arr1 = {"holiday_date_from", commonConstants.Sql.LIKE, "%" + searchValue + "%"};
+            attributeCOnditionValueList.add(arr1);
+
+            String[] arr2 = {"holiday_date_to", commonConstants.Sql.LIKE, "%" + searchValue + "%"};
+            attributeCOnditionValueList.add(arr2);
+
+            String[] arr3 = {"holiday_detail", commonConstants.Sql.LIKE, "%" + searchValue + "%"};
+            attributeCOnditionValueList.add(arr3);
+
+            ResultSet rset = holidayController.getHolidayByMoreAttributes(attributeCOnditionValueList, commonConstants.Sql.OR);
+
+            String[] arrayList = {"holiday_id", "holiday_date_from", "holiday_date_to", "holiday_detail"};
+
+            commonController.loadDataToTable(tblHolidayDetails, rset, arrayList);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(manageHoliday.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -372,7 +398,7 @@ public class manageHoliday extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void txtSearchByDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchByDateKeyReleased
-        searchByBatchYear(txtSearchByDate.getText().trim());
+        searchByDatesAndDetail(txtSearchByDate.getText().trim());
     }//GEN-LAST:event_txtSearchByDateKeyReleased
 
     private void calHolidayFromFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_calHolidayFromFocusLost

@@ -5,7 +5,6 @@
  */
 package com.ttms.ui;
 
-import com.ttms.controller.batchController;
 import com.ttms.controller.commonController;
 import com.ttms.controller.roomController;
 import java.sql.ResultSet;

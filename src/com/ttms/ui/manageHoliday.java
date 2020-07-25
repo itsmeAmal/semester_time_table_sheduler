@@ -5,6 +5,13 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonController;
+import com.ttms.controller.holidayController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Amal
@@ -16,7 +23,8 @@ public class manageHoliday extends javax.swing.JFrame {
      */
     public manageHoliday() {
         initComponents();
-        loadBatchesToTable();
+        clearAll();
+        loadHolidaysToTable();
     }
 
     private void clearAll() {
@@ -25,11 +33,43 @@ public class manageHoliday extends javax.swing.JFrame {
         calHolidayTo.setDate(null);
     }
 
-    private void addBatch() {
+    private void addHoliday() {
+        if (calHolidayFrom.getDate() == null || calHolidayFrom.getDate().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Select holiday from date !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (calHolidayTo.getDate() == null || calHolidayTo.getDate().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Select holiday to date !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtDetail.getText().trim().equalsIgnoreCase("") || txtDetail.getText().trim() == null) {
+            JOptionPane.showMessageDialog(this, "Please enter holiday detail !", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            int option = JOptionPane.showConfirmDialog(this, "Do you want to enter holiday record ?", "Confirm", JOptionPane.WARNING_MESSAGE);
 
+            if (option == JOptionPane.YES_OPTION) {
+                boolean status = holidayController.addHolidayDetails(commonController.getMysqlDateFromJDateChooser(calHolidayFrom),
+                        commonController.getMysqlDateFromJDateChooser(calHolidayTo), txtDetail.getText().trim());
+                if (status) {
+                    JOptionPane.showMessageDialog(this, "Record successfully added !");
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(manageHoliday.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private void loadBatchesToTable() {
+    private void loadHolidaysToTable() {
+        try {
+            String[] columnList = {"holiday_id", "holiday_date_from", "holiday_date_to", "holiday_detail"};
+            ResultSet rset = holidayController.getAllHolidays();
+            commonController.loadDataToTable(tblHolidayDetails, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(manageHoliday.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -52,7 +92,7 @@ public class manageHoliday extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBatchDetails = new javax.swing.JTable();
+        tblHolidayDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -73,8 +113,8 @@ public class manageHoliday extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
-        tblBatchDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        tblBatchDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblHolidayDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        tblHolidayDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -90,17 +130,17 @@ public class manageHoliday extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblBatchDetails.setRowHeight(20);
-        tblBatchDetails.setRowMargin(2);
-        tblBatchDetails.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblBatchDetails);
-        if (tblBatchDetails.getColumnModel().getColumnCount() > 0) {
-            tblBatchDetails.getColumnModel().getColumn(0).setMinWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblBatchDetails.getColumnModel().getColumn(1).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(2).setResizable(false);
-            tblBatchDetails.getColumnModel().getColumn(3).setResizable(false);
+        tblHolidayDetails.setRowHeight(20);
+        tblHolidayDetails.setRowMargin(2);
+        tblHolidayDetails.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblHolidayDetails);
+        if (tblHolidayDetails.getColumnModel().getColumnCount() > 0) {
+            tblHolidayDetails.getColumnModel().getColumn(0).setMinWidth(0);
+            tblHolidayDetails.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblHolidayDetails.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblHolidayDetails.getColumnModel().getColumn(1).setResizable(false);
+            tblHolidayDetails.getColumnModel().getColumn(2).setResizable(false);
+            tblHolidayDetails.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -321,13 +361,14 @@ public class manageHoliday extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
-        addBatch();
-        loadBatchesToTable();
+        addHoliday();
+        clearAll();
+        loadHolidaysToTable();
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         editSelectedBatch();
-        loadBatchesToTable();
+        loadHolidaysToTable();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void txtSearchByDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchByDateKeyReleased
@@ -446,7 +487,7 @@ public class manageHoliday extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBatchDetails;
+    private javax.swing.JTable tblHolidayDetails;
     private javax.swing.JTextField txtDetail;
     private javax.swing.JTextField txtSearchByDate;
     // End of variables declaration//GEN-END:variables

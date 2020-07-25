@@ -99,7 +99,7 @@
                     <Column editable="false" title="holiday id" type="java.lang.Object"/>
                     <Column editable="false" title="Holiday From" type="java.lang.Object"/>
                     <Column editable="false" title="Holiday To" type="java.lang.Object"/>
-                    <Column editable="false" title="Detail " type="java.lang.Object"/>
+                    <Column editable="false" title="Holiday Name" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

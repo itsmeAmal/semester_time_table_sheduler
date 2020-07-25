@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -78,8 +79,12 @@ public class manageHoliday extends javax.swing.JFrame {
 
     }
 
-    private void editSelectedBatch() {
-
+    private void editSelectedHoliday() {
+        int selectedRow = tblHolidayDetails.getSelectedRow();
+        DefaultTableModel dtm = (DefaultTableModel) tblHolidayDetails.getModel();
+        if (selectedRow != -1) {
+            new editHoliday(this, true, commonController.getIntOrZeroFromString(dtm.getValueAt(selectedRow, 0).toString())).setVisible(true);
+        }
     }
 
     private void searchByDatesAndDetail(String searchValue) {
@@ -145,7 +150,7 @@ public class manageHoliday extends javax.swing.JFrame {
 
             },
             new String [] {
-                "holiday id", "Holiday From", "Holiday To", "Detail "
+                "holiday id", "Holiday From", "Holiday To", "Holiday Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -393,7 +398,7 @@ public class manageHoliday extends javax.swing.JFrame {
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        editSelectedBatch();
+        editSelectedHoliday();
         loadHolidaysToTable();
     }//GEN-LAST:event_btnEditActionPerformed
 

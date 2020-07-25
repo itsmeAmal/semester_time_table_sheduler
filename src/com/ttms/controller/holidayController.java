@@ -51,4 +51,18 @@ public class holidayController {
         return new holidayDaoImpl().deleteHoliday(holidayId);
     }
 
+    public static holiday getHolidayByHolidaId(int holidayId) throws SQLException {
+        ResultSet rset = holidayController.getHolidayByOneAttribute("holiday_id", commonConstants.Sql.EQUAL, Integer.toString(holidayId));
+        holiday holiday = null;
+        while (rset.next()) {
+            holiday = new holiday();
+            holiday.setDetail(rset.getString("holiday_detail"));
+            holiday.setFromDate(rset.getDate("holiday_date_from"));
+            holiday.setToDate(rset.getDate("holiday_date_to"));
+            holiday.setId(rset.getInt("holiday_id"));
+            holiday.setStatus(rset.getInt("holiday_status"));
+        }
+        return holiday;
+    }
+
 }

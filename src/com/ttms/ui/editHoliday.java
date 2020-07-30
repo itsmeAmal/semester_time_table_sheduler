@@ -5,11 +5,11 @@
  */
 package com.ttms.ui;
 
-import com.ttms.controller.batchController;
+import com.ttms.controller.commonController;
 import com.ttms.controller.holidayController;
-import com.ttms.model.batch;
 import com.ttms.model.holiday;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -47,8 +47,20 @@ public class editHoliday extends javax.swing.JDialog {
         }
     }
 
-    private void updateBatchDetails() {
-
+    private void updateHoliday() {
+        try {
+            boolean status = holidayController.updateHoliday(txtDetail.getText().trim(),
+                    commonController.getMysqlDateFromJDateChooser(calHolidayFrom),
+                    commonController.getMysqlDateFromJDateChooser(calHolidayTo), holidayId);
+            if (status) {
+                JOptionPane.showMessageDialog(this, "Updated Successfully !");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Something went wrong!", "Error !", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(editHoliday.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -259,7 +271,7 @@ public class editHoliday extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
-        updateBatchDetails();
+        updateHoliday();
     }//GEN-LAST:event_btSave2ActionPerformed
 
     private void calHolidayFromFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_calHolidayFromFocusLost

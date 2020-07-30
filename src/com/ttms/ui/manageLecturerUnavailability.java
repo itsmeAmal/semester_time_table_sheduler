@@ -134,6 +134,7 @@ public class manageLecturerUnavailability extends javax.swing.JFrame {
         setTitle("Lecturer Unavailability");
         setMaximumSize(new java.awt.Dimension(1269, 643));
         setMinimumSize(new java.awt.Dimension(1269, 643));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(1340, 643));

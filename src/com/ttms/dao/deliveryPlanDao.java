@@ -18,7 +18,7 @@ public interface deliveryPlanDao {
 
     boolean addDeliveryPlan(deliveryPlan plan) throws SQLException;
 
-    boolean getDeliveryPlanByOneAttribute(String attribute, String condition, String value) throws SQLException;
+    ResultSet getDeliveryPlanByOneAttribute(String attribute, String condition, String value) throws SQLException;
 
     boolean updateDeliveryPlan(deliveryPlan plan) throws SQLException;
 

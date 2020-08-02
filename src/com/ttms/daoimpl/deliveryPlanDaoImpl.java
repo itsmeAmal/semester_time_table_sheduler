@@ -26,12 +26,14 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
             + " delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark from delivery_plan";
 
     @Override
-    public boolean addDeliveryPlan(deliveryPlan plan) throws SQLException {
+    public int addDeliveryPlan(deliveryPlan plan) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("insert into delivery_plan (delivery_plan_level_id, delivery_plan_module_id,"
+        PreparedStatement ps = con.prepareStatement("insert into delivery_plan (delivery_plan_id, delivery_plan_level_id, delivery_plan_module_id,"
                 + " delivery_plan_repeat_students_available, delivery_plan_week_begining_date, delivery_plan_calender_week, "
                 + "delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, delivery_plan_lecturer_id, "
-                + "delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark) values(?,?,?,?,?,?,?,?,?,?,?,?)");
+                + "delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark) values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        int nextId = getNextDeliveryPlanId();
+        ps.setInt(1, nextId);
         ps.setInt(1, plan.getLevelId());
         ps.setInt(2, plan.getModuleId());
         ps.setBoolean(3, plan.isRepeatStudentsAvailable());
@@ -46,7 +48,7 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
         ps.setString(12, plan.getRemark());
         ps.executeUpdate();
         ps.close();
-        return true;
+        return nextId;
     }
 
     @Override
@@ -95,6 +97,18 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
         PreparedStatement ps = con.prepareStatement("delete from delivery_plan where delivery_plan_id=?");
         ps.executeUpdate();
         return true;
+    }
+
+    @Override
+    public int getNextDeliveryPlanId() throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select max(delivery_plan_id) as max_id from delivery_plan");
+        ResultSet rset = ps.executeQuery();
+        int maxId = 0;
+        while (rset.next()) {
+            maxId = rset.getInt("max_id");
+        }
+        return maxId++;
     }
 
 }

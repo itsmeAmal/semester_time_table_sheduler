@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public interface deliveryPlanDao {
 
-    boolean addDeliveryPlan(deliveryPlan plan) throws SQLException;
+    int addDeliveryPlan(deliveryPlan plan) throws SQLException;
 
     ResultSet getDeliveryPlanByOneAttribute(String attribute, String condition, String value) throws SQLException;
 
@@ -27,5 +27,7 @@ public interface deliveryPlanDao {
     ResultSet getDeliveryPlanByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException;
 
     boolean deleteDeliveryPlan(int deliveryPlanId) throws SQLException;
+    
+    int getNextDeliveryPlanId() throws SQLException;
 
 }

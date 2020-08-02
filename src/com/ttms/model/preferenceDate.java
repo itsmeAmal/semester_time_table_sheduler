@@ -19,12 +19,14 @@ public class preferenceDate {
     private String date5;
     private int status;
     private String remark;
+    private int deliveryPlanId;
 
     @Override
     public String toString() {
-        return "preferenceDate{" + "id=" + id + ", date1=" + date1 + ", date2=" + date2
-                + ", date3=" + date3 + ", date4=" + date4 + ", date5=" + date5 + ", status="
-                + status + ", remark=" + remark + '}';
+        return "preferenceDate{" + "id=" + id + ", date1=" + date1 + ", date2="
+                + date2 + ", date3=" + date3 + ", date4=" + date4 + ", date5="
+                + date5 + ", status=" + status + ", remark=" + remark + ", deliveryPlanId="
+                + deliveryPlanId + '}';
     }
 
     /**
@@ -137,6 +139,20 @@ public class preferenceDate {
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    /**
+     * @return the deliveryPlanId
+     */
+    public int getDeliveryPlanId() {
+        return deliveryPlanId;
+    }
+
+    /**
+     * @param deliveryPlanId the deliveryPlanId to set
+     */
+    public void setDeliveryPlanId(int deliveryPlanId) {
+        this.deliveryPlanId = deliveryPlanId;
     }
 
 }

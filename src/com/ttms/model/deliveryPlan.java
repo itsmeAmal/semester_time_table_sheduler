@@ -15,7 +15,7 @@ import java.sql.Date;
 public class deliveryPlan {
 
     private int id;
-    private int levelId;
+    private String levelString;
     private int moduleId;
     private boolean repeatStudentsAvailable;
     private Date weekBeginingDate;
@@ -26,18 +26,18 @@ public class deliveryPlan {
     private int lecturerId;
     private BigDecimal lectureHours;
     private int roomId;
-    private String remark;   
+    private String remark;
 
     @Override
     public String toString() {
-        return "deliveryPlan{" + "id=" + id + ", levelId=" + levelId + ", moduleId=" + moduleId +
-                ", repeatStudentsAvailable=" + repeatStudentsAvailable + ", weekBeginingDate=" + 
-                weekBeginingDate + ", calenderWeek=" + calenderWeek + ", classContactWeek=" + 
-                classContactWeek + ", year=" + year + ", type=" + type + ", lecturerId=" + 
-                lecturerId + ", lectureHours=" + lectureHours + ", roomId=" + roomId + 
-                ", remark=" + remark + '}';
+        return "deliveryPlan{" + "id=" + id + ", levelId=" + getLevelString() + ", moduleId=" + moduleId
+                + ", repeatStudentsAvailable=" + repeatStudentsAvailable + ", weekBeginingDate="
+                + weekBeginingDate + ", calenderWeek=" + calenderWeek + ", classContactWeek="
+                + classContactWeek + ", year=" + year + ", type=" + type + ", lecturerId="
+                + lecturerId + ", lectureHours=" + lectureHours + ", roomId=" + roomId
+                + ", remark=" + remark + '}';
     }
-    
+
     /**
      * @return the id
      */
@@ -50,20 +50,6 @@ public class deliveryPlan {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * @return the levelId
-     */
-    public int getLevelId() {
-        return levelId;
-    }
-
-    /**
-     * @param levelId the levelId to set
-     */
-    public void setLevelId(int levelId) {
-        this.levelId = levelId;
     }
 
     /**
@@ -219,7 +205,18 @@ public class deliveryPlan {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-    
-    
 
+    /**
+     * @return the levelString
+     */
+    public String getLevelString() {
+        return levelString;
+    }
+
+    /**
+     * @param levelString the levelString to set
+     */
+    public void setLevelString(String levelString) {
+        this.levelString = levelString;
+    }
 }

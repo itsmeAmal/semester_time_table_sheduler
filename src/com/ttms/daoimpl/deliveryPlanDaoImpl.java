@@ -28,24 +28,24 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
     @Override
     public int addDeliveryPlan(deliveryPlan plan) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("insert into delivery_plan (delivery_plan_id, delivery_plan_level_id, delivery_plan_module_id,"
+        PreparedStatement ps = con.prepareStatement("insert into delivery_plan (delivery_plan_id, delivery_plan_level_str, delivery_plan_module_id,"
                 + " delivery_plan_repeat_students_available, delivery_plan_week_begining_date, delivery_plan_calender_week, "
                 + "delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, delivery_plan_lecturer_id, "
                 + "delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark) values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
         int nextId = getNextDeliveryPlanId();
         ps.setInt(1, nextId);
-        ps.setInt(1, plan.getLevelId());
-        ps.setInt(2, plan.getModuleId());
-        ps.setBoolean(3, plan.isRepeatStudentsAvailable());
-        ps.setDate(4, plan.getWeekBeginingDate());
-        ps.setString(5, plan.getCalenderWeek());
-        ps.setString(6, plan.getClassContactWeek());
-        ps.setInt(7, plan.getYear());
-        ps.setString(8, plan.getType());
-        ps.setInt(9, plan.getLecturerId());
-        ps.setBigDecimal(10, plan.getLectureHours());
-        ps.setInt(11, plan.getRoomId());
-        ps.setString(12, plan.getRemark());
+        ps.setString(2, plan.getLevelString());
+        ps.setInt(3, plan.getModuleId());
+        ps.setBoolean(4, plan.isRepeatStudentsAvailable());
+        ps.setDate(5, plan.getWeekBeginingDate());
+        ps.setString(6, plan.getCalenderWeek());
+        ps.setString(7, plan.getClassContactWeek());
+        ps.setInt(8, plan.getYear());
+        ps.setString(9, plan.getType());
+        ps.setInt(10, plan.getLecturerId());
+        ps.setBigDecimal(11, plan.getLectureHours());
+        ps.setInt(12, plan.getRoomId());
+        ps.setString(13, plan.getRemark());
         ps.executeUpdate();
         ps.close();
         return nextId;
@@ -63,7 +63,7 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
                 + "delivery_plan_repeat_students_available=?, delivery_plan_week_begining_date=?, delivery_plan_calender_week=?, "
                 + "delivery_plan_class_contact_week=?, delivery_plan_year=?, delivery_plan_type=?, delivery_plan_lecturer_id=?, "
                 + "delivery_plan_lecture_hours=?, delivery_plan_room_id=?, delivery_plan_remark=? where delivery_plan_id=?");
-        ps.setInt(1, plan.getLevelId());
+        ps.setString(1, plan.getLevelString());
         ps.setInt(2, plan.getModuleId());
         ps.setBoolean(3, plan.isRepeatStudentsAvailable());
         ps.setDate(4, plan.getWeekBeginingDate());
@@ -102,13 +102,13 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
     @Override
     public int getNextDeliveryPlanId() throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("select max(delivery_plan_id) as max_id from delivery_plan");
+        PreparedStatement ps = con.prepareStatement("select max(delivery_plan_id) from delivery_plan");
         ResultSet rset = ps.executeQuery();
         int maxId = 0;
         while (rset.next()) {
-            maxId = rset.getInt("max_id");
+            maxId = rset.getInt(1);
         }
-        return maxId++;
+        return ++maxId;
     }
 
 }

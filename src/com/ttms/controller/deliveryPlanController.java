@@ -17,12 +17,13 @@ import java.sql.SQLException;
  */
 public class deliveryPlanController {
 
-    public static int addDeliveryPlan(int deliveryPlanId, int deliveryPlanLevelId, int deliveryPlanModuleId, boolean repeatStudentsAvailable, Date weekBeginingDate,
-            String calenderWeek, String classContactWeek, int year, String type, int lecturerId, BigDecimal lectureHours, int roomId,
+    public static int addDeliveryPlan(int deliveryPlanId, String levelString, int deliveryPlanModuleId, 
+            boolean repeatStudentsAvailable, Date weekBeginingDate, String calenderWeek, String classContactWeek, 
+            int year, String type, int lecturerId, BigDecimal lectureHours, int roomId,
             String remark) throws SQLException {
         deliveryPlan plan = new deliveryPlan();
         plan.setId(deliveryPlanId);
-        plan.setLevelId(deliveryPlanLevelId);
+        plan.setLevelString(levelString);
         plan.setModuleId(deliveryPlanModuleId);
         plan.setRepeatStudentsAvailable(repeatStudentsAvailable);
         plan.setWeekBeginingDate(weekBeginingDate);

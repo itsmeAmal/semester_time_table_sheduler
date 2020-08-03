@@ -6,11 +6,14 @@
 package com.ttms.ui;
 
 import com.ttms.controller.commonController;
+import com.ttms.controller.deliveryPlanController;
 import com.ttms.controller.lecturerController;
 import com.ttms.controller.roomController;
 import com.ttms.controller.subjectController;
+import com.ttms.model.DataObject;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -27,6 +30,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
     subject subject = null;
     lecturer lecturer = null;
+    int subjectId = 0;
+    int lecturerId = 0;
 
     /**
      * Creates new form addStudent
@@ -34,8 +39,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     public manageDeliveryPlan() {
         initComponents();
         loadRoomDataObjectsToCombo();
-        setDefaults();
-
+        setInitials();
     }
 
     private void loadModuleToCombo() {
@@ -70,25 +74,20 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         }
     }
 
-    private void setDefaults() {
-        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
-        dtm.setRowCount(0);
-        comboCalenderWeek.removeAllItems();
-        comboLecturer.removeAllItems();
-        comboModuleCode.removeAllItems();
-        calContactWeek.setSelectedItem(null);
-        //------------------------------
-        comboType.setSelectedItem(null);
-        comboHours.setSelectedItem(null);
-        comboLocation.setSelectedItem(null);
-        comboLevel.setSelectedItem(null);
-        comboPreferenceDay.setSelectedItem(null);
-    }
-
-    private void setInitials() {
-
-    }
-
+//    private void setDefaults() {
+//        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+//        dtm.setRowCount(0);
+//        comboCalenderWeek.removeAllItems();
+//        comboLecturer.removeAllItems();
+//        comboModuleCode.removeAllItems();
+//        calContactWeek.setSelectedItem(null);
+//        //------------------------------
+//        comboType.setSelectedItem(null);
+//        comboHours.setSelectedItem(null);
+//        comboLocation.setSelectedItem(null);
+//        comboLevel.setSelectedItem(null);
+//        comboPreferenceDay.setSelectedItem(null);
+//    }
     private void addPreferenceDateToTable() {
         boolean status = false;
         DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
@@ -116,48 +115,78 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         }
     }
 
-    private void addToMainTable() {
+    private void setInitials() {
+        comboLevel.setSelectedItem(null);
+        comboModuleCode.setSelectedItem(null);
+        subjectId = 0;
+        checkBoxRepeatStudents.setSelected(false);
+        calWeekBeginningDate.setDate(null);
+        comboCalenderWeek.setSelectedItem(null);
+        calContactWeek.setSelectedItem(null);
+        comboYear.setSelectedItem(null);
+        comboLecturer.setSelectedItem(null);
+        lecturerId = 0;
+        comboHours.setSelectedItem(null);
+        comboCalenderWeek.removeAllItems();
+        comboLecturer.removeAllItems();
+        comboModuleCode.removeAllItems();
+    }
 
-        if (comboModuleCode.getSelectedItem() == null || comboModuleCode.getSelectedItem().toString().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "Please select module !", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (comboCalenderWeek.getSelectedItem() == null || comboCalenderWeek.getSelectedItem().toString().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "Please select calender week !", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (calWeekBeginningDate.getDate() == null || calWeekBeginningDate.getDate().toString().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "Please select week beginning date !", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (comboLecturer.getSelectedItem() == null || comboLecturer.getSelectedItem().toString().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "Please select lecturer !", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    private void addDeliveryPlan() {
+        try {
+            if (comboLevel.getSelectedItem() == null || comboLevel.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select level !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboModuleCode.getSelectedItem() == null || comboModuleCode.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select module !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboCalenderWeek.getSelectedItem() == null || comboCalenderWeek.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select calender week !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (calWeekBeginningDate.getDate() == null || calWeekBeginningDate.getDate().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select week beginning date !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboLecturer.getSelectedItem() == null || comboLecturer.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select lecturer !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboHours.getSelectedItem() == null || comboHours.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select lecture hour !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboYear.getSelectedItem() == null || comboYear.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select year !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboType.getSelectedItem() == null || comboType.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select type !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (comboLocation.getSelectedItem() == null || comboLocation.getSelectedItem().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Please select location !", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        Object[] column = {
-            comboCalenderWeek.getSelectedItem().toString(),
-            calContactWeek.getSelectedItem().toString(),
-            calWeekBeginningDate.getDate().toString(),
-            "lecture",
-            "tutorial",
-            "lab",
-            txtRemark.getText().trim(),
-            comboLevel.getSelectedItem().toString(),
-            comboModuleCode.getSelectedItem().toString(),
-            comboType.getSelectedItem().toString(),
-            comboLocation.getSelectedItem().toString(),
-            comboHours.getSelectedItem().toString(),
-            comboLecturer.getSelectedItem().toString(),
-            comboYear.getSelectedItem().toString(),
-            true};
+            DataObject dataObj = (DataObject) comboLocation.getSelectedItem();
 
-        DefaultTableModel dtm = (DefaultTableModel) tblDeliveryReportData.getModel();
-        dtm.addRow(column);
+            deliveryPlanController.addDeliveryPlan(0, comboLevel.getSelectedItem().toString(), subjectId,
+                    checkBoxRepeatStudents.isSelected(), commonController.getMysqlDateFromJDateChooser(calWeekBeginningDate),
+                    comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
+                    commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
+                    lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
+                    commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim());
 
-        int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
-        if (option == JOptionPane.YES_OPTION) {
-            clearData();
+            int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
+            if (option == JOptionPane.YES_OPTION) {
+                clearData();
+                setInitials();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -254,7 +283,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         comboCalenderWeek = new javax.swing.JComboBox<>();
         btPreviewFullDetails = new javax.swing.JButton();
         btRemoveDataFromMainTable = new javax.swing.JButton();
-        btAddDataToMainTble1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -854,49 +883,43 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             }
         });
 
-        btAddDataToMainTble1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        btAddDataToMainTble1.setForeground(new java.awt.Color(255, 255, 255));
-        btAddDataToMainTble1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/saveIcon.png"))); // NOI18N
-        btAddDataToMainTble1.setToolTipText("Add Delivery Plan");
-        btAddDataToMainTble1.setBorder(null);
-        btAddDataToMainTble1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAddDataToMainTble1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setText("Delivery Plan for - ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btAddDataToMainTble1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btAddDataToMainTble1)
-                .addGap(14, 14, 14))
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 650));
@@ -906,15 +929,18 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAddDataToMainTbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTbleActionPerformed
-//        addToMainTable();
-        setDateRelatedComponentData();
+        int option = JOptionPane.showConfirmDialog(this, "All the details you entered are correct ? ", "Confirm !", JOptionPane.INFORMATION_MESSAGE);
+        if (option == JOptionPane.YES_OPTION) {
+            addDeliveryPlan();
+            setDateRelatedComponentData();
+        }
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 
     private void btSearchModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchModuleActionPerformed
         try {
             searchSubject searchSub = new searchSubject(this, true);
             searchSub.setVisible(true);
-            int subjectId = searchSub.getSelectedSubjectId();
+            subjectId = searchSub.getSelectedSubjectId();
             if (subjectId != 0) {
                 subject = subjectController.getSubjectBySubjectId(subjectId);
                 comboModuleCode.removeAllItems();
@@ -929,7 +955,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private void btSearchLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchLecturerActionPerformed
         searchLecturer searchLec = new searchLecturer(this, true);
         searchLec.setVisible(true);
-        int lecturerId = searchLec.getSelectedLecturerId();
+        lecturerId = searchLec.getSelectedLecturerId();
         if (lecturerId != 0) {
             try {
                 lecturer = lecturerController.getLecturerByLecturerId(lecturerId);
@@ -960,10 +986,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private void btRemoveDataFromMainTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveDataFromMainTableActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btRemoveDataFromMainTableActionPerformed
-
-    private void btAddDataToMainTble1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTble1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btAddDataToMainTble1ActionPerformed
 
     private void calWeekBeginningDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calWeekBeginningDateKeyReleased
 
@@ -1033,7 +1055,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddDataToMainTble;
-    private javax.swing.JButton btAddDataToMainTble1;
     private javax.swing.JButton btAddToPreferenceTable;
     private javax.swing.JButton btPreviewFullDetails;
     private javax.swing.JButton btRemoveDataFromMainTable;
@@ -1053,6 +1074,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboType;
     private javax.swing.JComboBox<String> comboYear;
     private com.toedter.calendar.JCalendarBeanInfo jCalendarBeanInfo1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

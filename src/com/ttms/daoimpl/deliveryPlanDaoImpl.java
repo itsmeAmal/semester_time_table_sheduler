@@ -111,4 +111,14 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
         return ++maxId;
     }
 
+    public ResultSet getAllDeliveryPlansWithJoinTables() throws SQLException {
+        return new commonDaoImpl().getAllRecords("SELECT delivery_plan_id, delivery_plan_level_str, "
+                + " delivery_plan_module_id, delivery_plan_repeat_students_available, "
+                + " delivery_plan_week_begining_date, delivery_plan_calender_week, "
+                + " delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
+                + " delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, "
+                + " delivery_plan_remark, lecturer_name, room_name FROM delivery_plan left join lecturer "
+                + " on delivery_plan_lecturer_id=lecturer_id left join room on delivery_plan_room_id=room_id");
+    }
+
 }

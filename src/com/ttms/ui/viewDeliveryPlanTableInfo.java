@@ -18,7 +18,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
      * @param modal
      * @param studentPrimaryKey
      */
-    public viewDeliveryPlanTableInfo(java.awt.Frame parent, boolean modal) {
+    public viewDeliveryPlanTableInfo(java.awt.Frame parent, boolean modal, int deliveryPlanId) {
         super(parent, modal);
         initComponents();
     }
@@ -66,7 +66,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName15 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("View Delivery Details");
+        setTitle("View Delivery Plan Details");
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -432,7 +432,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                viewDeliveryPlanTableInfo dialog = new viewDeliveryPlanTableInfo(new javax.swing.JFrame(), true);
+                viewDeliveryPlanTableInfo dialog = new viewDeliveryPlanTableInfo(new javax.swing.JFrame(), true, 1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

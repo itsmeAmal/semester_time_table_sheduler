@@ -41,17 +41,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         setInitials();
     }
 
-    private void loadModuleToCombo() {
-        try {
-            String[] columnList = {"subject_module_code", "subject_id", "subject_name",
-                "subject_detail", "subject_status", "subject_course_id", "subject_course_level", "subject_semester"};
-            ResultSet rset = subjectController.getAllSubjects();
-            commonController.loadDataObjectsIntoComboBox(comboModuleCode, rset, columnList, "subject_module_code");
-        } catch (SQLException ex) {
-            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private void loadRoomDataObjectsToCombo() {
         try {
             ResultSet rset = roomController.getAllRoomDetails();
@@ -62,31 +51,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         }
     }
 
-    private void loadLecturerDataObjectsToCombo() {
-        try {
-            ResultSet rset = lecturerController.getAllLecturers();
-            String[] columnList = {"lecturer_id", "lecturer_title", "lecturer_name",
-                "lecturer_email", "lecturer_contact_no", "lecturer_detail", "lecturer_status"};
-            commonController.loadDataObjectsIntoComboBox(comboLecturer, rset, columnList, "lecturer_name");
-        } catch (SQLException ex) {
-            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-//    private void setDefaults() {
-//        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
-//        dtm.setRowCount(0);
-//        comboCalenderWeek.removeAllItems();
-//        comboLecturer.removeAllItems();
-//        comboModuleCode.removeAllItems();
-//        calContactWeek.setSelectedItem(null);
-//        //------------------------------
-//        comboType.setSelectedItem(null);
-//        comboHours.setSelectedItem(null);
-//        comboLocation.setSelectedItem(null);
-//        comboLevel.setSelectedItem(null);
-//        comboPreferenceDay.setSelectedItem(null);
-//    }
     private void addPreferenceDateToTable() {
         boolean status = false;
         DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
@@ -215,6 +179,10 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             comboCalenderWeek.addItem("CW " + selectedDateString);
             comboYear.addItem(selectedYearSring);
         }
+    }
+    
+    private void loadDataToTable(){
+//        ResultSet rset = deliveryPlanController.
     }
 
     /**
@@ -980,7 +948,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     }//GEN-LAST:event_btAddToPreferenceTableActionPerformed
 
     private void btPreviewFullDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPreviewFullDetailsActionPerformed
-        // TODO add your handling code here:
+        new viewDeliveryPlanTableInfo(this, true, 1).setVisible(true);
     }//GEN-LAST:event_btPreviewFullDetailsActionPerformed
 
     private void btRemoveDataFromMainTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveDataFromMainTableActionPerformed

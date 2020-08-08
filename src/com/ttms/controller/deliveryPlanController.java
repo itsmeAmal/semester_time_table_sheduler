@@ -9,6 +9,7 @@ import com.ttms.daoimpl.deliveryPlanDaoImpl;
 import com.ttms.model.deliveryPlan;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -17,8 +18,8 @@ import java.sql.SQLException;
  */
 public class deliveryPlanController {
 
-    public static int addDeliveryPlan(int deliveryPlanId, String levelString, int deliveryPlanModuleId, 
-            boolean repeatStudentsAvailable, Date weekBeginingDate, String calenderWeek, String classContactWeek, 
+    public static int addDeliveryPlan(int deliveryPlanId, String levelString, int deliveryPlanModuleId,
+            boolean repeatStudentsAvailable, Date weekBeginingDate, String calenderWeek, String classContactWeek,
             int year, String type, int lecturerId, BigDecimal lectureHours, int roomId,
             String remark) throws SQLException {
         deliveryPlan plan = new deliveryPlan();
@@ -36,6 +37,14 @@ public class deliveryPlanController {
         plan.setRoomId(roomId);
         plan.setRemark(remark);
         return new deliveryPlanDaoImpl().addDeliveryPlan(plan);
+    }
+
+    public static ResultSet getAllDeliveryPlans() throws SQLException {
+        return new deliveryPlanDaoImpl().getAllDeliveryPlanDetails();
+    }
+
+    public static ResultSet getAllDeliveryPlansWithJoinTables() throws SQLException {
+        return new deliveryPlanDaoImpl().getAllDeliveryPlansWithJoinTables();
     }
 
 }

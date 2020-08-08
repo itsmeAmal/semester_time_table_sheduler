@@ -13,7 +13,6 @@ import com.ttms.controller.subjectController;
 import com.ttms.model.DataObject;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -884,6 +883,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Delivery Plan for - ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

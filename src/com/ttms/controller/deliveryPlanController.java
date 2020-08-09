@@ -21,7 +21,7 @@ public class deliveryPlanController {
     public static int addDeliveryPlan(int deliveryPlanId, String levelString, int deliveryPlanModuleId,
             boolean repeatStudentsAvailable, Date weekBeginingDate, String calenderWeek, String classContactWeek,
             int year, String type, int lecturerId, BigDecimal lectureHours, int roomId,
-            String remark) throws SQLException {
+            String remark, String day1, String day2, String day3, String day4, String day5) throws SQLException {
         deliveryPlan plan = new deliveryPlan();
         plan.setId(deliveryPlanId);
         plan.setLevelString(levelString);
@@ -36,6 +36,11 @@ public class deliveryPlanController {
         plan.setLectureHours(lectureHours);
         plan.setRoomId(roomId);
         plan.setRemark(remark);
+        plan.setDay1(day1);
+        plan.setDay2(day2);
+        plan.setDay3(day3);
+        plan.setDay4(day4);
+        plan.setDay5(day5);
         return new deliveryPlanDaoImpl().addDeliveryPlan(plan);
     }
 

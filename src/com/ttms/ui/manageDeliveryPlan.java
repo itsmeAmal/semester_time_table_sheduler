@@ -32,6 +32,12 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
     int subjectId = 0;
     int lecturerId = 0;
 
+    private String day1 = "";
+    private String day2 = "";
+    private String day3 = "";
+    private String day4 = "";
+    private String day5 = "";
+
     /**
      * Creates new form addStudent
      */
@@ -39,6 +45,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         initComponents();
         loadRoomDataObjectsToCombo();
         setInitials();
+        loadDataToTable();
     }
 
     private void loadRoomDataObjectsToCombo() {
@@ -95,6 +102,24 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         comboModuleCode.removeAllItems();
     }
 
+    private boolean preferenceDates() {
+        boolean status = false;
+        int rawCount = tblPreferenceDay.getRowCount();
+        if (rawCount > 0) {
+            for (int i = 0; i < tblPreferenceDay.getRowCount(); i++) {
+                day1 = tblPreferenceDay.getValueAt(0, 1).toString();
+                day2 = tblPreferenceDay.getValueAt(1, 1).toString();
+                day3 = tblPreferenceDay.getValueAt(2, 1).toString();
+                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
+                day5 = tblPreferenceDay.getValueAt(4, 1).toString();
+            }
+            status = true;
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select preference dates !", "Error !", JOptionPane.ERROR_MESSAGE);
+        }
+        return status;
+    }
+
     private void addDeliveryPlan() {
         try {
             if (comboLevel.getSelectedItem() == null || comboLevel.getSelectedItem().toString().equalsIgnoreCase("")) {
@@ -134,19 +159,20 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
                 return;
             }
 
-            DataObject dataObj = (DataObject) comboLocation.getSelectedItem();
+            if (preferenceDates()) {
+                DataObject dataObj = (DataObject) comboLocation.getSelectedItem();
+                deliveryPlanController.addDeliveryPlan(0, comboLevel.getSelectedItem().toString(), subjectId,
+                        checkBoxRepeatStudents.isSelected(), commonController.getMysqlDateFromJDateChooser(calWeekBeginningDate),
+                        comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
+                        commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
+                        lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
+                        commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim(), day1, day2, day3, day4, day5);
 
-            deliveryPlanController.addDeliveryPlan(0, comboLevel.getSelectedItem().toString(), subjectId,
-                    checkBoxRepeatStudents.isSelected(), commonController.getMysqlDateFromJDateChooser(calWeekBeginningDate),
-                    comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
-                    commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
-                    lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
-                    commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim());
-
-            int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
-            if (option == JOptionPane.YES_OPTION) {
-                clearData();
-                setInitials();
+                int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
+                if (option == JOptionPane.YES_OPTION) {
+                    clearData();
+                    setInitials();
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,9 +206,18 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             comboYear.addItem(selectedYearSring);
         }
     }
-    
-    private void loadDataToTable(){
-//        ResultSet rset = deliveryPlanController.
+
+    private void loadDataToTable() {
+        try {
+            ResultSet rset = deliveryPlanController.getAllDeliveryPlansWithJoinTables();
+            String[] columnList = {"delivery_plan_calender_week", "delivery_plan_class_contact_week", "delivery_plan_week_begining_date",
+                "subject_name", "delivery_plan_remark", "delivery_plan_level_str", "subject_name", "delivery_plan_module_id",
+                "delivery_plan_type", "delivery_plan_room_id", "room_name", "delivery_plan_lecture_hours", "lecturer_name",
+                "delivery_plan_lecturer_id", "delivery_plan_year", "delivery_plan_repeat_students_available"};
+            commonController.loadDataToTable(tblDeliveryReportData, rset, columnList);
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -264,14 +299,14 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Calender Week", "Class Cont. Week", "Week Beginning", "Lecture", "Tutorial", "Lab", "Remarks", "hid_level", "hid_module code", "hid_module id", "hid_type", "hid_location", "hid_lecture hours", "hid_lecturer", "hid_lecturer id", "hid_year", "hid_repeat students"
+                "Calender Week", "Class Cont. Week", "Week Beginning", "Lec / Tutorial / Lab", "Remarks", "hid_level", "hid_module code", "hid_module id", "hid_type", "hid_location_id", "hid_location", "hid_lecture hours", "hid_lecturer", "hid_lecturer id", "hid_year", "hid_repeat students"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -298,7 +333,12 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             tblDeliveryReportData.getColumnModel().getColumn(2).setMaxWidth(150);
             tblDeliveryReportData.getColumnModel().getColumn(3).setResizable(false);
             tblDeliveryReportData.getColumnModel().getColumn(4).setResizable(false);
-            tblDeliveryReportData.getColumnModel().getColumn(6).setResizable(false);
+            tblDeliveryReportData.getColumnModel().getColumn(5).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(5).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setMaxWidth(0);
             tblDeliveryReportData.getColumnModel().getColumn(7).setMinWidth(0);
             tblDeliveryReportData.getColumnModel().getColumn(7).setPreferredWidth(0);
             tblDeliveryReportData.getColumnModel().getColumn(7).setMaxWidth(0);
@@ -326,9 +366,6 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
             tblDeliveryReportData.getColumnModel().getColumn(15).setMinWidth(0);
             tblDeliveryReportData.getColumnModel().getColumn(15).setPreferredWidth(0);
             tblDeliveryReportData.getColumnModel().getColumn(15).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(16).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(16).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(16).setMaxWidth(0);
         }
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
@@ -901,6 +938,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             addDeliveryPlan();
             setDateRelatedComponentData();
+            loadDataToTable();
         }
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 

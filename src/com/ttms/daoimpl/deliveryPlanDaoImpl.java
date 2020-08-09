@@ -23,15 +23,18 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
     private String selectQuery = "select delivery_plan_id, delivery_plan_level_id, delivery_plan_module_id, "
             + " delivery_plan_repeat_students_available, delivery_plan_week_begining_date, delivery_plan_calender_week, "
             + " delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, delivery_plan_lecturer_id, "
-            + " delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark from delivery_plan";
+            + " delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, delivery_plan_day_1, "
+            + " delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, delivery_plan_day_5 from delivery_plan";
 
     @Override
     public int addDeliveryPlan(deliveryPlan plan) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("insert into delivery_plan (delivery_plan_id, delivery_plan_level_str, delivery_plan_module_id,"
                 + " delivery_plan_repeat_students_available, delivery_plan_week_begining_date, delivery_plan_calender_week, "
-                + "delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, delivery_plan_lecturer_id, "
-                + "delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark) values(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                + " delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, delivery_plan_lecturer_id, "
+                + " delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
+                + " delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, delivery_plan_day_5) "
+                + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         int nextId = getNextDeliveryPlanId();
         ps.setInt(1, nextId);
         ps.setString(2, plan.getLevelString());
@@ -46,6 +49,11 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
         ps.setBigDecimal(11, plan.getLectureHours());
         ps.setInt(12, plan.getRoomId());
         ps.setString(13, plan.getRemark());
+        ps.setString(14, plan.getDay1());
+        ps.setString(15, plan.getDay2());
+        ps.setString(16, plan.getDay3());
+        ps.setString(17, plan.getDay4());
+        ps.setString(18, plan.getDay5());
         ps.executeUpdate();
         ps.close();
         return nextId;
@@ -117,8 +125,11 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
                 + " delivery_plan_week_begining_date, delivery_plan_calender_week, "
                 + " delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
                 + " delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, "
-                + " delivery_plan_remark, lecturer_name, room_name FROM delivery_plan left join lecturer "
-                + " on delivery_plan_lecturer_id=lecturer_id left join room on delivery_plan_room_id=room_id");
+                + " delivery_plan_remark, lecturer_name, room_name, subject_name, "
+                + " delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
+                + " delivery_plan_day_5 FROM delivery_plan left join lecturer "
+                + " on delivery_plan_lecturer_id=lecturer_id left join room on delivery_plan_room_id=room_id "
+                + " left join subject on delivery_plan_module_id=subject_id");
     }
 
 }

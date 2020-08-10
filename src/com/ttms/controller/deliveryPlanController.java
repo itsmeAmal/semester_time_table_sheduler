@@ -52,4 +52,24 @@ public class deliveryPlanController {
         return new deliveryPlanDaoImpl().getAllDeliveryPlansWithJoinTables();
     }
 
+    public static ResultSet getTimeTableByDate1AndLecturerId(String day1, String level) throws SQLException {
+        return new deliveryPlanDaoImpl().getTimeTableByDate1(day1, level);
+    }
+
+    public static ResultSet getTimeTableByDate2AndLecturerId(String day2, String level) throws SQLException {
+        return new deliveryPlanDaoImpl().getTimeTableByDate2(day2, level);
+    }
+
+    public static ResultSet getTimeTableByDate3AndLecturerId(String day3, String level) throws SQLException {
+        return new deliveryPlanDaoImpl().getTimeTableByDate3(day3, level);
+    }
+
+    public static ResultSet getTimeTableByDate4AndLecturerId(String day4, String level) throws SQLException {
+        return new deliveryPlanDaoImpl().getTimeTableByDate4(day4, level);
+    }
+
+    public static ResultSet getTimeTableByDate5AndLecturerId(String day5, String level) throws SQLException {
+        return new deliveryPlanDaoImpl().getTimeTableByDate5(day5, level);
+    }
+
 }

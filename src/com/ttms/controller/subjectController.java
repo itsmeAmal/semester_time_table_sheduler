@@ -5,7 +5,6 @@
  */
 package com.ttms.controller;
 
-import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.daoimpl.subjectDaoImpl;
 import com.ttms.model.subject;
 import java.sql.ResultSet;

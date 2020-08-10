@@ -21,17 +21,17 @@ import java.util.ArrayList;
 public class subjectDaoImpl implements subjectDao {
 
     private String selectQuery = "select subject_id, subject_name, subject_module_code, subject_detail, subject_status, "
-            + "subject_course_id, subject_course_level, subject_semester from subject";
+            + "subject_course_id, subject_course_level, subject_semester from subject_details";
 
     private String selectQuery2 = "SELECT subject_id, subject_name, subject_module_code, subject_detail, subject_status, "
             + "subject_course_id, if(subject_course_id=0, 'Common', course_type) as course_type, subject_course_level, "
-            + "subject_semester FROM subject left join course on course_id=subject_course_id where subject_status=1";
+            + "subject_semester FROM subject_details left join course on course_id=subject_course_id where subject_status=1";
 
     @Override
 
     public boolean addSubject(subject subject) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("insert into subject (subject_name, subject_module_code, subject_detail, "
+        PreparedStatement ps = con.prepareStatement("insert into subject_details (subject_name, subject_module_code, subject_detail, "
                 + " subject_status, subject_course_id, subject_course_level, subject_semester) values (?,?,?,?,?,?,?)");
         ps.setString(1, subject.getName());
         ps.setString(2, subject.getModuleCode());
@@ -58,7 +58,7 @@ public class subjectDaoImpl implements subjectDao {
     @Override
     public boolean updateSubject(subject subject) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("update subject set subject_name=?, subject_module_code=?, "
+        PreparedStatement ps = con.prepareStatement("update subject_details set subject_name=?, subject_module_code=?, "
                 + " subject_detail=?, subject_status=?, subject_course_id=?, subject_course_level=?, subject_semester=?"
                 + " where subject_id=?");
         ps.setString(1, subject.getName());
@@ -77,7 +77,7 @@ public class subjectDaoImpl implements subjectDao {
     @Override
     public boolean deleteSubject(int subjectId) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("delete from subject where subject_id=?");
+        PreparedStatement ps = con.prepareStatement("delete from subject_details where subject_id=?");
         ps.setInt(1, subjectId);
         ps.executeQuery();
         ps.close();

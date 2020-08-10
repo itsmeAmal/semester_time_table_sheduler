@@ -129,7 +129,77 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
                 + " delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
                 + " delivery_plan_day_5 FROM delivery_plan left join lecturer "
                 + " on delivery_plan_lecturer_id=lecturer_id left join room on delivery_plan_room_id=room_id "
-                + " left join subject on delivery_plan_module_id=subject_id");
+                + " left join subject_details on delivery_plan_module_id=subject_id");
+    }
+
+    public ResultSet getTimeTableByDate1(String day1, String level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select delivery_plan_id, delivery_plan_level_str, "
+                + "delivery_plan_module_id, delivery_plan_repeat_students_available, delivery_plan_week_begining_date, "
+                + "delivery_plan_calender_week, delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
+                + "delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
+                + "delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
+                + "delivery_plan_day_5, subject_name from delivery_plan left join subject_details on delivery_plan_module_id=subject_id "
+                + " where delivery_plan_day_1=? and delivery_plan_level_str=?");
+        ps.setString(1, day1);
+        ps.setString(2, level);
+        return ps.executeQuery();
+    }
+
+    public ResultSet getTimeTableByDate2(String day2, String level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select delivery_plan_id, delivery_plan_level_str, "
+                + "delivery_plan_module_id, delivery_plan_repeat_students_available, delivery_plan_week_begining_date, "
+                + "delivery_plan_calender_week, delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
+                + "delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
+                + "delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
+                + "delivery_plan_day_5, subject_name from  delivery_plan left join subject_details on delivery_plan_module_id=subject_id "
+                + " where delivery_plan_day_2=? and delivery_plan_level_str=?");
+        ps.setString(1, day2);
+        ps.setString(2, level);
+        return ps.executeQuery();
+    }
+
+    public ResultSet getTimeTableByDate3(String day3, String level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select delivery_plan_id, delivery_plan_level_str, "
+                + "delivery_plan_module_id, delivery_plan_repeat_students_available, delivery_plan_week_begining_date, "
+                + "delivery_plan_calender_week, delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
+                + "delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
+                + "delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
+                + "delivery_plan_day_5, subject_name from delivery_plan left join subject_details on delivery_plan_module_id=subject_id "
+                + " where delivery_plan_day_3=? and delivery_plan_level_str=?");
+        ps.setString(1, day3);
+        ps.setString(2, level);
+        return ps.executeQuery();
+    }
+
+    public ResultSet getTimeTableByDate4(String day3, String level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select delivery_plan_id, delivery_plan_level_str, "
+                + "delivery_plan_module_id, delivery_plan_repeat_students_available, delivery_plan_week_begining_date, "
+                + "delivery_plan_calender_week, delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
+                + "delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
+                + "delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
+                + "delivery_plan_day_5, subject_name from  delivery_plan left join subject_details on delivery_plan_module_id=subject_id "
+                + " where delivery_plan_day_4=? and delivery_plan_level_str=?");
+        ps.setString(1, day3);
+        ps.setString(2, level);
+        return ps.executeQuery();
+    }
+
+    public ResultSet getTimeTableByDate5(String day3, String level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select delivery_plan_id, delivery_plan_level_str, "
+                + "delivery_plan_module_id, delivery_plan_repeat_students_available, delivery_plan_week_begining_date, "
+                + "delivery_plan_calender_week, delivery_plan_class_contact_week, delivery_plan_year, delivery_plan_type, "
+                + "delivery_plan_lecturer_id, delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
+                + "delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, "
+                + "delivery_plan_day_5, subject_name from delivery_plan left join subject_details on delivery_plan_module_id=subject_id "
+                + " where delivery_plan_day_5=? and delivery_plan_level_str=?");
+        ps.setString(1, day3);
+        ps.setString(2, level);
+        return ps.executeQuery();
     }
 
 }

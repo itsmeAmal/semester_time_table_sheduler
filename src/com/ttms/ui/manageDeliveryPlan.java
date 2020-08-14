@@ -194,6 +194,8 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         comboLecturer.removeAllItems();
         comboYear.setSelectedIndex(0);
         checkBoxRepeatStudents.setSelected(false);
+        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+        dtm.setRowCount(0); 
     }
 
     private void setDateRelatedComponentData() {
@@ -428,7 +430,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         });
 
         calContactWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        calContactWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20" }));
+        calContactWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week 0", "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20" }));
         calContactWeek.setToolTipText("Class Contact Week");
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -479,7 +481,7 @@ public class manageDeliveryPlan extends javax.swing.JFrame {
         jLabel25.setText("Lecturer");
 
         comboType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab", "Holiday", "Examination", "Revision" }));
+        comboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab", "Holiday", "Examination", "Revision", "Induction Week", "ICA" }));
         comboType.setToolTipText("Type ");
 
         btSearchLecturer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N

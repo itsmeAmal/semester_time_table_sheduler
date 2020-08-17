@@ -72,4 +72,8 @@ public class deliveryPlanController {
         return new deliveryPlanDaoImpl().getTimeTableByDate5(day5, level);
     }
 
+    public static ResultSet getDeliveryPlanByDateAndLevel(String day, String level) throws SQLException {
+        return new deliveryPlanDaoImpl().getDeliveryPlanByDateAndLevel(day, level);
+    }
+
 }

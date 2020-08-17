@@ -202,4 +202,20 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
         return ps.executeQuery();
     }
 
+    public ResultSet getDeliveryPlanByDateAndLevel(String day, String level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("SELECT delivery_plan_year, delivery_plan_class_contact_week, "
+                + " delivery_plan_level_str, delivery_plan_lecturer_id, delivery_plan_room_id, delivery_plan_module_id, "
+                + " delivery_plan_lecture_hours, delivery_plan_calender_week, delivery_plan_type, lecturer_name, lecturer_title , "
+                + " subject_name, room_name, delivery_plan_week_begining_date, subject_course_id, course_name, "
+                + " subject_module_code, room_code, course_type"
+                + " FROM delivery_plan left join lecturer "
+                + " on delivery_plan_lecturer_id=lecturer_id left join subject_details on delivery_plan_module_id=subject_id "
+                + " left join room on delivery_plan_room_id=room_id left join course on subject_course_id=course_id "
+                + " where delivery_plan_level_str=? and delivery_plan_day_1=?");
+        ps.setString(2, day);
+        ps.setString(1, level);
+        return ps.executeQuery();
+    }
+
 }

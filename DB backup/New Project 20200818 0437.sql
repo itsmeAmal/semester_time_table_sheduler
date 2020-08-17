@@ -243,6 +243,51 @@ INSERT INTO `delivery_plan` (`delivery_plan_id`,`delivery_plan_level_str`,`deliv
 
 
 --
+-- Definition of table `delivery_plan_details`
+--
+
+DROP TABLE IF EXISTS `delivery_plan_details`;
+CREATE TABLE `delivery_plan_details` (
+  `delivery_plan_details_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `delivery_plan_details_delivery_plan_id` int(10) unsigned DEFAULT NULL,
+  `delivery_plan_details_date` date DEFAULT NULL,
+  `delivery_plan_details_time` varchar(100) DEFAULT NULL,
+  `delivery_plan_details_time_order_no` int(10) unsigned DEFAULT NULL,
+  `delivery_plan_details_status` tinyint(1) unsigned DEFAULT '1',
+  `delivery_plan_details_remark` varchar(450) DEFAULT NULL,
+  PRIMARY KEY (`delivery_plan_details_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `delivery_plan_details`
+--
+
+/*!40000 ALTER TABLE `delivery_plan_details` DISABLE KEYS */;
+INSERT INTO `delivery_plan_details` (`delivery_plan_details_id`,`delivery_plan_details_delivery_plan_id`,`delivery_plan_details_date`,`delivery_plan_details_time`,`delivery_plan_details_time_order_no`,`delivery_plan_details_status`,`delivery_plan_details_remark`) VALUES 
+ (1,1,'2020-10-01','9.00-11.00',1,1,NULL),
+ (2,1,'2020-10-08','9.00-11.00',1,1,NULL),
+ (3,1,'2020-10-15','9.00-11.00',1,1,NULL),
+ (4,1,'2020-10-22','9.00-11.00',1,1,NULL),
+ (5,1,'2020-10-22','9.00-11.00',1,1,NULL),
+ (6,2,'2020-10-02','11.00-01.00',1,1,NULL),
+ (7,2,'2020-10-09','11.00-01.00',1,1,NULL),
+ (8,2,'2020-10-16','11.00-01.00',1,1,NULL),
+ (9,2,'2020-10-23','11.00-01.00',1,1,NULL),
+ (10,2,'2020-10-30','11.00-01.00',1,1,NULL),
+ (11,2,'2020-11-06','11.00-01.00',1,1,NULL),
+ (12,2,'2020-11-13','11.00-01.00',1,1,NULL),
+ (13,3,'2020-10-01','11.00-01.00',2,1,NULL),
+ (14,3,'2020-10-08','11.00-01.00',2,1,NULL),
+ (15,3,'2020-10-15','11.00-01.00',2,1,NULL),
+ (16,3,'2020-10-22','11.00-01.00',2,1,NULL),
+ (17,4,'2020-10-01','06.00-09.00',0,1,NULL),
+ (18,4,'2020-10-08','06.00-09.00',0,1,NULL),
+ (19,4,'2020-10-15','06.00-09.00',0,1,NULL),
+ (20,4,'2020-10-22','06.00-09.00',0,1,NULL);
+/*!40000 ALTER TABLE `delivery_plan_details` ENABLE KEYS */;
+
+
+--
 -- Definition of table `employee`
 --
 

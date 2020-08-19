@@ -20,6 +20,7 @@ public class deliveryPlanDetails {
     private int timeOrderNo;
     private int status;
     private String remark;
+    private String day;
 
     /**
      * @return the id
@@ -117,6 +118,20 @@ public class deliveryPlanDetails {
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    /**
+     * @return the day
+     */
+    public String getDay() {
+        return day;
+    }
+
+    /**
+     * @param day the day to set
+     */
+    public void setDay(String day) {
+        this.day = day;
     }
 
 }

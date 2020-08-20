@@ -45,7 +45,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         initComponents();
         loadRoomDataObjectsToCombo();
         setInitials();
-        loadDataToTable();
+//        loadDataToTable();
     }
 
     private void loadRoomDataObjectsToCombo() {
@@ -224,7 +224,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 "subject_name", "delivery_plan_remark", "delivery_plan_level_str", "subject_name", "delivery_plan_module_id",
                 "delivery_plan_type", "delivery_plan_room_id", "room_name", "delivery_plan_lecture_hours", "lecturer_name",
                 "delivery_plan_lecturer_id", "delivery_plan_year", "delivery_plan_repeat_students_available"};
-            commonController.loadDataToTable(tblDeliveryReportData, rset, columnList);
+//            commonController.loadDataToTable(tblDeliveryReportData, rset, columnList);
         } catch (SQLException ex) {
             Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -309,19 +309,12 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Calender Week", "Class Cont. Week", "Week Beginning", "Lec / Tutorial / Lab", "Remarks", "hid_level", "hid_module code", "hid_module id", "hid_type", "hid_location_id", "hid_location", "hid_lecture hours", "hid_lecturer", "hid_lecturer id", "hid_year", "hid_repeat students"
+                "Date", "Time", "Remark", "Day"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -332,50 +325,15 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         tblDeliveryReportData.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblDeliveryReportData);
         if (tblDeliveryReportData.getColumnModel().getColumnCount() > 0) {
-            tblDeliveryReportData.getColumnModel().getColumn(0).setMinWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(0).setPreferredWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(0).setMaxWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setMinWidth(200);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setMaxWidth(200);
             tblDeliveryReportData.getColumnModel().getColumn(1).setMinWidth(150);
             tblDeliveryReportData.getColumnModel().getColumn(1).setPreferredWidth(150);
             tblDeliveryReportData.getColumnModel().getColumn(1).setMaxWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(2).setMinWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(2).setPreferredWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(2).setMaxWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(3).setResizable(false);
-            tblDeliveryReportData.getColumnModel().getColumn(4).setResizable(false);
-            tblDeliveryReportData.getColumnModel().getColumn(5).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(5).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(5).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(6).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(6).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(6).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(7).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(7).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(7).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(8).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(8).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(8).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(9).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(9).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(9).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(10).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(10).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(10).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(11).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(11).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(11).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(12).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(12).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(12).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(13).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(13).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(13).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(14).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(14).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(14).setMaxWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(15).setMinWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(15).setPreferredWidth(0);
-            tblDeliveryReportData.getColumnModel().getColumn(15).setMaxWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setMinWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setMaxWidth(150);
         }
 
         btPreviewFullDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N
@@ -652,10 +610,23 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             }
         });
 
+        jRadioButton1.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("09.00");
 
+        jRadioButton2.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton2.setText("11.00");
 
+        jRadioButton3.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButton3.setText("01.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -767,7 +738,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jRadioButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jRadioButton2)
@@ -937,8 +908,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 640));
@@ -952,7 +923,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             addDeliveryPlan();
             setDateRelatedComponentData();
-            loadDataToTable();
+//            loadDataToTable();
         }
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 

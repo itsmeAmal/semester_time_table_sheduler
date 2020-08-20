@@ -35,8 +35,7 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
                 + " delivery_plan_lecture_hours, delivery_plan_room_id, delivery_plan_remark, "
                 + " delivery_plan_day_1, delivery_plan_day_2, delivery_plan_day_3, delivery_plan_day_4, delivery_plan_day_5) "
                 + " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        int nextId = getNextDeliveryPlanId();
-        ps.setInt(1, nextId);
+        ps.setInt(1, plan.getId());
         ps.setString(2, plan.getLevelString());
         ps.setInt(3, plan.getModuleId());
         ps.setBoolean(4, plan.isRepeatStudentsAvailable());
@@ -56,7 +55,7 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
         ps.setString(18, plan.getDay5());
         ps.executeUpdate();
         ps.close();
-        return nextId;
+        return plan.getId();
     }
 
     @Override
@@ -90,7 +89,7 @@ public class deliveryPlanDaoImpl implements deliveryPlanDao {
     }
 
     @Override
-    public ResultSet getAllDeliveryPlanDetails() throws SQLException {
+    public ResultSet getAllDeliveryPlans() throws SQLException {
         return new commonDaoImpl().getAllRecords(selectQuery);
     }
 

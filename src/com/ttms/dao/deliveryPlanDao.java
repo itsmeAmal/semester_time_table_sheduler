@@ -22,7 +22,7 @@ public interface deliveryPlanDao {
 
     boolean updateDeliveryPlan(deliveryPlan plan) throws SQLException;
 
-    ResultSet getAllDeliveryPlanDetails() throws SQLException;
+    ResultSet getAllDeliveryPlans() throws SQLException;
 
     ResultSet getDeliveryPlanByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException;
 

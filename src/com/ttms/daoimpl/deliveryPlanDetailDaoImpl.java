@@ -9,6 +9,7 @@ import com.ttms.dao.deliveryPlanDetailsDao;
 import com.ttms.databaseConnection.DatabaseConnection;
 import com.ttms.model.deliveryPlanDetails;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,8 +26,13 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
             + " delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day"
             + " from delivery_plan_details";
 
+    private String selectQuery2 = "select delivery_plan_details_id, delivery_plan_details_delivery_plan_id, "
+            + "delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no, "
+            + "delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day from "
+            + "delivery_plan_details order by delivery_plan_details_date, delivery_plan_details_time_order_no";
+
     @Override
-    public boolean addDeliveryPlanId(deliveryPlanDetails planDetails) throws SQLException {
+    public boolean addDeliveryPlanDetailRecord(deliveryPlanDetails planDetails) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("insert into delivery_plan_details (delivery_plan_details_delivery_plan_id,"
                 + " delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no,"
@@ -72,6 +78,10 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         return new commonDaoImpl().getAllRecords(selectQuery);
     }
 
+    public ResultSet getAllOrderedDeliveryPlanDetails() throws SQLException {
+        return new commonDaoImpl().getAllRecords(selectQuery2);
+    }
+
     @Override
     public ResultSet getDeliveryPlanDetailsByOneAttribute(String attribute, String condition, String value) throws SQLException {
         return new commonDaoImpl().getResultByAttribute(selectQuery, attribute, condition, value);
@@ -80,6 +90,18 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
     @Override
     public ResultSet getDeliveryPlanDetailsByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException {
         return new commonDaoImpl().getResultByAttributesWithJoinOperator(selectQuery, attributeConditionValueList, operator);
+    }
+
+    public int getNextTimeOrderNo(Date date) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select count(delivery_plan_details_id) as "
+                + "date_count from delivery_plan_details where delivery_plan_details_date=?");
+        ResultSet rset = ps.executeQuery();
+        int count = 0;
+        while (rset.next()) {
+            count = rset.getInt("date_count");
+        }
+        return ++count;
     }
 
 }

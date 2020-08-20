@@ -746,7 +746,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="MONTHLY TIME TABLE"/>
+                    <Property name="text" type="java.lang.String" value="MASTER TIME TABLE"/>
                     <Property name="toolTipText" type="java.lang.String" value="Dilivery Plan"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>

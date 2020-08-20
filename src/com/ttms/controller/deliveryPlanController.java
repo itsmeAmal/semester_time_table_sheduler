@@ -45,7 +45,7 @@ public class deliveryPlanController {
     }
 
     public static ResultSet getAllDeliveryPlans() throws SQLException {
-        return new deliveryPlanDaoImpl().getAllDeliveryPlanDetails();
+        return new deliveryPlanDaoImpl().getAllDeliveryPlans();
     }
 
     public static ResultSet getAllDeliveryPlansWithJoinTables() throws SQLException {

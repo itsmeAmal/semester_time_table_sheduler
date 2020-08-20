@@ -7,14 +7,19 @@ package com.ttms.ui;
 
 import com.ttms.controller.commonController;
 import com.ttms.controller.deliveryPlanController;
+import com.ttms.controller.deliveryPlanDetailsController;
 import com.ttms.controller.lecturerController;
 import com.ttms.controller.roomController;
 import com.ttms.controller.subjectController;
+import com.ttms.daoimpl.deliveryPlanDaoImpl;
 import com.ttms.model.DataObject;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,12 +36,15 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     lecturer lecturer = null;
     int subjectId = 0;
     int lecturerId = 0;
+    int nextId = 0;
 
-    private String day1 = "";
-    private String day2 = "";
-    private String day3 = "";
+    private String date = "";
+    private String timePeriod = "";
+    private String day = "";
     private String day4 = "";
     private String day5 = "";
+
+    private String dayOfWeek = "";
 
     /**
      * Creates new form addStudent
@@ -45,7 +53,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         initComponents();
         loadRoomDataObjectsToCombo();
         setInitials();
-//        loadDataToTable();
+        loadDataToTable();
     }
 
     private void loadRoomDataObjectsToCombo() {
@@ -64,9 +72,18 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
+            String timeAndPeriod = "";
+            if (rdoBtn1.isSelected()) {
+                timeAndPeriod = "Start Time : 09.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
+            } else if (rdoBtn2.isSelected()) {
+                timeAndPeriod = "Start Time : 11.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
+            } else if (rdoBtn3.isSelected()) {
+                timeAndPeriod = "Start Time : 01.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
+            }
+
             boolean status = false;
             DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
-            Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()};
+            Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(), timeAndPeriod, "Day of week"};
 
             for (int i = 0; i < dtm.getRowCount(); i++) {
 
@@ -115,11 +132,19 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         int rawCount = tblPreferenceDay.getRowCount();
         if (rawCount > 0) {
             for (int i = 0; i < tblPreferenceDay.getRowCount(); i++) {
-                day1 = tblPreferenceDay.getValueAt(0, 1).toString();
-                day2 = tblPreferenceDay.getValueAt(1, 1).toString();
-                day3 = tblPreferenceDay.getValueAt(2, 1).toString();
-                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
-                day5 = tblPreferenceDay.getValueAt(4, 1).toString();
+                date = tblPreferenceDay.getValueAt(i, 0).toString();
+                timePeriod = tblPreferenceDay.getValueAt(i, 1).toString();
+                day = tblPreferenceDay.getValueAt(i, 2).toString();
+                try {
+                    //                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
+//                day5 = tblPreferenceDay.getValueAt(4, 1).toString();
+                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord("", nextId, timePeriod,
+                            deliveryPlanDetailsController.getNextTimeOrderNo(
+                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate)),
+                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), comboHours.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                    Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             status = true;
         } else {
@@ -129,6 +154,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     }
 
     private void addDeliveryPlan() {
+        try {
+            nextId = new deliveryPlanDaoImpl().getNextDeliveryPlanId();
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             if (comboLevel.getSelectedItem() == null || comboLevel.getSelectedItem().toString().equalsIgnoreCase("")) {
                 JOptionPane.showMessageDialog(this, "Please select level !", "Error", JOptionPane.ERROR_MESSAGE);
@@ -169,12 +199,13 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             if (preferenceDates()) {
                 DataObject dataObj = (DataObject) comboLocation.getSelectedItem();
-                deliveryPlanController.addDeliveryPlan(0, comboLevel.getSelectedItem().toString(), subjectId,
+
+                deliveryPlanController.addDeliveryPlan(nextId, comboLevel.getSelectedItem().toString(), subjectId,
                         checkBoxRepeatStudents.isSelected(), commonController.getMysqlDateFromJDateChooser(calWeekBeginningDate),
                         comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
                         commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
                         lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
-                        commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim(), day1, day2, day3, day4, day5);
+                        commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim(), date, timePeriod, day, day4, day5);
 
                 int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
                 if (option == JOptionPane.YES_OPTION) {
@@ -204,27 +235,42 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         checkBoxRepeatStudents.setSelected(false);
         DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
         dtm.setRowCount(0);
+        nextId = 0;
     }
 
     private void setDateRelatedComponentData() {
         if (calWeekBeginningDate.getDate() != null) {
+//            try {
             String selectedDateString = new SimpleDateFormat("w").format(calWeekBeginningDate.getDate()).toString();
             String selectedYearSring = new SimpleDateFormat("y").format(calWeekBeginningDate.getDate()).toString();
             comboCalenderWeek.removeAllItems();
             comboYear.removeAllItems();
             comboCalenderWeek.addItem("CW " + selectedDateString);
             comboYear.addItem(selectedYearSring);
+            //-----------------------------------
+//                String input_date = "calWeekBeginningDate.getDate()";
+////            String input_date = "01/08/2012";
+//                SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
+//                Date dt1 = (Date) format1.parse(input_date);
+//                DateFormat format2 = new SimpleDateFormat("EEEE");
+//                String finalDay = format2.format(dt1);
+//                System.out.println(finalDay);
+//            } catch (ParseException ex) {
+//                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
         }
     }
 
     private void loadDataToTable() {
         try {
-            ResultSet rset = deliveryPlanController.getAllDeliveryPlansWithJoinTables();
-            String[] columnList = {"delivery_plan_calender_week", "delivery_plan_class_contact_week", "delivery_plan_week_begining_date",
-                "subject_name", "delivery_plan_remark", "delivery_plan_level_str", "subject_name", "delivery_plan_module_id",
-                "delivery_plan_type", "delivery_plan_room_id", "room_name", "delivery_plan_lecture_hours", "lecturer_name",
-                "delivery_plan_lecturer_id", "delivery_plan_year", "delivery_plan_repeat_students_available"};
-//            commonController.loadDataToTable(tblDeliveryReportData, rset, columnList);
+
+            ResultSet rset = deliveryPlanDetailsController.getAllOrderedDeliveryPlanDetails();
+            String[] columnList = {"delivery_plan_details_date", "delivery_plan_details_time",
+                "delivery_plan_details_remark", "delivery_plan_details_day"};
+
+            commonController.loadDataToTable(tblDeliveryReportData, rset, columnList);
+
         } catch (SQLException ex) {
             Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -293,9 +339,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         comboCalenderWeek = new javax.swing.JComboBox<>();
         calTimeTableDate = new com.toedter.calendar.JDateChooser();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        rdoBtn1 = new javax.swing.JRadioButton();
+        rdoBtn2 = new javax.swing.JRadioButton();
+        rdoBtn3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -530,11 +576,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Date", "Time", "Period", "Day"
+                "Date", "Time and Period", "Day"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -542,9 +588,15 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             }
         });
         tblPreferenceDay.setToolTipText("Priority Level");
+        tblPreferenceDay.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblPreferenceDay);
         if (tblPreferenceDay.getColumnModel().getColumnCount() > 0) {
-            tblPreferenceDay.getColumnModel().getColumn(1).setResizable(false);
+            tblPreferenceDay.getColumnModel().getColumn(0).setMinWidth(120);
+            tblPreferenceDay.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tblPreferenceDay.getColumnModel().getColumn(0).setMaxWidth(120);
+            tblPreferenceDay.getColumnModel().getColumn(1).setMinWidth(220);
+            tblPreferenceDay.getColumnModel().getColumn(1).setPreferredWidth(220);
+            tblPreferenceDay.getColumnModel().getColumn(1).setMaxWidth(220);
             tblPreferenceDay.getColumnModel().getColumn(2).setResizable(false);
         }
 
@@ -610,24 +662,24 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton1.setBackground(new java.awt.Color(0, 0, 102));
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("09.00");
+        rdoBtn1.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(rdoBtn1);
+        rdoBtn1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        rdoBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        rdoBtn1.setSelected(true);
+        rdoBtn1.setText("09.00");
 
-        jRadioButton2.setBackground(new java.awt.Color(0, 0, 102));
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("11.00");
+        rdoBtn2.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(rdoBtn2);
+        rdoBtn2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        rdoBtn2.setForeground(new java.awt.Color(255, 255, 255));
+        rdoBtn2.setText("11.00");
 
-        jRadioButton3.setBackground(new java.awt.Color(0, 0, 102));
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setText("01.00");
+        rdoBtn3.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(rdoBtn3);
+        rdoBtn3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        rdoBtn3.setForeground(new java.awt.Color(255, 255, 255));
+        rdoBtn3.setText("01.00");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -739,11 +791,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton1)
+                                .addComponent(rdoBtn1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton2)
+                                .addComponent(rdoBtn2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jRadioButton3)))
+                                .addComponent(rdoBtn3)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -863,9 +915,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(77, 77, 77)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton3)
+                            .addComponent(rdoBtn1)
+                            .addComponent(rdoBtn2)
+                            .addComponent(rdoBtn3)
                             .addComponent(jLabel29))
                         .addGap(11, 11, 11)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -923,7 +975,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         if (option == JOptionPane.YES_OPTION) {
             addDeliveryPlan();
             setDateRelatedComponentData();
-//            loadDataToTable();
+            loadDataToTable();
         }
     }//GEN-LAST:event_btAddDataToMainTbleActionPerformed
 
@@ -1125,11 +1177,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JRadioButton rdoBtn1;
+    private javax.swing.JRadioButton rdoBtn2;
+    private javax.swing.JRadioButton rdoBtn3;
     private javax.swing.JTable tblDeliveryReportData;
     private javax.swing.JTable tblPreferenceDay;
     private javax.swing.JTextField txtModuleName;

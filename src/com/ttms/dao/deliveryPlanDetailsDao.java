@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public interface deliveryPlanDetailsDao {
 
-    boolean addDeliveryPlanId(deliveryPlanDetails planDetails) throws SQLException;
+    boolean addDeliveryPlanDetailRecord(deliveryPlanDetails planDetails) throws SQLException;
 
     boolean updateDeliveryPlanDetails(deliveryPlanDetails planDetails) throws SQLException;
 

@@ -15,11 +15,8 @@ import com.ttms.daoimpl.deliveryPlanDaoImpl;
 import com.ttms.model.DataObject;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -276,6 +273,18 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         }
     }
 
+    private void AutoGenerateTimeTableData() {
+        if (chkAutoGenarateLecTime.isSelected()) {
+            rdoBtn1.setEnabled(false);
+            rdoBtn2.setEnabled(false);
+            rdoBtn3.setEnabled(false);
+        } else {
+            rdoBtn1.setEnabled(true);
+            rdoBtn2.setEnabled(true);
+            rdoBtn3.setEnabled(true);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -329,7 +338,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPreferenceDay = new javax.swing.JTable();
-        jLabel29 = new javax.swing.JLabel();
         btRemoveFromPrefTable = new javax.swing.JButton();
         btAddToPreferenceTable = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
@@ -342,6 +350,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn1 = new javax.swing.JRadioButton();
         rdoBtn2 = new javax.swing.JRadioButton();
         rdoBtn3 = new javax.swing.JRadioButton();
+        chkAutoGenarateLecTime = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -400,10 +409,12 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 102));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Level");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 12, 183, -1));
 
         comboLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
@@ -413,18 +424,22 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 comboLevelActionPerformed(evt);
             }
         });
+        jPanel3.add(comboLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 29, 183, 44));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setText("Module Code");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 79, 180, -1));
 
         comboModuleCode.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboModuleCode.setToolTipText("Module Code");
         comboModuleCode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel3.add(comboModuleCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 98, 134, 44));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Module Name");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 149, 142, -1));
 
         txtModuleName.setEditable(false);
         txtModuleName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -432,19 +447,23 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         txtModuleName.setToolTipText("Module Name");
         txtModuleName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtModuleName.setSelectionColor(new java.awt.Color(255, 255, 0));
+        jPanel3.add(txtModuleName, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 166, 180, 44));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Course_Type.png"))); // NOI18N
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 166, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Module_Code.png"))); // NOI18N
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 98, -1, -1));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 29, -1, -1));
 
         btSearchModule.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
         btSearchModule.setToolTipText("Search");
@@ -453,16 +472,20 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 btSearchModuleActionPerformed(evt);
             }
         });
+        jPanel3.add(btSearchModule, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 98, 40, 40));
 
         calContactWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         calContactWeek.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Week 0", "Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15", "Week 16", "Week 17", "Week 18", "Week 19", "Week 20" }));
         calContactWeek.setToolTipText("Class Contact Week");
+        jPanel3.add(calContactWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 166, 155, 44));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 166, -1, -1));
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 29, -1, -1));
 
         calWeekBeginningDate.setToolTipText("Week Begining Date");
         calWeekBeginningDate.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -485,29 +508,36 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 calWeekBeginningDateKeyReleased(evt);
             }
         });
+        jPanel3.add(calWeekBeginningDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 29, 153, 44));
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("Week Beginning Date");
+        jPanel3.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 11, 153, 12));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Class Contact Week");
+        jPanel3.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 147, 155, -1));
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Calender Week");
+        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 79, 153, -1));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 98, -1, -1));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Lecturer");
+        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, 143, -1));
 
         comboType.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lecture", "Tutorial", "Lab", "Holiday", "Examination", "Revision", "Induction Week", "ICA" }));
         comboType.setToolTipText("Type ");
+        jPanel3.add(comboType, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 180, 44));
 
         btSearchLecturer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
         btSearchLecturer.setToolTipText("Search");
@@ -516,15 +546,19 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 btSearchLecturerActionPerformed(evt);
             }
         });
+        jPanel3.add(btSearchLecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 98, 40, 40));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Type.png"))); // NOI18N
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         comboLecturer.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLecturer.setToolTipText("Lecturer");
+        jPanel3.add(comboLecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 98, 130, 44));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Lecturer.png"))); // NOI18N
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 102, -1, -1));
 
         btAddDataToMainTble.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btAddDataToMainTble.setForeground(new java.awt.Color(255, 255, 255));
@@ -536,40 +570,50 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 btAddDataToMainTbleActionPerformed(evt);
             }
         });
+        jPanel3.add(btAddDataToMainTble, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 237, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Type");
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 170, -1));
 
         comboLocation.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "room" }));
         comboLocation.setToolTipText("Location");
+        jPanel3.add(comboLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 166, 180, 44));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Room.png"))); // NOI18N
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 166, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setText("Location");
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 148, 180, -1));
 
         comboHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00.30", "01.00", "01.30", "02.00", "02.30", "03.00", "03.30", "04.00", "04.30", "05.00" }));
         comboHours.setToolTipText("Lecture Hours");
+        jPanel3.add(comboHours, new org.netbeans.lib.awtextra.AbsoluteConstraints(991, 28, 213, 44));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Lecture Hours");
+        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(991, 11, 147, -1));
 
         checkBoxRepeatStudents.setBackground(new java.awt.Color(0, 0, 102));
         checkBoxRepeatStudents.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRepeatStudents.setText("Repeat Students Available");
         checkBoxRepeatStudents.setToolTipText("Repeat Students Available");
+        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 228, 230, -1));
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboYear.setToolTipText("Year");
+        jPanel3.add(comboYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 233, 155, 44));
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 228, -1, -1));
 
         tblPreferenceDay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -600,9 +644,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             tblPreferenceDay.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel29.setText("Lecture Start Time");
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(703, 120, 501, 157));
 
         btRemoveFromPrefTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
         btRemoveFromPrefTable.setToolTipText("Delete Preference Date");
@@ -611,6 +653,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 btRemoveFromPrefTableActionPerformed(evt);
             }
         });
+        jPanel3.add(btRemoveFromPrefTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 118, 40, 40));
 
         btAddToPreferenceTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
         btAddToPreferenceTable.setToolTipText("Add Preference Date");
@@ -619,26 +662,33 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 btAddToPreferenceTableActionPerformed(evt);
             }
         });
+        jPanel3.add(btAddToPreferenceTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 28, 40, 40));
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Time Table Date");
+        jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 143, -1));
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Year");
+        jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 216, 118, -1));
 
         txtRemark.setToolTipText("Remarks");
+        jPanel3.add(txtRemark, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 233, 178, 44));
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
         jLabel32.setText("Remark");
+        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 216, 143, -1));
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Remarks.png"))); // NOI18N
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 233, -1, -1));
 
         comboCalenderWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboCalenderWeek.setToolTipText("Calender Week");
+        jPanel3.add(comboCalenderWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 97, 153, 44));
 
         calTimeTableDate.setToolTipText("Week Begining Date");
         calTimeTableDate.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -661,6 +711,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 calTimeTableDateKeyReleased(evt);
             }
         });
+        jPanel3.add(calTimeTableDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(702, 29, 277, 44));
 
         rdoBtn1.setBackground(new java.awt.Color(0, 0, 102));
         buttonGroup1.add(rdoBtn1);
@@ -668,268 +719,31 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn1.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn1.setSelected(true);
         rdoBtn1.setText("09.00");
+        jPanel3.add(rdoBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(976, 79, -1, -1));
 
         rdoBtn2.setBackground(new java.awt.Color(0, 0, 102));
         buttonGroup1.add(rdoBtn2);
         rdoBtn2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn2.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn2.setText("11.00");
+        jPanel3.add(rdoBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1056, 79, -1, -1));
 
         rdoBtn3.setBackground(new java.awt.Color(0, 0, 102));
         buttonGroup1.add(rdoBtn3);
         rdoBtn3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn3.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn3.setText("01.00");
+        jPanel3.add(rdoBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1136, 79, -1, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel2)
-                                .addGap(6, 6, 6)
-                                .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel11)
-                                .addGap(6, 6, 6)
-                                .addComponent(calWeekBeginningDate, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel6)
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(calTimeTableDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboHours, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(checkBoxRepeatStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel13)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(9, 9, 9)
-                                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(8, 8, 8)
-                                                .addComponent(jLabel15)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txtRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel4))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(comboModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(6, 6, 6)
-                                                .addComponent(btSearchModule, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtModuleName, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel10))
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(11, 11, 11)
-                                                .addComponent(jLabel7))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel8)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(comboLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rdoBtn1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rdoBtn2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rdoBtn3)))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(btAddDataToMainTble))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(6, 6, 6))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel19))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel21)
-                                        .addComponent(jLabel30)))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel11)
-                                            .addComponent(calWeekBeginningDate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addGap(1, 1, 1)
-                                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel6)
-                                                    .addComponent(comboType, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(calTimeTableDate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboHours, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btAddToPreferenceTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel25))
-                            .addComponent(jLabel26))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(comboCalenderWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel28)
-                                .addGap(8, 8, 8)
-                                .addComponent(calContactWeek, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel23))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addComponent(jLabel7)))
-                                .addGap(7, 7, 7)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(comboLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jLabel4))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboModuleCode, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btSearchModule, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(7, 7, 7)
-                                        .addComponent(jLabel22)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(txtModuleName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jLabel10)))))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel32)
-                            .addComponent(jLabel31))
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboYear, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtRemark, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel15)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxRepeatStudents)
-                                    .addComponent(jLabel13)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdoBtn1)
-                            .addComponent(rdoBtn2)
-                            .addComponent(rdoBtn3)
-                            .addComponent(jLabel29))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btRemoveFromPrefTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btAddDataToMainTble))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(12, 12, 12))
-        );
+        chkAutoGenarateLecTime.setBackground(new java.awt.Color(0, 0, 102));
+        chkAutoGenarateLecTime.setForeground(new java.awt.Color(255, 255, 255));
+        chkAutoGenarateLecTime.setText("Auto generate lecture time");
+        chkAutoGenarateLecTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAutoGenarateLecTimeActionPerformed(evt);
+            }
+        });
+        jPanel3.add(chkAutoGenarateLecTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, 180, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -953,7 +767,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -961,7 +775,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 640));
@@ -1062,6 +876,10 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_calTimeTableDateKeyReleased
 
+    private void chkAutoGenarateLecTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAutoGenarateLecTimeActionPerformed
+        AutoGenerateTimeTableData();
+    }//GEN-LAST:event_chkAutoGenarateLecTimeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1141,6 +959,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser calTimeTableDate;
     private com.toedter.calendar.JDateChooser calWeekBeginningDate;
     private javax.swing.JCheckBox checkBoxRepeatStudents;
+    private javax.swing.JCheckBox chkAutoGenarateLecTime;
     private javax.swing.JComboBox<String> comboCalenderWeek;
     private javax.swing.JComboBox<String> comboHours;
     private javax.swing.JComboBox<String> comboLecturer;
@@ -1165,7 +984,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;

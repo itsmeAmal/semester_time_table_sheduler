@@ -15,7 +15,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -38,7 +37,7 @@ public class MainMenu extends javax.swing.JFrame {
         HashMap<String, Object> hm = new HashMap<>();
 
         Connection con = DatabaseConnection.getDatabaseConnection();
-        JasperDesign jsd = JRXmlLoader.load("reports\\time_table_2020.jrxml"); //src\\cazzendra\\pos\\
+        JasperDesign jsd = JRXmlLoader.load("reports\\master_time_table.jrxml"); //src\\cazzendra\\pos\\
         JasperReport jr = JasperCompileManager.compileReport(jsd);
         JasperPrint jp = JasperFillManager.fillReport(jr, hm, con);
 //        JasperViewer jasperViewer = new JasperViewer(jp, false);

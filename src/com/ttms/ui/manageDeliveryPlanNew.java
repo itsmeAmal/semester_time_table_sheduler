@@ -64,8 +64,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     }
 
     private void addPreferenceDateToTable() {
-        if (calTimeTableDate.toString() == null
-                || calTimeTableDate.toString().equalsIgnoreCase("")) {
+        if (calTimeTableDate.getDate() == null
+                || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
@@ -278,10 +278,12 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             rdoBtn1.setEnabled(false);
             rdoBtn2.setEnabled(false);
             rdoBtn3.setEnabled(false);
+            rdoBtn4.setEnabled(false);
         } else {
             rdoBtn1.setEnabled(true);
             rdoBtn2.setEnabled(true);
             rdoBtn3.setEnabled(true);
+            rdoBtn4.setEnabled(true);
         }
     }
 
@@ -351,6 +353,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn2 = new javax.swing.JRadioButton();
         rdoBtn3 = new javax.swing.JRadioButton();
         chkAutoGenarateLecTime = new javax.swing.JCheckBox();
+        rdoBtn4 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -719,21 +722,21 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn1.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn1.setSelected(true);
         rdoBtn1.setText("09.00");
-        jPanel3.add(rdoBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(976, 79, -1, -1));
+        jPanel3.add(rdoBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, -1, -1));
 
         rdoBtn2.setBackground(new java.awt.Color(0, 0, 102));
         buttonGroup1.add(rdoBtn2);
         rdoBtn2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn2.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn2.setText("11.00");
-        jPanel3.add(rdoBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1056, 79, -1, -1));
+        jPanel3.add(rdoBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 80, -1, -1));
 
         rdoBtn3.setBackground(new java.awt.Color(0, 0, 102));
         buttonGroup1.add(rdoBtn3);
         rdoBtn3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn3.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn3.setText("01.00");
-        jPanel3.add(rdoBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1136, 79, -1, -1));
+        jPanel3.add(rdoBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 80, -1, -1));
 
         chkAutoGenarateLecTime.setBackground(new java.awt.Color(0, 0, 102));
         chkAutoGenarateLecTime.setForeground(new java.awt.Color(255, 255, 255));
@@ -743,7 +746,19 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 chkAutoGenarateLecTimeActionPerformed(evt);
             }
         });
-        jPanel3.add(chkAutoGenarateLecTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, 180, -1));
+        jPanel3.add(chkAutoGenarateLecTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, 180, -1));
+
+        rdoBtn4.setBackground(new java.awt.Color(0, 0, 102));
+        buttonGroup1.add(rdoBtn4);
+        rdoBtn4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        rdoBtn4.setForeground(new java.awt.Color(255, 255, 255));
+        rdoBtn4.setText("03.00");
+        rdoBtn4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoBtn4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(rdoBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 80, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -880,6 +895,10 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         AutoGenerateTimeTableData();
     }//GEN-LAST:event_chkAutoGenarateLecTimeActionPerformed
 
+    private void rdoBtn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoBtn4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoBtn4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1000,6 +1019,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdoBtn1;
     private javax.swing.JRadioButton rdoBtn2;
     private javax.swing.JRadioButton rdoBtn3;
+    private javax.swing.JRadioButton rdoBtn4;
     private javax.swing.JTable tblDeliveryReportData;
     private javax.swing.JTable tblPreferenceDay;
     private javax.swing.JTextField txtModuleName;

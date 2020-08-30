@@ -261,7 +261,5 @@ public class deliveryPlanDetails {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-    
-    
 
 }

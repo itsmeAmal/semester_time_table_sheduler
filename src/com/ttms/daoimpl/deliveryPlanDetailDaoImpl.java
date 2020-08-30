@@ -21,29 +21,33 @@ import java.util.ArrayList;
  */
 public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
 
-    private String selectQuery = "select delivery_plan_details_id, delivery_plan_details_delivery_plan_id,"
-            + " delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no,"
-            + " delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day"
-            + " from delivery_plan_details";
+    private String selectQuery = "select delivery_plan_details_id, delivery_plan_details_delivery_plan_id, "
+            + "delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no, "
+            + "delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day, "
+            + "delivery_plan_details_level, delivery_plan_details_module_name, delivery_plan_details_module_code, "
+            + "delivery_plan_details_type, delivery_plan_details_lecturer_name, delivery_plan_details_room_name, "
+            + "delivery_plan_details_course_name, delivery_plan_details_group_name delivery_plan_details";
 
     private String selectQuery2 = "select delivery_plan_details_id, delivery_plan_details_delivery_plan_id, "
             + "delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no, "
-            + "delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day from "
+            + "delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day, "
+            + "delivery_plan_details_level, delivery_plan_details_module_name, delivery_plan_details_module_code, "
+            + "delivery_plan_details_type, delivery_plan_details_lecturer_name, delivery_plan_details_room_name, "
+            + "delivery_plan_details_course_name, delivery_plan_details_group_name from "
             + "delivery_plan_details order by delivery_plan_details_date, delivery_plan_details_time_order_no";
 
     @Override
     public boolean addDeliveryPlanDetailRecord(deliveryPlanDetails planDetails) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
-        PreparedStatement ps = con.prepareStatement("insert into delivery_plan_details (delivery_plan_details_delivery_plan_id,"
-                + " delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no,"
-                + " delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day) values (?,?,?,?,?,?,?)");
-        ps.setInt(1, planDetails.getDeliveryPlanId());
-        ps.setDate(2, planDetails.getTimeTableDate());
-        ps.setString(3, planDetails.getTimeTableTime());
-        ps.setInt(4, planDetails.getTimeOrderNo());
-        ps.setInt(5, planDetails.getStatus());
-        ps.setString(6, planDetails.getRemark());
-        ps.setString(7, planDetails.getDay());
+        PreparedStatement ps = con.prepareStatement("insert into delivery_plan_details ("
+                + "delivery_plan_details_delivery_plan_id, delivery_plan_details_date, delivery_plan_details_time, "
+                + "delivery_plan_details_time_order_no, delivery_plan_details_status, delivery_plan_details_remark, "
+                + "delivery_plan_details_day, delivery_plan_details_level, delivery_plan_details_module_name, "
+                + "delivery_plan_details_module_code, delivery_plan_details_type, delivery_plan_details_lecturer_name, "
+                + "delivery_plan_details_room_name, delivery_plan_details_course_name, delivery_plan_details_group_name) "
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+ 
+        
         ps.executeUpdate();
         ps.close();
         return true;
@@ -55,14 +59,8 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         PreparedStatement ps = con.prepareStatement("update delivery_plan_details set delivery_plan_details_delivery_plan_id=?, "
                 + "delivery_plan_details_date=?, delivery_plan_details_time=?, delivery_plan_details_time_order_no=?, "
                 + "delivery_plan_details_status=?, delivery_plan_details_remark=?, delivery_plan_details_day=? where delivery_plan_details_id=?");
-        ps.setInt(1, planDetails.getDeliveryPlanId());
-        ps.setDate(2, planDetails.getTimeTableDate());
-        ps.setString(3, planDetails.getTimeTableTime());
-        ps.setInt(4, planDetails.getTimeOrderNo());
-        ps.setInt(5, planDetails.getStatus());
-        ps.setString(6, planDetails.getRemark());
-        ps.setString(7, planDetails.getDay());
-        ps.setInt(8, planDetails.getId());
+    
+        
         ps.executeUpdate();
         ps.close();
         return true;

@@ -67,4 +67,12 @@ public class lecturerUnavailabilityController {
         return new lecturerAvailabilityDaoImpl().getAvailableLectureByOneAttributeWithJoinQuery(attribute, condition, value);
     }
 
+    public static boolean isAvailableOnDate(Date date) throws SQLException {
+        boolean status = false;
+        ResultSet rset = getLecturerAvailability("lecturer_availablity_unavailable_date", commonConstants.Sql.EQUAL, date.toString());
+        if (rset.next()) {
+            status = true;
+        }
+        return status;
+    }
 }

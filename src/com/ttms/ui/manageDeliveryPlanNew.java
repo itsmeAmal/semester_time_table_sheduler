@@ -80,7 +80,18 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             boolean status = false;
             DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
-            Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(), timeAndPeriod, "Day of week"};
+
+            //Date, Level, time, module name, module code, type, lecturer, room, course, group
+            Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                comboLevel.getSelectedItem().toString(),
+                timeAndPeriod,
+                txtModuleName.getText().trim(),
+                comboModuleCode.getSelectedItem().toString(),
+                comboType.getSelectedItem().toString(),
+                comboLecturer.getSelectedItem().toString(),
+                comboLocation.getSelectedItem().toString(),
+                "Course Name",
+                "Group Name"};
 
             for (int i = 0; i < dtm.getRowCount(); i++) {
 
@@ -132,7 +143,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 date = tblPreferenceDay.getValueAt(i, 0).toString();
                 timePeriod = tblPreferenceDay.getValueAt(i, 1).toString();
                 day = tblPreferenceDay.getValueAt(i, 2).toString();
-                
+
                 //                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
 //                day5 = tblPreferenceDay.getValueAt(4, 1).toString();
 //                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord(day, lecturerId, date, ERROR, timeTableDate, date, date, date, date, date, date, date, date, date)

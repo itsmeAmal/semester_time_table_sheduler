@@ -38,14 +38,27 @@ public class deliveryPlanDetailsController {
     }
 
     public static boolean addDeliveryPlanDetailRecord(String day, int deliveryPlanId,
-            String remark, int timeOrderNo, Date timeTableDate, String time) throws SQLException {
+            String remark, int timeOrderNo, Date timeTableDate, String time, String level,
+            String moduleName, String modleCode, String type, String lecturerName,
+            String roomName, String courseName, String groupName) throws SQLException {
         deliveryPlanDetails planDetails = new deliveryPlanDetails();
-        planDetails.setDay(day);
-        planDetails.setDeliveryPlanId(deliveryPlanId);
+
+        planDetails.setDeliveryPlanid(deliveryPlanId);
+        planDetails.setDate(timeTableDate);
+        planDetails.setTimeString(time);
+        planDetails.setTimeOrder(timeOrderNo);
+        planDetails.setStatus(1);
         planDetails.setRemark(remark);
-        planDetails.setTimeOrderNo(timeOrderNo);
-        planDetails.setTimeTableDate(timeTableDate);
-        planDetails.setTimeTableTime(time);
+        planDetails.setDay(day);
+        planDetails.setLevel(level);
+        planDetails.setModueName(moduleName);
+        planDetails.setModuleCode(modleCode);
+        planDetails.setType(type);
+        planDetails.setLecturerName(lecturerName);
+        planDetails.setRoomName(roomName);
+        planDetails.setCourseName(courseName);
+        planDetails.setGroupName(groupName);
+
         return new deliveryPlanDetailDaoImpl().addDeliveryPlanDetailRecord(planDetails);
     }
 

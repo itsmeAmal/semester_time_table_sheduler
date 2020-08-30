@@ -60,7 +60,7 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         ps.setString(12, planDetails.getLecturerName());
         ps.setString(13, planDetails.getRoomName());
         ps.setString(14, planDetails.getCourseName());
-        ps.setString(14, planDetails.getGroupName());
+        ps.setString(15, planDetails.getGroupName());
         ps.executeUpdate();
         ps.close();
         return true;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="time_table_2020" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="time_table_2020" language="groovy" pageWidth="1008" pageHeight="595" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="244"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -129,71 +129,90 @@ where delivery_plan_day_1='Tuesday']]>
 	<columnHeader>
 		<band height="24" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="22" width="802" height="1"/>
+				<reportElement x="0" y="22" width="967" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.75" lineColor="#000000"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="1" y="1" width="802" height="1"/>
+				<reportElement x="1" y="1" width="967" height="1"/>
 				<graphicElement>
 					<pen lineWidth="0.75" lineColor="#000000"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="5" y="2" width="118" height="20" forecolor="#0066FF"/>
+				<reportElement x="5" y="2" width="70" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="123" y="2" width="133" height="20" forecolor="#0066FF"/>
+				<reportElement x="75" y="2" width="75" height="20" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Level]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="2" width="129" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Module Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="2" width="93" height="20" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Time]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="256" y="2" width="530" height="20" forecolor="#0066FF"/>
+				<reportElement x="374" y="2" width="92" height="20" forecolor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Lecturer Name / Module Code / Location]]></text>
+				<text><![CDATA[Module Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="467" y="2" width="91" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="558" y="2" width="187" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lecturer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="745" y="2" width="73" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Room]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="818" y="2" width="73" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Course]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="891" y="2" width="71" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Group]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="38" splitType="Stretch">
-			<textField pattern="d/M/yyyy" isBlankWhenNull="true">
-				<reportElement x="5" y="0" width="118" height="38" isPrintWhenDetailOverflows="true"/>
-				<box>
-					<bottomPen lineWidth="0.5" lineColor="#0066FF"/>
-					<rightPen lineWidth="0.5" lineColor="#0066FF"/>
-				</box>
-				<textElement>
-					<font size="13" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{delivery_plan_details_date}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="123" y="0" width="133" height="38"/>
-				<box leftPadding="5">
-					<bottomPen lineWidth="0.5" lineColor="#0066FF"/>
-				</box>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{delivery_plan_details_time}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="256" y="0" width="530" height="38"/>
-				<box leftPadding="5">
-					<leftPen lineWidth="0.5" lineColor="#0066FF"/>
-					<bottomPen lineWidth="0.5" lineColor="#0066FF"/>
-					<rightPen lineWidth="0.5" lineColor="#0066FF"/>
-				</box>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{delivery_plan_details_remark}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="38" splitType="Stretch"/>
 	</detail>
 </jasperReport>

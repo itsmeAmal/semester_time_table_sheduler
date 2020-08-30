@@ -132,16 +132,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 date = tblPreferenceDay.getValueAt(i, 0).toString();
                 timePeriod = tblPreferenceDay.getValueAt(i, 1).toString();
                 day = tblPreferenceDay.getValueAt(i, 2).toString();
-                try {
-                    //                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
+                
+                //                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
 //                day5 = tblPreferenceDay.getValueAt(4, 1).toString();
-                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord("", nextId, timePeriod,
-                            deliveryPlanDetailsController.getNextTimeOrderNo(
-                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate)),
-                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), comboHours.getSelectedItem().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord(day, lecturerId, date, ERROR, timeTableDate, date, date, date, date, date, date, date, date, date)
+//                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord("", nextId, timePeriod,
+//                            deliveryPlanDetailsController.getNextTimeOrderNo(
+//                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate)),
+//                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), comboHours.getSelectedItem().toString());
             }
             status = true;
         } else {
@@ -623,11 +621,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Date", "Time and Period", "Day"
+                "Date", "Level", "Time", "Module Name", "Module Code", "Type", "Lecturer", "Room", "Course", "Group"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -645,6 +643,27 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             tblPreferenceDay.getColumnModel().getColumn(1).setPreferredWidth(220);
             tblPreferenceDay.getColumnModel().getColumn(1).setMaxWidth(220);
             tblPreferenceDay.getColumnModel().getColumn(2).setResizable(false);
+            tblPreferenceDay.getColumnModel().getColumn(3).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(4).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(4).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(5).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(5).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(6).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(6).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(7).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(7).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(8).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(8).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(8).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(9).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(9).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(9).setMaxWidth(0);
         }
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(703, 120, 501, 157));

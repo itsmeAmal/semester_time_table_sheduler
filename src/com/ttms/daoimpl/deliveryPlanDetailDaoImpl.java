@@ -46,8 +46,21 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
                 + "delivery_plan_details_module_code, delivery_plan_details_type, delivery_plan_details_lecturer_name, "
                 + "delivery_plan_details_room_name, delivery_plan_details_course_name, delivery_plan_details_group_name) "
                 + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
- 
-        
+        ps.setInt(1, planDetails.getDeliveryPlanid());
+        ps.setDate(2, planDetails.getDate());
+        ps.setString(3, planDetails.getTimeString());
+        ps.setInt(4, planDetails.getTimeOrder());
+        ps.setInt(5, 1);
+        ps.setString(6, planDetails.getRemark());
+        ps.setString(7, planDetails.getDay());
+        ps.setString(8, planDetails.getLevel());
+        ps.setString(9, planDetails.getModueName());
+        ps.setString(10, planDetails.getModuleCode());
+        ps.setString(11, planDetails.getType());
+        ps.setString(12, planDetails.getLecturerName());
+        ps.setString(13, planDetails.getRoomName());
+        ps.setString(14, planDetails.getCourseName());
+        ps.setString(14, planDetails.getGroupName());
         ps.executeUpdate();
         ps.close();
         return true;
@@ -59,8 +72,7 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         PreparedStatement ps = con.prepareStatement("update delivery_plan_details set delivery_plan_details_delivery_plan_id=?, "
                 + "delivery_plan_details_date=?, delivery_plan_details_time=?, delivery_plan_details_time_order_no=?, "
                 + "delivery_plan_details_status=?, delivery_plan_details_remark=?, delivery_plan_details_day=? where delivery_plan_details_id=?");
-    
-        
+
         ps.executeUpdate();
         ps.close();
         return true;

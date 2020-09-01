@@ -6,6 +6,7 @@
 package com.ttms.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 /**
  *
@@ -13,14 +14,48 @@ import java.sql.Date;
  */
 public class deliveryPlanDetails {
 
-    //delivery_plan_details_id, delivery_plan_details_delivery_plan_id,
-    //delivery_plan_details_date, delivery_plan_details_time, 
-    //delivery_plan_details_time_order_no, delivery_plan_details_status, 
-    //delivery_plan_details_remark, delivery_plan_details_day,
-    //delivery_plan_details_level, delivery_plan_details_module_name, 
-    //delivery_plan_details_module_code, delivery_plan_details_type, 
-    //delivery_plan_details_lecturer_name, delivery_plan_details_room_name, 
-    //delivery_plan_details_course_name, delivery_plan_details_group_name
+    /**
+     * @return the lectureStartTime
+     */
+    public Time getLectureStartTime() {
+        return lectureStartTime;
+    }
+
+    /**
+     * @param lectureStartTime the lectureStartTime to set
+     */
+    public void setLectureStartTime(Time lectureStartTime) {
+        this.lectureStartTime = lectureStartTime;
+    }
+
+    /**
+     * @return the duration
+     */
+    public String getDuration() {
+        return duration;
+    }
+
+    /**
+     * @param duration the duration to set
+     */
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    /**
+     * @return the lectureEndTime
+     */
+    public Time getLectureEndTime() {
+        return lectureEndTime;
+    }
+
+    /**
+     * @param lectureEndTime the lectureEndTime to set
+     */
+    public void setLectureEndTime(Time lectureEndTime) {
+        this.lectureEndTime = lectureEndTime;
+    }
+
     private int id;
     private int deliveryPlanid;
     private Date date;
@@ -37,6 +72,9 @@ public class deliveryPlanDetails {
     private String roomName;
     private String courseName;
     private String groupName;
+    private Time lectureStartTime;
+    private String duration;
+    private Time lectureEndTime;
 
     /**
      * @return the id

@@ -40,7 +40,9 @@ public class deliveryPlanDetailsController {
     public static boolean addDeliveryPlanDetailRecord(String day, int deliveryPlanId,
             String remark, int timeOrderNo, Date timeTableDate, String time, String level,
             String moduleName, String modleCode, String type, String lecturerName,
-            String roomName, String courseName, String groupName) throws SQLException {
+            String roomName, String courseName, String groupName,
+            String lectureStartTime, String duration, String lectueEndTime) throws SQLException {
+
         deliveryPlanDetails planDetails = new deliveryPlanDetails();
 
         planDetails.setDeliveryPlanid(deliveryPlanId);
@@ -58,6 +60,9 @@ public class deliveryPlanDetailsController {
         planDetails.setRoomName(roomName);
         planDetails.setCourseName(courseName);
         planDetails.setGroupName(groupName);
+        planDetails.setLectureStartTime(java.sql.Time.valueOf(lectureStartTime));
+        planDetails.setDuration(duration);
+        planDetails.setLectureEndTime(commonController.getMysqlEndTimeFromStartTimeAndTimeGap(lectureStartTime, duration));
 
         return new deliveryPlanDetailDaoImpl().addDeliveryPlanDetailRecord(planDetails);
     }

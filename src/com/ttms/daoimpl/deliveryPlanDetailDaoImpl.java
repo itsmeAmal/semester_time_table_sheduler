@@ -26,14 +26,16 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
             + "delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day, "
             + "delivery_plan_details_level, delivery_plan_details_module_name, delivery_plan_details_module_code, "
             + "delivery_plan_details_type, delivery_plan_details_lecturer_name, delivery_plan_details_room_name, "
-            + "delivery_plan_details_course_name, delivery_plan_details_group_name delivery_plan_details";
+            + "delivery_plan_details_course_name, delivery_plan_details_group_name, delivery_plan_details_start_time, "
+            + "delivery_plan_details_lecture_duration, delivery_plan_details_end_time from delivery_plan_details";
 
     private String selectQuery2 = "select delivery_plan_details_id, delivery_plan_details_delivery_plan_id, "
             + "delivery_plan_details_date, delivery_plan_details_time, delivery_plan_details_time_order_no, "
             + "delivery_plan_details_status, delivery_plan_details_remark, delivery_plan_details_day, "
             + "delivery_plan_details_level, delivery_plan_details_module_name, delivery_plan_details_module_code, "
             + "delivery_plan_details_type, delivery_plan_details_lecturer_name, delivery_plan_details_room_name, "
-            + "delivery_plan_details_course_name, delivery_plan_details_group_name from "
+            + "delivery_plan_details_course_name, delivery_plan_details_group_name, delivery_plan_details_start_time, "
+            + "delivery_plan_details_lecture_duration, delivery_plan_details_end_time from "
             + "delivery_plan_details order by delivery_plan_details_date, delivery_plan_details_time_order_no";
 
     @Override
@@ -44,8 +46,9 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
                 + "delivery_plan_details_time_order_no, delivery_plan_details_status, delivery_plan_details_remark, "
                 + "delivery_plan_details_day, delivery_plan_details_level, delivery_plan_details_module_name, "
                 + "delivery_plan_details_module_code, delivery_plan_details_type, delivery_plan_details_lecturer_name, "
-                + "delivery_plan_details_room_name, delivery_plan_details_course_name, delivery_plan_details_group_name) "
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                + "delivery_plan_details_room_name, delivery_plan_details_course_name, delivery_plan_details_group_name, "
+                + "delivery_plan_details_start_time, delivery_plan_details_lecture_duration, delivery_plan_details_end_time) "
+                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         ps.setInt(1, planDetails.getDeliveryPlanid());
         ps.setDate(2, planDetails.getDate());
         ps.setString(3, planDetails.getTimeString());
@@ -61,6 +64,9 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         ps.setString(13, planDetails.getRoomName());
         ps.setString(14, planDetails.getCourseName());
         ps.setString(15, planDetails.getGroupName());
+        ps.setTime(16, planDetails.getLectureStartTime());
+        ps.setString(17, planDetails.getDuration());
+        ps.setTime(18, planDetails.getLectureEndTime());
         ps.executeUpdate();
         ps.close();
         return true;

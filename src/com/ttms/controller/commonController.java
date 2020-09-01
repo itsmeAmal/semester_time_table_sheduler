@@ -151,15 +151,16 @@ public class commonController {
         return Hours + ":" + Minutes + ":" + "00";
     }
 
-    public static Time getMysqlEndTimeFromStartTimeAndTimeGap(String StartTimeHours, String StartTimeMinutes, String TimeGap) {
+    public static Time getMysqlEndTimeFromStartTimeAndTimeGap(String lectureStartTime, String TimeGap) {
+        String[] lectureStartTimeArray = lectureStartTime.split(":");
 
-        int startHours = getIntOrZeroFromString(StartTimeHours);
-        int startMinutes = getIntOrZeroFromString(StartTimeMinutes);
+        int timeGapStartHour = getIntOrZeroFromString(lectureStartTimeArray[0]);
+        int timeGapStartMinute = getIntOrZeroFromString(lectureStartTimeArray[1]);
 
         String[] timeGap = TimeGap.split(":");
 
-        int hoursOutPut = getIntOrZeroFromString(timeGap[0]) + startHours;
-        int minutesOutPut = getIntOrZeroFromString(timeGap[1]) + startMinutes;
+        int hoursOutPut = getIntOrZeroFromString(timeGap[0]) + timeGapStartHour;
+        int minutesOutPut = getIntOrZeroFromString(timeGap[1]) + timeGapStartMinute;
 
         return java.sql.Time.valueOf(hoursOutPut + ":" + minutesOutPut + ":" + "00");
     }

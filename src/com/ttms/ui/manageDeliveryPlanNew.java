@@ -366,6 +366,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 102));
@@ -604,7 +605,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 148, 180, -1));
 
         comboHours.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00.30", "01.00", "01.30", "02.00", "02.30", "03.00", "03.30", "04.00", "04.30", "05.00" }));
+        comboHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00:30:00", "01:00:00", "01:30:00", "02:00:00", "02:30:00", "03:00:00", "03:30:00", "04:00:00", "04:30:00", "05:00:00" }));
         comboHours.setToolTipText("Lecture Hours");
         jPanel3.add(comboHours, new org.netbeans.lib.awtextra.AbsoluteConstraints(991, 28, 213, 44));
 

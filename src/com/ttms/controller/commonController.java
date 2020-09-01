@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,9 +24,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Amal
  */
 public class commonController {
-    
-    public static java.sql.Date getMysqlDateFromJDateChooser(JDateChooser dateChooser){
-        if(dateChooser.getDate() == null){
+
+    public static java.sql.Date getMysqlDateFromJDateChooser(JDateChooser dateChooser) {
+        if (dateChooser.getDate() == null) {
             return null;
         }
         java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
@@ -144,6 +145,23 @@ public class commonController {
             return false;
         }
     }
-    
+
+    public static String getSqlTimeFromSeparateHoursAndMinutes(String Hours, String Minutes) {
+//        07:30:00 format is standard time format for time in sql
+        return Hours + ":" + Minutes + ":" + "00";
+    }
+
+    public static Time getMysqlEndTimeFromStartTimeAndTimeGap(String StartTimeHours, String StartTimeMinutes, String TimeGap) {
+
+        int startHours = getIntOrZeroFromString(StartTimeHours);
+        int startMinutes = getIntOrZeroFromString(StartTimeMinutes);
+
+        String[] timeGap = TimeGap.split(":");
+
+        int hoursOutPut = getIntOrZeroFromString(timeGap[0]) + startHours;
+        int minutesOutPut = getIntOrZeroFromString(timeGap[1]) + startMinutes;
+
+        return java.sql.Time.valueOf(hoursOutPut + ":" + minutesOutPut + ":" + "00");
+    }
 
 }

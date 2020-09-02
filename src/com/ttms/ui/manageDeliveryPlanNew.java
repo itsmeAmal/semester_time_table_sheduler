@@ -64,24 +64,41 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     }
 
     private void addPreferenceDateToTable() {
+        String lectureStartTime = "";
+        String lectureDuration = "";
+
+        if (chkAutoGenarateLecTime.isSelected()) {
+
+        } else {
+            if (rdoBtn1.isSelected()) {
+                lectureStartTime = "09:00:00";
+            } else if (rdoBtn2.isSelected()) {
+                lectureStartTime = "11:00:00";
+            } else if (rdoBtn3.isSelected()) {
+                lectureStartTime = "01:00:00";
+            } else {
+                lectureStartTime = "03:00:00";
+            }
+        }
+
         if (calTimeTableDate.getDate() == null
                 || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
             return;
         } else {
             String timeAndPeriod = "";
-            if (rdoBtn1.isSelected()) {
-                timeAndPeriod = "Start Time : 09.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
-            } else if (rdoBtn2.isSelected()) {
-                timeAndPeriod = "Start Time : 11.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
-            } else if (rdoBtn3.isSelected()) {
-                timeAndPeriod = "Start Time : 01.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
-            }
+//            if (rdoBtn1.isSelected()) {
+//                timeAndPeriod = "Start Time : 09.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
+//            } else if (rdoBtn2.isSelected()) {
+//                timeAndPeriod = "Start Time : 11.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
+//            } else if (rdoBtn3.isSelected()) {
+//                timeAndPeriod = "Start Time : 01.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
+//            }
 
             boolean status = false;
             DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
 
-            //Date, Level, time, module name, module code, type, lecturer, room, course, group
+            //Date, Level, time, module name, module code, type, lecturer, room, course, group, lec start time, duration
             Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
                 comboLevel.getSelectedItem().toString(),
                 timeAndPeriod,
@@ -91,7 +108,10 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 comboLecturer.getSelectedItem().toString(),
                 comboLocation.getSelectedItem().toString(),
                 "Course Name",
-                "Group Name"};
+                "Group Name",
+                lectureStartTime,
+                comboHours.getSelectedItem().toString()
+            };
 
             for (int i = 0; i < dtm.getRowCount(); i++) {
 
@@ -633,11 +653,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Date", "Level", "Time", "Module Name", "Module Code", "Type", "Lecturer", "Room", "Course", "Group"
+                "Date", "Level", "Time", "Module Name", "Module Code", "Type", "Lecturer", "Room", "Course", "Group", "Lecture Start Time", "Duration"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -676,6 +696,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             tblPreferenceDay.getColumnModel().getColumn(9).setMinWidth(0);
             tblPreferenceDay.getColumnModel().getColumn(9).setPreferredWidth(0);
             tblPreferenceDay.getColumnModel().getColumn(9).setMaxWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(10).setMinWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tblPreferenceDay.getColumnModel().getColumn(10).setMaxWidth(0);
         }
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(703, 120, 501, 157));

@@ -6,6 +6,7 @@
 package com.ttms.controller;
 
 import com.toedter.calendar.JDateChooser;
+import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.model.DataObject;
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -163,6 +164,10 @@ public class commonController {
         int minutesOutPut = getIntOrZeroFromString(timeGap[1]) + timeGapStartMinute;
 
         return java.sql.Time.valueOf(hoursOutPut + ":" + minutesOutPut + ":" + "00");
+    }
+
+    public static boolean isNotAvailableTime() throws SQLException {
+        return new commonDaoImpl().isNotAvailableTime();
     }
 
 }

@@ -64,4 +64,18 @@ public class commonDaoImpl implements commonDao {
         ResultSet rst = ps.executeQuery();
         return rst;
     }
+
+    public boolean isNotAvailableTime() throws SQLException {
+        boolean status = false;
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select * from delivery_plan_details "
+                + "where delivery_plan_details_start_time "
+                + "between delivery_plan_details_start_time "
+                + "and delivery_plan_details_end_time");
+        ResultSet rset = ps.executeQuery();
+        if (rset.next()) {
+            status = true;
+        }
+        return status;
+    }
 }

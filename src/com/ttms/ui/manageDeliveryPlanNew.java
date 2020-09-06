@@ -17,6 +17,7 @@ import com.ttms.model.lecturer;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +34,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     lecturer lecturer = null;
     int subjectId = 0;
     int lecturerId = 0;
-    int nextId = 0;
+    int nextDeliveryPlanId = 0;
 
     private String date = "";
     private String timePeriod = "";
@@ -43,14 +44,19 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
     private String dayOfWeek = "";
 
-    /**
-     * Creates new form addStudent
-     */
+    private int TimeOrderNo = 0;
+
     public manageDeliveryPlanNew() {
         initComponents();
         loadRoomDataObjectsToCombo();
         setInitials();
         loadDataToTable();
+        try {
+            nextDeliveryPlanId = new deliveryPlanDaoImpl().getNextDeliveryPlanId();
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void loadRoomDataObjectsToCombo() {
@@ -63,75 +69,122 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         }
     }
 
-    private void addPreferenceDateToTable() {
-        String lectureStartTime = "";
-        String lectureDuration = "";
+    private boolean validationSet() {
 
-        if (chkAutoGenarateLecTime.isSelected()) {
-
-        } else {
-            if (rdoBtn1.isSelected()) {
-                lectureStartTime = "09:00:00";
-            } else if (rdoBtn2.isSelected()) {
-                lectureStartTime = "11:00:00";
-            } else if (rdoBtn3.isSelected()) {
-                lectureStartTime = "01:00:00";
-            } else {
-                lectureStartTime = "03:00:00";
-            }
+        if (comboLevel.getSelectedItem() == null || comboLevel.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select level !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+        if (comboModuleCode.getSelectedItem() == null || comboModuleCode.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select module !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (comboCalenderWeek.getSelectedItem() == null || comboCalenderWeek.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select calender week !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (calWeekBeginningDate.getDate() == null || calWeekBeginningDate.getDate().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select week beginning date !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (comboLecturer.getSelectedItem() == null || comboLecturer.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select lecturer !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (comboHours.getSelectedItem() == null || comboHours.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select lecture hour !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (comboYear.getSelectedItem() == null || comboYear.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select year !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (comboType.getSelectedItem() == null || comboType.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select type !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (comboLocation.getSelectedItem() == null || comboLocation.getSelectedItem().toString().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Please select location !", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
-        if (calTimeTableDate.getDate() == null
-                || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else {
-            String timeAndPeriod = "";
-//            if (rdoBtn1.isSelected()) {
-//                timeAndPeriod = "Start Time : 09.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
-//            } else if (rdoBtn2.isSelected()) {
-//                timeAndPeriod = "Start Time : 11.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
-//            } else if (rdoBtn3.isSelected()) {
-//                timeAndPeriod = "Start Time : 01.00 - " + "Period :" + comboHours.getSelectedItem().toString() + " hours";
-//            }
-
-            boolean status = false;
-            DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
-
-            //Date, Level, time, module name, module code, type, lecturer, room, course, group, lec start time, duration
-            Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
-                comboLevel.getSelectedItem().toString(),
-                timeAndPeriod,
-                txtModuleName.getText().trim(),
-                comboModuleCode.getSelectedItem().toString(),
-                comboType.getSelectedItem().toString(),
-                comboLecturer.getSelectedItem().toString(),
-                comboLocation.getSelectedItem().toString(),
-                "Course Name",
-                "Group Name",
-                lectureStartTime,
-                comboHours.getSelectedItem().toString()
-            };
-
-            for (int i = 0; i < dtm.getRowCount(); i++) {
-
-                if (tblPreferenceDay.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
-                    status = true;
-                    break;
+    private void addDeliveryPlanDetailsToTable() throws SQLException {
+        if (validationSet()) {
+            String LectureStartTime = "";
+            String LectureTimeDuration = "";
+            String LectureEndTime = "";
+            if (!chkAutoGenarateLecTime.isSelected()) {
+                if (rdoBtn1.isSelected()) {
+                    LectureStartTime = "09:00:00";
+                } else if (rdoBtn2.isSelected()) {
+                    LectureStartTime = "11:00:00";
+                } else if (rdoBtn3.isSelected()) {
+                    LectureStartTime = "13:00:00";
+                } else if (rdoBtn4.isSelected()) {
+                    LectureStartTime = "15:00:00";
                 }
+                LectureTimeDuration = comboHours.getSelectedItem().toString();
+                LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
             }
-            if (!status) {
-                dtm.addRow(obj);
+
+            if (calTimeTableDate.getDate() == null
+                    || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
+                return;
             } else {
-                JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
+
+                boolean status = false;
+                DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
+                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                    comboLevel.getSelectedItem().toString(),
+                    LectureStartTime,
+                    txtModuleName.getText().trim(),
+                    comboModuleCode.getSelectedItem().toString(),
+                    comboType.getSelectedItem().toString(),
+                    comboLecturer.getSelectedItem().toString(),
+                    comboLocation.getSelectedItem().toString(),
+                    "Course Name",
+                    "Group Name",
+                    LectureStartTime,
+                    LectureTimeDuration,
+                    ++TimeOrderNo,
+                    LectureEndTime
+                };
+                for (int i = 0; i < dtm.getRowCount(); i++) {
+                    if (tblDeliveryPlanDetails.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
+                        status = true;
+                        break;
+                    }
+                }
+                if (!status) {
+                    if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                            comboLevel.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(this, "This tame table record already in the table !");
+                        return;
+                    }
+
+                    if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
+                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime, comboLevel.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(this, "This tame table record already saved !");
+                        return;
+                    }
+
+                    dtm.addRow(obj);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
 
     private void removeSelectedPreferenceDate() {
-        int selectedRaw = tblPreferenceDay.getSelectedRow();
+        int selectedRaw = tblDeliveryPlanDetails.getSelectedRow();
         if (selectedRaw != -1) {
-            DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+            DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
             dtm.removeRow(selectedRaw);
         } else {
             JOptionPane.showMessageDialog(this, "Select a day to remove from tble !", "Error !", JOptionPane.ERROR_MESSAGE);
@@ -153,24 +206,20 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         comboCalenderWeek.removeAllItems();
         comboLecturer.removeAllItems();
         comboModuleCode.removeAllItems();
+        txtModuleName.setText(null);
+        comboType.setSelectedItem(null);
+        comboLocation.setSelectedItem(null);
+        calTimeTableDate.setDate(null);
     }
 
     private boolean preferenceDates() {
         boolean status = false;
-        int rawCount = tblPreferenceDay.getRowCount();
+        int rawCount = tblDeliveryPlanDetails.getRowCount();
         if (rawCount > 0) {
-            for (int i = 0; i < tblPreferenceDay.getRowCount(); i++) {
-                date = tblPreferenceDay.getValueAt(i, 0).toString();
-                timePeriod = tblPreferenceDay.getValueAt(i, 1).toString();
-                day = tblPreferenceDay.getValueAt(i, 2).toString();
-
-                //                day4 = tblPreferenceDay.getValueAt(3, 1).toString();
-//                day5 = tblPreferenceDay.getValueAt(4, 1).toString();
-//                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord(day, lecturerId, date, ERROR, timeTableDate, date, date, date, date, date, date, date, date, date)
-//                    deliveryPlanDetailsController.addDeliveryPlanDetailRecord("", nextId, timePeriod,
-//                            deliveryPlanDetailsController.getNextTimeOrderNo(
-//                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate)),
-//                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), comboHours.getSelectedItem().toString());
+            for (int i = 0; i < tblDeliveryPlanDetails.getRowCount(); i++) {
+                date = tblDeliveryPlanDetails.getValueAt(i, 0).toString();
+                timePeriod = tblDeliveryPlanDetails.getValueAt(i, 1).toString();
+                day = tblDeliveryPlanDetails.getValueAt(i, 2).toString();
             }
             status = true;
         } else {
@@ -179,68 +228,58 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         return status;
     }
 
-    private void addDeliveryPlan() {
-        try {
-            nextId = new deliveryPlanDaoImpl().getNextDeliveryPlanId();
-        } catch (SQLException ex) {
-            Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+    private boolean addDeliveryPlanDetailsToDatabase() throws SQLException {
+        boolean Status = false;
+        DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            try {
+                Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
+                        "", nextDeliveryPlanId, "",
+                        commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
+                        commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
+                        dtm.getValueAt(i, 10).toString(),
+                        dtm.getValueAt(i, 1).toString(),
+                        dtm.getValueAt(i, 3).toString(),
+                        dtm.getValueAt(i, 4).toString(),
+                        dtm.getValueAt(i, 5).toString(),
+                        dtm.getValueAt(i, 6).toString(),
+                        dtm.getValueAt(i, 7).toString(),
+                        "Course Name",
+                        "Group Name",
+                        dtm.getValueAt(i, 10).toString(),
+                        dtm.getValueAt(i, 11).toString(),
+                        dtm.getValueAt(i, 13).toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        try {
-            if (comboLevel.getSelectedItem() == null || comboLevel.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select level !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboModuleCode.getSelectedItem() == null || comboModuleCode.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select module !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboCalenderWeek.getSelectedItem() == null || comboCalenderWeek.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select calender week !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (calWeekBeginningDate.getDate() == null || calWeekBeginningDate.getDate().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select week beginning date !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboLecturer.getSelectedItem() == null || comboLecturer.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select lecturer !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboHours.getSelectedItem() == null || comboHours.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select lecture hour !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboYear.getSelectedItem() == null || comboYear.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select year !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboType.getSelectedItem() == null || comboType.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select type !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (comboLocation.getSelectedItem() == null || comboLocation.getSelectedItem().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Please select location !", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        return Status;
+    }
 
-            if (preferenceDates()) {
-                DataObject dataObj = (DataObject) comboLocation.getSelectedItem();
+    private void addDeliveryPlan() {
+        if (validationSet()) {
+            try {
+                if (preferenceDates()) {
+                    DataObject dataObj = (DataObject) comboLocation.getSelectedItem();
+                    if (!addDeliveryPlanDetailsToDatabase()) {
+                        return;
+                    }
+                    deliveryPlanController.addDeliveryPlan(nextDeliveryPlanId, comboLevel.getSelectedItem().toString(), subjectId,
+                            checkBoxRepeatStudents.isSelected(), commonController.getMysqlDateFromJDateChooser(calWeekBeginningDate),
+                            comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
+                            commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
+                            lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
+                            commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim(), date, timePeriod, day, day4, day5);
 
-                deliveryPlanController.addDeliveryPlan(nextId, comboLevel.getSelectedItem().toString(), subjectId,
-                        checkBoxRepeatStudents.isSelected(), commonController.getMysqlDateFromJDateChooser(calWeekBeginningDate),
-                        comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
-                        commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
-                        lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
-                        commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim(), date, timePeriod, day, day4, day5);
-
-                int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
-                if (option == JOptionPane.YES_OPTION) {
-                    clearData();
-                    setInitials();
+                    int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
+                    if (option == JOptionPane.YES_OPTION) {
+                        clearData();
+                        setInitials();
+                    }
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -259,32 +298,20 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         comboLecturer.removeAllItems();
         comboYear.setSelectedIndex(0);
         checkBoxRepeatStudents.setSelected(false);
-        DefaultTableModel dtm = (DefaultTableModel) tblPreferenceDay.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
         dtm.setRowCount(0);
-        nextId = 0;
+        nextDeliveryPlanId = 0;
+        TimeOrderNo = 0;
     }
 
     private void setDateRelatedComponentData() {
         if (calWeekBeginningDate.getDate() != null) {
-//            try {
             String selectedDateString = new SimpleDateFormat("w").format(calWeekBeginningDate.getDate()).toString();
             String selectedYearSring = new SimpleDateFormat("y").format(calWeekBeginningDate.getDate()).toString();
             comboCalenderWeek.removeAllItems();
             comboYear.removeAllItems();
             comboCalenderWeek.addItem("CW " + selectedDateString);
             comboYear.addItem(selectedYearSring);
-            //-----------------------------------
-//                String input_date = "calWeekBeginningDate.getDate()";
-////            String input_date = "01/08/2012";
-//                SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-//                Date dt1 = (Date) format1.parse(input_date);
-//                DateFormat format2 = new SimpleDateFormat("EEEE");
-//                String finalDay = format2.format(dt1);
-//                System.out.println(finalDay);
-//            } catch (ParseException ex) {
-//                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-
         }
     }
 
@@ -368,7 +395,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         comboYear = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblPreferenceDay = new javax.swing.JTable();
+        tblDeliveryPlanDetails = new javax.swing.JTable();
         btRemoveFromPrefTable = new javax.swing.JButton();
         btAddToPreferenceTable = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
@@ -648,57 +675,68 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 228, -1, -1));
 
-        tblPreferenceDay.setModel(new javax.swing.table.DefaultTableModel(
+        tblDeliveryPlanDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Date", "Level", "Time", "Module Name", "Module Code", "Type", "Lecturer", "Room", "Course", "Group", "Lecture Start Time", "Duration"
+                "Date", "Level", "Start Time", "Module Name", "Module Code", "Type", "Lecturer", "Room", "Course", "Group", "Lecture Start Time", "Duration", "Time Order No", "End Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblPreferenceDay.setToolTipText("Priority Level");
-        tblPreferenceDay.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tblPreferenceDay);
-        if (tblPreferenceDay.getColumnModel().getColumnCount() > 0) {
-            tblPreferenceDay.getColumnModel().getColumn(0).setMinWidth(120);
-            tblPreferenceDay.getColumnModel().getColumn(0).setPreferredWidth(120);
-            tblPreferenceDay.getColumnModel().getColumn(0).setMaxWidth(120);
-            tblPreferenceDay.getColumnModel().getColumn(1).setMinWidth(220);
-            tblPreferenceDay.getColumnModel().getColumn(1).setPreferredWidth(220);
-            tblPreferenceDay.getColumnModel().getColumn(1).setMaxWidth(220);
-            tblPreferenceDay.getColumnModel().getColumn(2).setResizable(false);
-            tblPreferenceDay.getColumnModel().getColumn(3).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(3).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(3).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(4).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(4).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(4).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(5).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(5).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(5).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(6).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(6).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(6).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(7).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(7).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(7).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(8).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(8).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(8).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(9).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(9).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(9).setMaxWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(10).setMinWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(10).setPreferredWidth(0);
-            tblPreferenceDay.getColumnModel().getColumn(10).setMaxWidth(0);
+        tblDeliveryPlanDetails.setToolTipText("Priority Level");
+        tblDeliveryPlanDetails.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblDeliveryPlanDetails);
+        if (tblDeliveryPlanDetails.getColumnModel().getColumnCount() > 0) {
+            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setMinWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setMinWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setMinWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(3).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(3).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(4).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(4).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(4).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(5).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(5).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(5).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(6).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(6).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(7).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(7).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(7).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(8).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(8).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(8).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(10).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(10).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setMinWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setPreferredWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(12).setMinWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(12).setPreferredWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(12).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setMinWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setPreferredWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setMaxWidth(100);
         }
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(703, 120, 501, 157));
@@ -731,6 +769,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jLabel31.setText("Year");
         jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 216, 118, -1));
 
+        txtRemark.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtRemark.setToolTipText("Remarks");
         jPanel3.add(txtRemark, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 233, 178, 44));
 
@@ -902,7 +941,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     }//GEN-LAST:event_btRemoveFromPrefTableActionPerformed
 
     private void btAddToPreferenceTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddToPreferenceTableActionPerformed
-        addPreferenceDateToTable();
+        try {
+            addDeliveryPlanDetailsToTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btAddToPreferenceTableActionPerformed
 
     private void btPreviewFullDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPreviewFullDetailsActionPerformed
@@ -1074,8 +1117,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdoBtn2;
     private javax.swing.JRadioButton rdoBtn3;
     private javax.swing.JRadioButton rdoBtn4;
+    private javax.swing.JTable tblDeliveryPlanDetails;
     private javax.swing.JTable tblDeliveryReportData;
-    private javax.swing.JTable tblPreferenceDay;
     private javax.swing.JTextField txtModuleName;
     private javax.swing.JTextField txtRemark;
     // End of variables declaration//GEN-END:variables

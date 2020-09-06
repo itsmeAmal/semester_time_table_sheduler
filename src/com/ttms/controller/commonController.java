@@ -170,4 +170,26 @@ public class commonController {
         return new commonDaoImpl().isNotAvailableTime();
     }
 
+    public static boolean isRecordAvailableInDeliveryPlanDetailUiTable(JTable table, Date SelectedDate,
+            String LectureStartTime, String Level) {
+        boolean Status = false;
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        /*
+        lecture start time column = 10
+        Lecture duration = 11
+        Lecture end time = 13
+        Lecture date = 0
+        Level = 1
+        location = 7
+         */
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            if (dtm.getValueAt(i, 0).toString().equalsIgnoreCase(SelectedDate.toString())
+                    && dtm.getValueAt(i, 10).toString().equalsIgnoreCase(LectureStartTime)
+                    && dtm.getValueAt(i, 1).toString().equalsIgnoreCase(Level)) {
+                Status = true;
+            }
+        }
+        return Status;
+    }
+
 }

@@ -5,6 +5,8 @@
  */
 package com.ttms.daoimpl;
 
+import com.ttms.controller.commonConstants;
+import com.ttms.controller.deliveryPlanDetailsController;
 import com.ttms.dao.deliveryPlanDetailsDao;
 import com.ttms.databaseConnection.DatabaseConnection;
 import com.ttms.model.deliveryPlanDetails;
@@ -118,6 +120,23 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
             count = rset.getInt("date_count");
         }
         return ++count;
+    }
+
+    public ResultSet isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate, String LectureStartTime, String Level) throws SQLException {
+
+        ArrayList<String[]> AttributeConditionValueList = new ArrayList();
+
+        String[] Av1 = {"delivery_plan_details_date", commonConstants.Sql.EQUAL, SelectedDate.toString()};
+        AttributeConditionValueList.add(Av1);
+
+        String[] Av2 = {"delivery_plan_details_start_time", commonConstants.Sql.EQUAL, LectureStartTime};
+        AttributeConditionValueList.add(Av2);
+
+        String[] Av3 = {"delivery_plan_details_level", commonConstants.Sql.EQUAL, Level};
+        AttributeConditionValueList.add(Av3);
+
+        return deliveryPlanDetailsController.getDeliveryPlanDetailsByMoreAttributes(AttributeConditionValueList, commonConstants.Sql.AND);
+
     }
 
 }

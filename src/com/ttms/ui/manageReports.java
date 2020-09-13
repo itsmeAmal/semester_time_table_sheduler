@@ -57,6 +57,7 @@ public class manageReports extends javax.swing.JDialog {
             Connection con = DatabaseConnection.getDatabaseConnection();
             JasperDesign jsd = JRXmlLoader.load("reports\\time_table_2020.jrxml"); //src\\cazzendra\\pos\\
             JasperReport jr = JasperCompileManager.compileReport(jsd);
+            hm.put("sem_starting_date", commonController.getMysqlDateFromJDateChooser(calSemBeginningDate));
             JasperPrint jp = JasperFillManager.fillReport(jr, hm, con);
 //          JasperViewer jasperViewer = new JasperViewer(jp, false);
 //          JasperPrintManager.printReport(jp, false);

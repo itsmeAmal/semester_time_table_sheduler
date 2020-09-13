@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="time_table_2020" language="groovy" pageWidth="1008" pageHeight="595" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lecturer_wise_time_table" language="groovy" pageWidth="1008" pageHeight="595" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -52,15 +52,13 @@ where delivery_plan_day_1='Tuesday']]>
 		<field name="room_name" class="java.lang.String"/>
 		<field name="delivery_plan_week_begining_date" class="java.sql.Date"/>
 	</subDataset>
-	<parameter name="level" class="java.lang.String"/>
-	<parameter name="year" class="java.lang.String"/>
-	<parameter name="month" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\GitHub\\semester_time_table_sheduler\\reports\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="lecturer_name" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from delivery_plan_details order by
- delivery_plan_details_date, delivery_plan_details_time_order_no ]]>
+		<![CDATA[select * from delivery_plan_details where delivery_plan_details_lecturer_name=$P{lecturer_name}
+order by delivery_plan_details_date, delivery_plan_details_time_order_no]]>
 	</queryString>
 	<field name="delivery_plan_details_id" class="java.lang.Long"/>
 	<field name="delivery_plan_details_delivery_plan_id" class="java.lang.Long"/>
@@ -88,7 +86,7 @@ where delivery_plan_day_1='Tuesday']]>
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Time Table - All]]></text>
+				<text><![CDATA[Lecturer Schedule]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="337" y="28" width="218" height="20"/>
@@ -97,6 +95,20 @@ where delivery_plan_day_1='Tuesday']]>
 				</textElement>
 				<text><![CDATA[SLT Training Center - Welisara]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="5" y="35" width="49" height="13" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lecturer]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="54" y="35" width="209" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delivery_plan_details_lecturer_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -131,39 +143,32 @@ where delivery_plan_day_1='Tuesday']]>
 				<text><![CDATA[Level]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="270" y="2" width="160" height="13" forecolor="#000000"/>
+				<reportElement x="302" y="2" width="199" height="13" forecolor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Module Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="114" y="2" width="75" height="13" forecolor="#000000"/>
+				<reportElement x="114" y="2" width="91" height="13" forecolor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Start Time]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="434" y="2" width="83" height="13" forecolor="#000000"/>
+				<reportElement x="515" y="2" width="113" height="13" forecolor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Module Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="521" y="2" width="73" height="13" forecolor="#000000"/>
+				<reportElement x="636" y="2" width="103" height="13" forecolor="#000000"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Type]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="594" y="2" width="151" height="13" forecolor="#000000"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Lecturer]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="745" y="2" width="73" height="13" forecolor="#000000"/>
@@ -187,7 +192,7 @@ where delivery_plan_day_1='Tuesday']]>
 				<text><![CDATA[Group]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="189" y="2" width="74" height="13" forecolor="#000000"/>
+				<reportElement x="205" y="2" width="84" height="13" forecolor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -212,32 +217,25 @@ where delivery_plan_day_1='Tuesday']]>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_level}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="270" y="0" width="160" height="11"/>
+				<reportElement x="302" y="0" width="199" height="11"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_module_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="444" y="0" width="73" height="11"/>
+				<reportElement x="525" y="0" width="103" height="11"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_module_code}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="521" y="0" width="73" height="11"/>
+				<reportElement x="636" y="0" width="103" height="11"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_type}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="594" y="0" width="140" height="11"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{delivery_plan_details_lecturer_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="745" y="0" width="73" height="11"/>
@@ -261,14 +259,14 @@ where delivery_plan_day_1='Tuesday']]>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_group_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="h.mm a" isBlankWhenNull="true">
-				<reportElement x="114" y="-1" width="75" height="12"/>
+				<reportElement x="114" y="-1" width="91" height="12"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_start_time}]]></textFieldExpression>
 			</textField>
 			<textField pattern="h.mm a" isBlankWhenNull="true">
-				<reportElement x="189" y="-1" width="74" height="12"/>
+				<reportElement x="205" y="-1" width="84" height="12"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>

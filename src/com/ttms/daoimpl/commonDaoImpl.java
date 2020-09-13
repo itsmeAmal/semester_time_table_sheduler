@@ -9,6 +9,7 @@ import com.ttms.controller.commonConstants;
 import com.ttms.dao.commonDao;
 import com.ttms.databaseConnection.DatabaseConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,5 +78,48 @@ public class commonDaoImpl implements commonDao {
             status = true;
         }
         return status;
+    }
+
+    public int GetLectureCountByDateAndCoduleCode(Date Date, String ModeuleCode) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select count(delivery_plan_details_module_code) as lecture_count "
+                + "from delivery_plan_details where delivery_plan_details_module_code=? and delivery_plan_details_date>=? "
+                + "and delivery_plan_details_type='Lecture'");
+        ps.setString(1, ModeuleCode);
+        ps.setDate(2, Date);
+        int count = 0;
+        ResultSet rset = ps.executeQuery();
+        while (rset.next()) {            
+            count = rset.getInt("lecture_count");
+        }
+        return count;
+    }
+    public int GetTutorialCountByDateAndCoduleCode(Date Date, String ModeuleCode) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select count(delivery_plan_details_module_code) as lecture_count "
+                + "from delivery_plan_details where delivery_plan_details_module_code=? and delivery_plan_details_date>=? "
+                + "and delivery_plan_details_type='Tutorial'");
+        ps.setString(1, ModeuleCode);
+        ps.setDate(2, Date);
+        int count = 0;
+        ResultSet rset = ps.executeQuery();
+        while (rset.next()) {            
+            count = rset.getInt("lecture_count");
+        }
+        return count;
+    }
+    public int GetLabCountByDateAndCoduleCode(Date Date, String ModeuleCode) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select count(delivery_plan_details_module_code) as lecture_count "
+                + "from delivery_plan_details where delivery_plan_details_module_code=? and delivery_plan_details_date>=? "
+                + "and delivery_plan_details_type='Lab'");
+        ps.setString(1, ModeuleCode);
+        ps.setDate(2, Date);
+        int count = 0;
+        ResultSet rset = ps.executeQuery();
+        while (rset.next()) {            
+            count = rset.getInt("lecture_count");
+        }
+        return count;
     }
 }

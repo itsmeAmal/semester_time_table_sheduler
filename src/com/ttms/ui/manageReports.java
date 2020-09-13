@@ -8,8 +8,11 @@ package com.ttms.ui;
 import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
 import com.ttms.controller.roomController;
+import com.ttms.controller.subjectController;
+import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.databaseConnection.DatabaseConnection;
 import com.ttms.model.lecturer;
+import com.ttms.model.subject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +35,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class manageReports extends javax.swing.JDialog {
 
     int lecturerId = 0;
+    int subjectId = 0;
 
     /**
      * Creates new form editBatch
@@ -117,7 +121,7 @@ public class manageReports extends javax.swing.JDialog {
             Connection con = DatabaseConnection.getDatabaseConnection();
             JasperDesign jsd = JRXmlLoader.load("reports\\room_wise_time_table.jrxml"); //src\\cazzendra\\pos\\
             JasperReport jr = JasperCompileManager.compileReport(jsd);
-            hm.put("room_name", comboLocation.getSelectedItem().toString()); 
+            hm.put("room_name", comboLocation.getSelectedItem().toString());
             hm.put("sem_starting_date", commonController.getMysqlDateFromJDateChooser(calSemBeginningDate));
             JasperPrint jp = JasperFillManager.fillReport(jr, hm, con);
 //          JasperViewer jasperViewer = new JasperViewer(jp, false);
@@ -131,13 +135,18 @@ public class manageReports extends javax.swing.JDialog {
 
     public void printModuleSchedule() {
         try {
-            String Level = comboLevel.getSelectedItem().toString();
             HashMap<String, Object> hm = new HashMap<>();
             Connection con = DatabaseConnection.getDatabaseConnection();
             JasperDesign jsd = JRXmlLoader.load("reports\\module_wise_time_table.jrxml"); //src\\cazzendra\\pos\\
             JasperReport jr = JasperCompileManager.compileReport(jsd);
-            hm.put("level", Level);
             hm.put("sem_starting_date", commonController.getMysqlDateFromJDateChooser(calSemBeginningDate));
+            hm.put("module_code", comboModuleCode.getSelectedItem().toString());
+            hm.put("no_of_lectuers", new commonDaoImpl().GetLectureCountByDateAndCoduleCode(
+                    commonController.getMysqlDateFromJDateChooser(calSemBeginningDate), comboModuleCode.getSelectedItem().toString()));
+            hm.put("no_of_tutorials", new commonDaoImpl().GetTutorialCountByDateAndCoduleCode(
+                    commonController.getMysqlDateFromJDateChooser(calSemBeginningDate), comboModuleCode.getSelectedItem().toString()));
+            hm.put("no_of_labs", new commonDaoImpl().GetLabCountByDateAndCoduleCode(
+                    commonController.getMysqlDateFromJDateChooser(calSemBeginningDate), comboModuleCode.getSelectedItem().toString()));
             JasperPrint jp = JasperFillManager.fillReport(jr, hm, con);
 //          JasperViewer jasperViewer = new JasperViewer(jp, false);
 //          JasperPrintManager.printReport(jp, false);
@@ -387,7 +396,7 @@ public class manageReports extends javax.swing.JDialog {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("Module Name");
+        jLabel13.setText("Module Code");
         jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 190, 200, -1));
 
@@ -398,6 +407,11 @@ public class manageReports extends javax.swing.JDialog {
 
         btSearchModule.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
         btSearchModule.setToolTipText("Search");
+        btSearchModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchModuleActionPerformed(evt);
+            }
+        });
         jPanel4.add(btSearchModule, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 220, 40, 40));
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
@@ -481,6 +495,22 @@ public class manageReports extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         printRoomSchedule();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btSearchModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchModuleActionPerformed
+        subject subject = null;
+        searchSubject searchSub = new searchSubject(null, true);
+        searchSub.setVisible(true);
+        subjectId = searchSub.getSelectedSubjectId();
+        if (subjectId != 0) {
+            try {
+                subject = subjectController.getSubjectBySubjectId(subjectId);
+            } catch (SQLException ex) {
+                Logger.getLogger(manageReports.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            comboModuleCode.removeAllItems();
+            comboModuleCode.addItem(subject.getModuleCode());
+        }
+    }//GEN-LAST:event_btSearchModuleActionPerformed
 
     /**
      * @param args the command line arguments

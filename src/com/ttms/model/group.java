@@ -20,7 +20,7 @@ public class group {
     private int id;
     private String name;
     private int batchId;
-    private int type;
+    private String type;
     private String detail;
     private int status;
 
@@ -69,14 +69,14 @@ public class group {
     /**
      * @return the type
      */
-    public int getType() {
+    public String getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

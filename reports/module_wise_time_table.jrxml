@@ -61,8 +61,9 @@ where delivery_plan_day_1='Tuesday']]>
 	<parameter name="no_of_lectuers" class="java.lang.String"/>
 	<parameter name="no_of_tutorials" class="java.lang.String"/>
 	<parameter name="no_of_labs" class="java.lang.String"/>
+	<parameter name="sem_starting_date" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[select * from delivery_plan_details where delivery_plan_details_module_name=$P{module_name} order by
+		<![CDATA[select * from delivery_plan_details where delivery_plan_details_module_name=$P{module_name} and delivery_plan_details_start_time<=$P{sem_starting_date} order by
  delivery_plan_details_date, delivery_plan_details_time_order_no]]>
 	</queryString>
 	<field name="delivery_plan_details_id" class="java.lang.Long"/>
@@ -191,6 +192,7 @@ where delivery_plan_day_1='Tuesday']]>
 			</staticText>
 			<staticText>
 				<reportElement x="150" y="2" width="74" height="13" forecolor="#000000"/>
+				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -251,6 +253,7 @@ where delivery_plan_day_1='Tuesday']]>
 			</textField>
 			<textField pattern="h.mm a" isBlankWhenNull="true">
 				<reportElement x="150" y="-1" width="74" height="12"/>
+				<box rightPadding="5"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>

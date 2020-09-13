@@ -56,8 +56,9 @@ where delivery_plan_day_1='Tuesday']]>
 		<defaultValueExpression><![CDATA["E:\\GitHub\\semester_time_table_sheduler\\reports\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="room_name" class="java.lang.String"/>
+	<parameter name="sem_starting_date" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[select * from delivery_plan_details where delivery_plan_details_room_name= $P{room_name} order by delivery_plan_details_date, delivery_plan_details_time_order_no]]>
+		<![CDATA[select * from delivery_plan_details where delivery_plan_details_room_name= $P{room_name} and delivery_plan_details_start_time<=$P{sem_starting_date} order by delivery_plan_details_date, delivery_plan_details_time_order_no]]>
 	</queryString>
 	<field name="delivery_plan_details_id" class="java.lang.Long"/>
 	<field name="delivery_plan_details_delivery_plan_id" class="java.lang.Long"/>
@@ -143,6 +144,7 @@ where delivery_plan_day_1='Tuesday']]>
 			</staticText>
 			<staticText>
 				<reportElement x="281" y="2" width="187" height="13" forecolor="#000000"/>
+				<box leftPadding="8"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -217,6 +219,7 @@ where delivery_plan_day_1='Tuesday']]>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="281" y="0" width="187" height="11"/>
+				<box leftPadding="8"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

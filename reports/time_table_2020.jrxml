@@ -52,15 +52,13 @@ where delivery_plan_day_1='Tuesday']]>
 		<field name="room_name" class="java.lang.String"/>
 		<field name="delivery_plan_week_begining_date" class="java.sql.Date"/>
 	</subDataset>
-	<parameter name="level" class="java.lang.String"/>
-	<parameter name="year" class="java.lang.String"/>
-	<parameter name="month" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["E:\\GitHub\\semester_time_table_sheduler\\reports\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="sem_starting_date" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[select * from delivery_plan_details order by
- delivery_plan_details_date, delivery_plan_details_time_order_no ]]>
+		<![CDATA[select * from delivery_plan_details where delivery_plan_details_start_time<=$P{sem_starting_date} order by
+ delivery_plan_details_date, delivery_plan_details_time_order_no]]>
 	</queryString>
 	<field name="delivery_plan_details_id" class="java.lang.Long"/>
 	<field name="delivery_plan_details_delivery_plan_id" class="java.lang.Long"/>
@@ -132,6 +130,7 @@ where delivery_plan_day_1='Tuesday']]>
 			</staticText>
 			<staticText>
 				<reportElement x="270" y="2" width="160" height="13" forecolor="#000000"/>
+				<box leftPadding="6"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="10" isBold="true"/>
 				</textElement>
@@ -213,6 +212,7 @@ where delivery_plan_day_1='Tuesday']]>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="270" y="0" width="160" height="11"/>
+				<box leftPadding="6"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

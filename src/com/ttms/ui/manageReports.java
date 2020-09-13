@@ -7,9 +7,11 @@ package com.ttms.ui;
 
 import com.ttms.controller.commonController;
 import com.ttms.controller.lecturerController;
+import com.ttms.controller.roomController;
 import com.ttms.databaseConnection.DatabaseConnection;
 import com.ttms.model.lecturer;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -41,6 +43,7 @@ public class manageReports extends javax.swing.JDialog {
     public manageReports(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        loadRoomDataObjectsToCombo();
     }
 
     // ok
@@ -82,7 +85,6 @@ public class manageReports extends javax.swing.JDialog {
 
     public void printLecturerSchedule() {
         try {
-            String Level = comboLevel.getSelectedItem().toString();
             HashMap<String, Object> hm = new HashMap<>();
             Connection con = DatabaseConnection.getDatabaseConnection();
             JasperDesign jsd = JRXmlLoader.load("reports\\lecturer_wise_time_table.jrxml"); //src\\cazzendra\\pos\\
@@ -99,14 +101,23 @@ public class manageReports extends javax.swing.JDialog {
         }
     }
 
+    private void loadRoomDataObjectsToCombo() {
+        try {
+            ResultSet rset = roomController.getAllRoomDetails();
+            String[] columnList = {"room_id", "room_name", "room_code", "room_detail", "room_status"};
+            commonController.loadDataObjectsIntoComboBox(comboLocation, rset, columnList, "room_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(manageReports.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void printRoomSchedule() {
         try {
-            String Level = comboLevel.getSelectedItem().toString();
             HashMap<String, Object> hm = new HashMap<>();
             Connection con = DatabaseConnection.getDatabaseConnection();
-            JasperDesign jsd = JRXmlLoader.load("reports\\lecturer_wise_time_table.jrxml"); //src\\cazzendra\\pos\\
+            JasperDesign jsd = JRXmlLoader.load("reports\\room_wise_time_table.jrxml"); //src\\cazzendra\\pos\\
             JasperReport jr = JasperCompileManager.compileReport(jsd);
-            hm.put("level", Level);
+            hm.put("room_name", comboLocation.getSelectedItem().toString()); 
             hm.put("sem_starting_date", commonController.getMysqlDateFromJDateChooser(calSemBeginningDate));
             JasperPrint jp = JasperFillManager.fillReport(jr, hm, con);
 //          JasperViewer jasperViewer = new JasperViewer(jp, false);
@@ -145,11 +156,11 @@ public class manageReports extends javax.swing.JDialog {
         if (lecturerId != 0) {
             try {
                 lecturer = lecturerController.getLecturerByLecturerId(lecturerId);
-                comboLecturer.removeAllItems();
-                comboLecturer.addItem(lecturer.getName());
             } catch (SQLException ex) {
-                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(manageReports.class.getName()).log(Level.SEVERE, null, ex);
             }
+            comboLecturer.removeAllItems();
+            comboLecturer.addItem(lecturer.getName());
         }
     }
 
@@ -220,6 +231,11 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 200, 44));
 
         jButton3.setText("Print Room Schedule");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 200, 44));
 
         jButton4.setText("Print Lecturer Schedule");
@@ -461,6 +477,10 @@ public class manageReports extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         printLecturerSchedule();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        printRoomSchedule();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

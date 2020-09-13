@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="room_wise_time_table" language="groovy" pageWidth="1008" pageHeight="595" orientation="Landscape" columnWidth="968" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="244"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
@@ -82,14 +82,14 @@ where delivery_plan_day_1='Tuesday']]>
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement x="337" y="0" width="218" height="28"/>
+				<reportElement x="0" y="0" width="968" height="28"/>
 				<textElement textAlignment="Center">
 					<font size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Room Schedule]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="337" y="28" width="218" height="20"/>
+				<reportElement x="375" y="28" width="218" height="20"/>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
@@ -98,7 +98,7 @@ where delivery_plan_day_1='Tuesday']]>
 			<textField isBlankWhenNull="true">
 				<reportElement x="78" y="35" width="196" height="13"/>
 				<textElement>
-					<font size="8"/>
+					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{delivery_plan_details_room_name}]]></textFieldExpression>
 			</textField>

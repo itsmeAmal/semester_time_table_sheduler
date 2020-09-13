@@ -5,20 +5,10 @@
  */
 package com.ttms.ui;
 
-import com.ttms.databaseConnection.DatabaseConnection;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -31,19 +21,6 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
-    }
-
-    public static void printMasterTimeTable() throws SQLException, JRException {
-        HashMap<String, Object> hm = new HashMap<>();
-
-        Connection con = DatabaseConnection.getDatabaseConnection();
-        JasperDesign jsd = JRXmlLoader.load("reports\\master_time_table.jrxml"); //src\\cazzendra\\pos\\
-        JasperReport jr = JasperCompileManager.compileReport(jsd);
-        JasperPrint jp = JasperFillManager.fillReport(jr, hm, con);
-//        JasperViewer jasperViewer = new JasperViewer(jp, false);
-//        JasperPrintManager.printReport(jp, false);
-        JasperViewer jasperViewer = new JasperViewer(jp, false);
-        jasperViewer.setVisible(true);
     }
 
     /**
@@ -407,7 +384,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("MASTER TIME TABLE");
+        jLabel20.setText("REPORTS");
         jLabel20.setToolTipText("Dilivery Plan");
         jLabel20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -630,11 +607,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
-        try {
-            printMasterTimeTable();
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       new manageReports(this, true).setVisible(true); 
     }//GEN-LAST:event_jLabel20MouseClicked
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked

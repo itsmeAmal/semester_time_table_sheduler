@@ -63,7 +63,7 @@ where delivery_plan_day_1='Tuesday']]>
 	<parameter name="no_of_labs" class="java.lang.String"/>
 	<parameter name="sem_starting_date" class="java.util.Date"/>
 	<queryString>
-		<![CDATA[select * from delivery_plan_details where delivery_plan_details_module_name=$P{module_name} and delivery_plan_details_start_time<=$P{sem_starting_date} order by
+		<![CDATA[select * from delivery_plan_details where delivery_plan_details_module_name=$P{module_name} and delivery_plan_details_date>=$P{sem_starting_date} order by
  delivery_plan_details_date, delivery_plan_details_time_order_no]]>
 	</queryString>
 	<field name="delivery_plan_details_id" class="java.lang.Long"/>

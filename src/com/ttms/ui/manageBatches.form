@@ -278,6 +278,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Year.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Batch Year"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -292,6 +293,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Level.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Batch Level"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
@@ -306,6 +308,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Detail.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Details / Remarks"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btSave">

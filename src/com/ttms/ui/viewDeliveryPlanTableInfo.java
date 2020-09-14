@@ -76,7 +76,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName.setEditable(false);
         txtStudentName.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName.setToolTipText("Student Name");
+        txtStudentName.setToolTipText("Calender Week");
         txtStudentName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -86,25 +86,25 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Calender Contact Week");
+        jLabel17.setText("Class Contact Week");
 
         txtStudentName1.setEditable(false);
         txtStudentName1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName1.setToolTipText("Student Name");
+        txtStudentName1.setToolTipText("Class Contact Week");
         txtStudentName1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName1.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtStudentName2.setEditable(false);
         txtStudentName2.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName2.setToolTipText("Student Name");
+        txtStudentName2.setToolTipText("Week Begining Date");
         txtStudentName2.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName2.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Week Begining");
+        jLabel18.setText("Week Begining Date");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
@@ -113,14 +113,14 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName3.setEditable(false);
         txtStudentName3.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName3.setToolTipText("Student Name");
+        txtStudentName3.setToolTipText("Lecture");
         txtStudentName3.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName3.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtStudentName4.setEditable(false);
         txtStudentName4.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName4.setToolTipText("Student Name");
+        txtStudentName4.setToolTipText("Tutorial");
         txtStudentName4.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName4.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -131,7 +131,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName5.setEditable(false);
         txtStudentName5.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName5.setToolTipText("Student Name");
+        txtStudentName5.setToolTipText("Lab");
         txtStudentName5.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName5.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -153,7 +153,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName8.setEditable(false);
         txtStudentName8.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName8.setToolTipText("Student Name");
+        txtStudentName8.setToolTipText("Level");
         txtStudentName8.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName8.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -164,7 +164,7 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName9.setEditable(false);
         txtStudentName9.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName9.setToolTipText("Student Name");
+        txtStudentName9.setToolTipText("Lecturer");
         txtStudentName9.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName9.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -190,14 +190,14 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName11.setEditable(false);
         txtStudentName11.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName11.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName11.setToolTipText("Student Name");
+        txtStudentName11.setToolTipText("Module Code");
         txtStudentName11.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName11.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtStudentName12.setEditable(false);
         txtStudentName12.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName12.setToolTipText("Student Name");
+        txtStudentName12.setToolTipText("Type");
         txtStudentName12.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName12.setSelectionColor(new java.awt.Color(255, 255, 0));
 
@@ -216,14 +216,14 @@ public class viewDeliveryPlanTableInfo extends javax.swing.JDialog {
         txtStudentName13.setEditable(false);
         txtStudentName13.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName13.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName13.setToolTipText("Student Name");
+        txtStudentName13.setToolTipText("Location");
         txtStudentName13.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName13.setSelectionColor(new java.awt.Color(255, 255, 0));
 
         txtStudentName14.setEditable(false);
         txtStudentName14.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtStudentName14.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtStudentName14.setToolTipText("Student Name");
+        txtStudentName14.setToolTipText("Lecture Hours");
         txtStudentName14.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtStudentName14.setSelectionColor(new java.awt.Color(255, 255, 0));
 

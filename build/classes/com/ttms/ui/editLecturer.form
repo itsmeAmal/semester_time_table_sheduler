@@ -226,6 +226,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/User_Title.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Title"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
@@ -234,6 +235,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Name.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Lecturer Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel20">
@@ -282,8 +284,9 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/ttms/lableIcons/email.PNG"/>
+                  <Image iconType="3" name="/com/ttms/labelIcons3/email.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Email "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtEmail1">
@@ -323,6 +326,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Contact_Num.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Contact No"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtContactNo">
@@ -376,6 +380,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Detail.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Details / Remarks"/>
               </Properties>
             </Component>
           </SubComponents>

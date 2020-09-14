@@ -120,8 +120,8 @@ public class searchLecturer extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Subject.png"))); // NOI18N
-        jLabel2.setToolTipText("Subject Name");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Lecturer.png"))); // NOI18N
+        jLabel2.setToolTipText("Lecturer");
 
         tblSubjectDetails.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         tblSubjectDetails.setModel(new javax.swing.table.DefaultTableModel(

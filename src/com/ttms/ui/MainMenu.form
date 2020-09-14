@@ -85,7 +85,7 @@
                                   <Component id="jPanel3" max="32767" attributes="0"/>
                                   <Component id="jLabel2" min="-2" pref="156" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="698" max="32767" attributes="0"/>
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
@@ -126,7 +126,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="438" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                       <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
@@ -747,7 +747,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="REPORTS"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Dilivery Plan"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Reports"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
                   <Events>

@@ -225,6 +225,7 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Print Master Time Table");
+        jButton1.setToolTipText("Print Master Time Table");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -233,6 +234,7 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 70, 220, 44));
 
         jButton2.setText("Print Level Schedule");
+        jButton2.setToolTipText("Print Level Schedule");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -241,6 +243,7 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 200, 44));
 
         jButton3.setText("Print Room Schedule");
+        jButton3.setToolTipText("Print Room Schedule");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -249,6 +252,7 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 200, 44));
 
         jButton4.setText("Print Lecturer Schedule");
+        jButton4.setToolTipText("Print Lecturer Schedule");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -257,6 +261,7 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 200, 44));
 
         jButton5.setText("Print Module Schedule");
+        jButton5.setToolTipText("Print Module Schedule");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -264,7 +269,7 @@ public class manageReports extends javax.swing.JDialog {
         });
         jPanel4.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 200, 44));
 
-        calSemBeginningDate.setToolTipText("Week Begining Date");
+        calSemBeginningDate.setToolTipText("Semester Strating Date");
         calSemBeginningDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 calSemBeginningDateFocusLost(evt);
@@ -352,11 +357,11 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 11, 220));
 
         comboLecturer.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        comboLecturer.setToolTipText("Lecturer");
+        comboLecturer.setToolTipText("Lecturer Name");
         jPanel4.add(comboLecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 150, 44));
 
         btSearchLecturer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btSearchLecturer.setToolTipText("Search");
+        btSearchLecturer.setToolTipText("Search Lecturer Name");
         btSearchLecturer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSearchLecturerActionPerformed(evt);
@@ -384,7 +389,7 @@ public class manageReports extends javax.swing.JDialog {
 
         comboLocation.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "room" }));
-        comboLocation.setToolTipText("Location");
+        comboLocation.setToolTipText("Location Name");
         jPanel4.add(comboLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 200, 44));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -407,7 +412,7 @@ public class manageReports extends javax.swing.JDialog {
         jPanel4.add(comboModuleCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, 150, 44));
 
         btSearchModule.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btSearchModule.setToolTipText("Search");
+        btSearchModule.setToolTipText("Search Module Code");
         btSearchModule.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSearchModuleActionPerformed(evt);

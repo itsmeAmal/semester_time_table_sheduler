@@ -212,7 +212,6 @@ public class manageStudents extends javax.swing.JFrame {
         setTitle("Student Management");
         setMaximumSize(new java.awt.Dimension(1300, 700));
         setMinimumSize(new java.awt.Dimension(1300, 700));
-        setPreferredSize(new java.awt.Dimension(1269, 643));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(102, 102, 255));
@@ -331,7 +330,8 @@ public class manageStudents extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/email.PNG"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/email.png"))); // NOI18N
+        jLabel3.setToolTipText("Email");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
@@ -502,7 +502,7 @@ public class manageStudents extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N

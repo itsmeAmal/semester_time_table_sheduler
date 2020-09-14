@@ -512,17 +512,20 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Course_Type.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Subject.png"))); // NOI18N
+        jLabel4.setToolTipText("Module Name");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 166, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Module_Code.png"))); // NOI18N
+        jLabel3.setToolTipText("Module Code");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 98, -1, -1));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel2.setToolTipText("Level");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 29, -1, -1));
 
         btSearchModule.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
@@ -541,10 +544,12 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+        jLabel10.setToolTipText("Class Contact Week");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 166, -1, -1));
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Week.png"))); // NOI18N
+        jLabel11.setToolTipText("Week Begining Date");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 29, -1, -1));
 
         calWeekBeginningDate.setToolTipText("Week Begining Date");
@@ -586,7 +591,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 79, 153, -1));
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Date.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/calander.png"))); // NOI18N
+        jLabel9.setToolTipText("Calender Week");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 98, -1, -1));
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
@@ -610,6 +616,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Type.png"))); // NOI18N
+        jLabel6.setToolTipText("Type ");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         comboLecturer.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -618,6 +625,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Lecturer.png"))); // NOI18N
+        jLabel7.setToolTipText("Lecturer");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 102, -1, -1));
 
         btAddDataToMainTble.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -644,6 +652,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Room.png"))); // NOI18N
+        jLabel8.setToolTipText("Location");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 166, -1, -1));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
@@ -665,7 +674,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         checkBoxRepeatStudents.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRepeatStudents.setText("Repeat Students Available");
         checkBoxRepeatStudents.setToolTipText("Repeat Students Available");
-        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 228, 230, -1));
+        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 160, -1));
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboYear.setToolTipText("Year");
@@ -673,6 +682,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jLabel13.setToolTipText("Year");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 228, -1, -1));
 
         tblDeliveryPlanDetails.setModel(new javax.swing.table.DefaultTableModel(
@@ -742,7 +752,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(703, 120, 501, 157));
 
         btRemoveFromPrefTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btRemoveFromPrefTable.setToolTipText("Delete Preference Date");
+        btRemoveFromPrefTable.setToolTipText("Delete Detail");
         btRemoveFromPrefTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btRemoveFromPrefTableActionPerformed(evt);
@@ -751,7 +761,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jPanel3.add(btRemoveFromPrefTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 118, 40, 40));
 
         btAddToPreferenceTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/addToTableSmall.png"))); // NOI18N
-        btAddToPreferenceTable.setToolTipText("Add Preference Date");
+        btAddToPreferenceTable.setToolTipText("Add Detail");
         btAddToPreferenceTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAddToPreferenceTableActionPerformed(evt);
@@ -779,14 +789,15 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 216, 143, -1));
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Remarks.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
+        jLabel15.setToolTipText("Remarks");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 233, -1, -1));
 
         comboCalenderWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboCalenderWeek.setToolTipText("Calender Week");
         jPanel3.add(comboCalenderWeek, new org.netbeans.lib.awtextra.AbsoluteConstraints(294, 97, 153, 44));
 
-        calTimeTableDate.setToolTipText("Week Begining Date");
+        calTimeTableDate.setToolTipText("Timetable Data");
         calTimeTableDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 calTimeTableDateFocusLost(evt);
@@ -813,8 +824,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         buttonGroup1.add(rdoBtn1);
         rdoBtn1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        rdoBtn1.setSelected(true);
         rdoBtn1.setText("09.00");
+        rdoBtn1.setToolTipText("09.00");
         jPanel3.add(rdoBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, -1, -1));
 
         rdoBtn2.setBackground(new java.awt.Color(0, 0, 102));
@@ -822,18 +833,22 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn2.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn2.setText("11.00");
+        rdoBtn2.setToolTipText("11.00");
         jPanel3.add(rdoBtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 80, -1, -1));
 
         rdoBtn3.setBackground(new java.awt.Color(0, 0, 102));
         buttonGroup1.add(rdoBtn3);
         rdoBtn3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn3.setForeground(new java.awt.Color(255, 255, 255));
+        rdoBtn3.setSelected(true);
         rdoBtn3.setText("01.00");
+        rdoBtn3.setToolTipText("01.00");
         jPanel3.add(rdoBtn3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 80, -1, -1));
 
         chkAutoGenarateLecTime.setBackground(new java.awt.Color(0, 0, 102));
         chkAutoGenarateLecTime.setForeground(new java.awt.Color(255, 255, 255));
         chkAutoGenarateLecTime.setText("Auto generate lecture time");
+        chkAutoGenarateLecTime.setToolTipText("Auto generate lecture time");
         chkAutoGenarateLecTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkAutoGenarateLecTimeActionPerformed(evt);
@@ -846,6 +861,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         rdoBtn4.setForeground(new java.awt.Color(255, 255, 255));
         rdoBtn4.setText("03.00");
+        rdoBtn4.setToolTipText("03.00");
         rdoBtn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdoBtn4ActionPerformed(evt);
@@ -883,7 +899,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 640));

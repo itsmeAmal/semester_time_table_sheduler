@@ -207,11 +207,13 @@ public class manageGroups extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Group.png"))); // NOI18N
+        jLabel2.setToolTipText("Group Name");
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
+        jLabel4.setToolTipText("Details / Remarks");
 
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
@@ -232,6 +234,7 @@ public class manageGroups extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Batch.png"))); // NOI18N
+        jLabel5.setToolTipText("Batch Year");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
@@ -256,8 +259,8 @@ public class manageGroups extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Course_Type.png"))); // NOI18N
-        jLabel6.setToolTipText("Module Code");
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/course type.png"))); // NOI18N
+        jLabel6.setToolTipText("Course");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

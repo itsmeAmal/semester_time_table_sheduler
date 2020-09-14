@@ -85,6 +85,7 @@
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print Master Time Table"/>
+                <Property name="toolTipText" type="java.lang.String" value="Print Master Time Table"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -98,6 +99,7 @@
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print Level Schedule"/>
+                <Property name="toolTipText" type="java.lang.String" value="Print Level Schedule"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -111,6 +113,7 @@
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print Room Schedule"/>
+                <Property name="toolTipText" type="java.lang.String" value="Print Room Schedule"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
@@ -124,6 +127,7 @@
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print Lecturer Schedule"/>
+                <Property name="toolTipText" type="java.lang.String" value="Print Lecturer Schedule"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -137,6 +141,7 @@
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print Module Schedule"/>
+                <Property name="toolTipText" type="java.lang.String" value="Print Module Schedule"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
@@ -149,7 +154,7 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="calSemBeginningDate">
               <Properties>
-                <Property name="toolTipText" type="java.lang.String" value="Week Begining Date"/>
+                <Property name="toolTipText" type="java.lang.String" value="Semester Strating Date"/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="calSemBeginningDateFocusLost"/>
@@ -341,7 +346,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Lecturer"/>
+                <Property name="toolTipText" type="java.lang.String" value="Lecturer Name"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -357,7 +362,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/labelIcons2/searchIcon.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Search"/>
+                <Property name="toolTipText" type="java.lang.String" value="Search Lecturer Name"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSearchLecturerActionPerformed"/>
@@ -427,7 +432,7 @@
                     <StringItem index="0" value="room"/>
                   </StringArray>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Location"/>
+                <Property name="toolTipText" type="java.lang.String" value="Location Name"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -498,7 +503,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/labelIcons2/searchIcon.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Search"/>
+                <Property name="toolTipText" type="java.lang.String" value="Search Module Code"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSearchModuleActionPerformed"/>

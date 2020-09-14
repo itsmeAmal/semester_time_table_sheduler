@@ -215,7 +215,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Calender Week"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -243,7 +243,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Calender Contact Week"/>
+                <Property name="text" type="java.lang.String" value="Class Contact Week"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtStudentName1">
@@ -253,7 +253,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Class Contact Week"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -269,7 +269,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Week Begining Date"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -286,7 +286,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Week Begining"/>
+                <Property name="text" type="java.lang.String" value="Week Begining Date"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">
@@ -307,7 +307,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Lecture"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -323,7 +323,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Tutorial"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -350,7 +350,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Lab"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -404,7 +404,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Level"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -431,7 +431,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Lecturer"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -496,7 +496,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Module Code"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -512,7 +512,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Type"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -561,7 +561,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Location"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
@@ -577,7 +577,7 @@
                   <Font name="Ubuntu" size="18" style="0"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="Student Name"/>
+                <Property name="toolTipText" type="java.lang.String" value="Lecture Hours"/>
                 <Property name="selectedTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>

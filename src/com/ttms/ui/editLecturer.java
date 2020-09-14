@@ -141,9 +141,11 @@ public class editLecturer extends javax.swing.JDialog {
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/User_Title.png"))); // NOI18N
+        jLabel2.setToolTipText("Title");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Name.png"))); // NOI18N
+        jLabel1.setToolTipText("Lecturer Name");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
@@ -161,7 +163,8 @@ public class editLecturer extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/email.PNG"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/email.png"))); // NOI18N
+        jLabel3.setToolTipText("Email ");
 
         txtEmail1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtEmail1.setToolTipText("Email ");
@@ -176,6 +179,7 @@ public class editLecturer extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Contact_Num.png"))); // NOI18N
+        jLabel5.setToolTipText("Contact No");
 
         txtContactNo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtContactNo.setToolTipText("Contact No");
@@ -195,6 +199,7 @@ public class editLecturer extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
+        jLabel4.setToolTipText("Details / Remarks");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

@@ -107,13 +107,14 @@ public class editHoliday extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/Holiday From.png"))); // NOI18N
+        jLabel2.setToolTipText("Holiday Date From");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Holiday From");
 
-        calHolidayFrom.setToolTipText("Week Begining Date");
+        calHolidayFrom.setToolTipText("Holiday Date From");
         calHolidayFrom.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 calHolidayFromFocusLost(evt);
@@ -138,9 +139,10 @@ public class editHoliday extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/Holiday To.png"))); // NOI18N
+        jLabel5.setToolTipText("Holiday Date To");
 
-        calHolidayTo.setToolTipText("Week Begining Date");
+        calHolidayTo.setToolTipText("Holiday Date To");
         calHolidayTo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 calHolidayToFocusLost(evt);
@@ -170,6 +172,7 @@ public class editHoliday extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
+        jLabel4.setToolTipText("Details / Remarks");
 
         txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtDetail.setToolTipText("Details / Remarks");

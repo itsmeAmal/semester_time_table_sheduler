@@ -119,16 +119,19 @@ public class editBatch extends javax.swing.JDialog {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jLabel8.setToolTipText("Batch Year");
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel9.setToolTipText("Batch Level");
 
         jLabel10.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
+        jLabel10.setToolTipText("Details / Remarks");
 
         btSave2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave2.setForeground(new java.awt.Color(255, 255, 255));

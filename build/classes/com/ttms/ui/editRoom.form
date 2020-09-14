@@ -228,6 +228,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Room.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Room Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -242,6 +243,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Room_Id.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Room Code"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
@@ -256,6 +258,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/ttms/lableIcons/Detail.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Details / Remarks"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">

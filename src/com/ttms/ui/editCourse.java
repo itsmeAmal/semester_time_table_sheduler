@@ -119,7 +119,7 @@ public class editCourse extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Year.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/course name.png"))); // NOI18N
         jLabel8.setToolTipText("Course Name");
 
         jLabel9.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N

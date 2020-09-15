@@ -688,7 +688,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/ttms/menuIcons/holiday_128x128.png"/>
+                      <Image iconType="3" name="/com/ttms/labelIcons3/holiday_128x128.png"/>
                     </Property>
                     <Property name="toolTipText" type="java.lang.String" value="Holiday"/>
                   </Properties>

@@ -615,7 +615,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jPanel3.add(btSearchLecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 98, 40, 40));
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Type.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/type.png"))); // NOI18N
         jLabel6.setToolTipText("Type ");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 

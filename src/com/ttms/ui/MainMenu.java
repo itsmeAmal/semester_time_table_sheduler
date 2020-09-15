@@ -348,7 +348,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(102, 102, 255));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/menuIcons/holiday_128x128.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons3/holiday_128x128.png"))); // NOI18N
         jLabel10.setToolTipText("Holiday");
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -410,8 +410,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         rdoBtn3 = new javax.swing.JRadioButton();
         chkAutoGenarateLecTime = new javax.swing.JCheckBox();
         rdoBtn4 = new javax.swing.JRadioButton();
-        txtRemark1 = new javax.swing.JTextField();
         btSearchLecturer = new javax.swing.JButton();
+        txtRemark1 = new javax.swing.JTextField();
+        btSearchDeliveryPlanDetail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -866,14 +867,23 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         });
         jPanel3.add(rdoBtn4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 80, -1, -1));
 
-        txtRemark1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        txtRemark1.setToolTipText("Remarks");
-
         btSearchLecturer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
         btSearchLecturer.setToolTipText("Search");
         btSearchLecturer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSearchLecturerActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btSearchLecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 40, 40));
+
+        txtRemark1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        txtRemark1.setToolTipText("Remarks");
+
+        btSearchDeliveryPlanDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
+        btSearchDeliveryPlanDetail.setToolTipText("Search");
+        btSearchDeliveryPlanDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchDeliveryPlanDetailActionPerformed(evt);
             }
         });
 
@@ -891,9 +901,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -907,11 +917,10 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btSearchLecturer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1029,6 +1038,10 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoBtn4ActionPerformed
 
+    private void btSearchDeliveryPlanDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchDeliveryPlanDetailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSearchDeliveryPlanDetailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1101,6 +1114,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JButton btPreviewFullDetails;
     private javax.swing.JButton btRemoveDataFromMainTable;
     private javax.swing.JButton btRemoveFromPrefTable;
+    private javax.swing.JButton btSearchDeliveryPlanDetail;
     private javax.swing.JButton btSearchLecturer;
     private javax.swing.JButton btSearchModule;
     private javax.swing.ButtonGroup buttonGroup1;

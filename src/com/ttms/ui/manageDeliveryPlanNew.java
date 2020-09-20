@@ -317,10 +317,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
     private void loadDataToTable() {
         try {
-
             ResultSet rset = deliveryPlanDetailsController.getAllOrderedDeliveryPlanDetails();
-            String[] columnList = {"delivery_plan_details_date", "delivery_plan_details_time",
-                "delivery_plan_details_remark", "delivery_plan_details_day"};
+            String[] columnList = {"delivery_plan_details_id", "delivery_plan_details_date", "delivery_plan_details_start_time",
+                "delivery_plan_details_lecture_duration", "delivery_plan_details_end_time",
+                "delivery_plan_details_module_code", "delivery_plan_details_type",
+                "delivery_plan_details_lecturer_name"};
 
             commonController.loadDataToTable(tblDeliveryReportData, rset, columnList);
 
@@ -425,31 +426,35 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Date", "Time", "Remark", "Day"
+                "id", "Date", "Start", "Duration", "End", "Module", "Type", "Lecturer"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tblDeliveryReportData.setRowHeight(20);
         tblDeliveryReportData.setRowMargin(2);
         tblDeliveryReportData.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblDeliveryReportData);
         if (tblDeliveryReportData.getColumnModel().getColumnCount() > 0) {
-            tblDeliveryReportData.getColumnModel().getColumn(0).setMinWidth(200);
-            tblDeliveryReportData.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tblDeliveryReportData.getColumnModel().getColumn(0).setMaxWidth(200);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tblDeliveryReportData.getColumnModel().getColumn(0).setMaxWidth(0);
             tblDeliveryReportData.getColumnModel().getColumn(1).setMinWidth(150);
             tblDeliveryReportData.getColumnModel().getColumn(1).setPreferredWidth(150);
             tblDeliveryReportData.getColumnModel().getColumn(1).setMaxWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(3).setMinWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(3).setPreferredWidth(150);
-            tblDeliveryReportData.getColumnModel().getColumn(3).setMaxWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(2).setMinWidth(100);
+            tblDeliveryReportData.getColumnModel().getColumn(2).setPreferredWidth(100);
+            tblDeliveryReportData.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setMinWidth(120);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblDeliveryReportData.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblDeliveryReportData.getColumnModel().getColumn(4).setMinWidth(100);
+            tblDeliveryReportData.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblDeliveryReportData.getColumnModel().getColumn(4).setMaxWidth(100);
+            tblDeliveryReportData.getColumnModel().getColumn(5).setMinWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(5).setPreferredWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(5).setMaxWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setMinWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setPreferredWidth(150);
+            tblDeliveryReportData.getColumnModel().getColumn(6).setMaxWidth(150);
         }
 
         btPreviewFullDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/viewButton.png"))); // NOI18N

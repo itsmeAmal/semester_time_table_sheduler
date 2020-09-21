@@ -91,5 +91,4 @@ public class subjectDaoImpl implements subjectDao {
     public ResultSet getSubjectByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException {
         return new commonDaoImpl().getResultByAttributesWithJoinOperator(selectQuery, attributeConditionValueList, operator);
     }
-
 }

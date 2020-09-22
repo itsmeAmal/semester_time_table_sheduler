@@ -169,6 +169,16 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "This tame table record already saved !");
                         return;
                     }
+                    if (checkBoxRepeatStudents.isSelected()) {
+                        if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 5")) {
+                            if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                    "Level 4")) {
+                                JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
+                                return;
+                            }
+                        }
+                    }
 
                     if (tblGroupInfo.getRowCount() == 0) {
                         Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
@@ -188,8 +198,28 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         };
                         dtm.addRow(obj);
                     } else {
-                        DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
-                        for (int i = 0; i < dtm2.getRowCount(); i++) {
+                        if (comboType.getSelectedItem().toString().equalsIgnoreCase("Tutorial")
+                                || comboType.getSelectedItem().toString().equalsIgnoreCase("Lab")) {
+                            DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
+                            for (int i = 0; i < dtm2.getRowCount(); i++) {
+                                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                                    comboLevel.getSelectedItem().toString(),
+                                    LectureStartTime,
+                                    txtModuleName.getText().trim(),
+                                    comboModuleCode.getSelectedItem().toString(),
+                                    comboType.getSelectedItem().toString(),
+                                    comboLecturer.getSelectedItem().toString(),
+                                    comboLocation.getSelectedItem().toString(),
+                                    "Course Name",
+                                    dtm2.getValueAt(i, 0).toString(),
+                                    LectureStartTime,
+                                    LectureTimeDuration,
+                                    ++TimeOrderNo,
+                                    LectureEndTime
+                                };
+                                dtm.addRow(obj);
+                            }
+                        } else {
                             Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
                                 comboLevel.getSelectedItem().toString(),
                                 LectureStartTime,
@@ -199,7 +229,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                 comboLecturer.getSelectedItem().toString(),
                                 comboLocation.getSelectedItem().toString(),
                                 "Course Name",
-                                dtm2.getValueAt(i, 0).toString(),
+                                Group,
                                 LectureStartTime,
                                 LectureTimeDuration,
                                 ++TimeOrderNo,
@@ -303,7 +333,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                             comboCalenderWeek.getSelectedItem().toString(), calContactWeek.getSelectedItem().toString(),
                             commonController.getIntOrZeroFromString(comboYear.getSelectedItem().toString()), comboType.getSelectedItem().toString(),
                             lecturerId, commonController.getBigDecimalOrZeroFromString(comboHours.getSelectedItem().toString()),
-                            commonController.getIntOrZeroFromString(dataObj.get("room_id")), txtRemark.getText().trim(), date, timePeriod, day, day4, day5);
+                            commonController.getIntOrZeroFromString(dataObj.get("room_id")), "", date, timePeriod, day, day4, day5);
 
                     int option = JOptionPane.showConfirmDialog(this, "Want to clear data ?", "Confirm", JOptionPane.INFORMATION_MESSAGE);
                     if (option == JOptionPane.YES_OPTION) {
@@ -322,7 +352,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         calContactWeek.setSelectedIndex(0);
         comboCalenderWeek.setSelectedItem(null);
         calWeekBeginningDate.setDate(null);
-        txtRemark.setText(null);
         comboLevel.setSelectedIndex(0);
         comboModuleCode.setSelectedItem(null);
         comboModuleCode.removeAllItems();
@@ -435,9 +464,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         btAddToPreferenceTable = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        txtRemark = new javax.swing.JTextField();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         comboCalenderWeek = new javax.swing.JComboBox<>();
         calTimeTableDate = new com.toedter.calendar.JDateChooser();
         rdoBtn1 = new javax.swing.JRadioButton();
@@ -709,7 +735,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         checkBoxRepeatStudents.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRepeatStudents.setText("Repeat Students Available");
         checkBoxRepeatStudents.setToolTipText("Repeat Students Available");
-        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 290, 240, -1));
+        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 240, 220, -1));
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboYear.setToolTipText("Year");
@@ -813,20 +839,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setText("Year");
         jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 216, 118, -1));
-
-        txtRemark.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        txtRemark.setToolTipText("Remarks");
-        jPanel3.add(txtRemark, new org.netbeans.lib.awtextra.AbsoluteConstraints(513, 233, 178, 44));
-
-        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Remark");
-        jPanel3.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 216, 143, -1));
-
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
-        jLabel15.setToolTipText("Remarks");
-        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(457, 233, -1, -1));
 
         comboCalenderWeek.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboCalenderWeek.setToolTipText("Calender Week");
@@ -936,7 +948,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             tblGroupInfo.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 230, 90));
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 180, 90));
 
         txtRemark1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtRemark1.setToolTipText("Remarks");
@@ -1200,7 +1212,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -1215,7 +1226,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1234,7 +1244,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JTable tblDeliveryReportData;
     private javax.swing.JTable tblGroupInfo;
     private javax.swing.JTextField txtModuleName;
-    private javax.swing.JTextField txtRemark;
     private javax.swing.JTextField txtRemark1;
     // End of variables declaration//GEN-END:variables
 }

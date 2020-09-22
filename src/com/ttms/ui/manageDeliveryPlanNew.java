@@ -5,7 +5,6 @@
  */
 package com.ttms.ui;
 
-import com.ttms.controller.commonConstants;
 import com.ttms.controller.commonController;
 import com.ttms.controller.deliveryPlanController;
 import com.ttms.controller.deliveryPlanDetailsController;
@@ -14,16 +13,13 @@ import com.ttms.controller.roomController;
 import com.ttms.controller.subjectController;
 import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.daoimpl.deliveryPlanDaoImpl;
-import com.ttms.daoimpl.groupDaoImpl;
 import com.ttms.model.DataObject;
-import com.ttms.model.group;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

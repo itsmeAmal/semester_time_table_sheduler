@@ -36,7 +36,6 @@ public class manageGroups extends javax.swing.JFrame {
     }
 
     private void clearAll() {
-        txtDetail.setText("");
         comboCourse.setSelectedItem(null);
         txtGroupName.setText("");
         comboBatchDataObject.setSelectedIndex(0);
@@ -70,10 +69,15 @@ public class manageGroups extends javax.swing.JFrame {
                 DataObject dataObj = (DataObject) comboBatchDataObject.getSelectedItem();
                 int batchId = commonController.getIntOrZeroFromString(dataObj.get("batch_year"));
 
-                DataObject dataObj2 = (DataObject) comboCourse.getSelectedItem();
-                String groupType = dataObj2.get("course_id"); 
+                String groupType = "";
+                if ("Common".equals(comboCourse.getSelectedItem().toString())) {
+                    groupType = "0";
+                } else {
+                    DataObject dataObj2 = (DataObject) comboCourse.getSelectedItem();
+                    groupType = dataObj2.get("course_id");
+                }
 
-                boolean status = groupController.addGroupDetail(txtDetail.getText().trim(),
+                boolean status = groupController.addGroupDetail(comboLevel.getSelectedItem().toString(),
                         batchId, txtGroupName.getText().trim(), groupType);
                 if (status) {
                     JOptionPane.showMessageDialog(this, "Group registered successfully !");
@@ -130,15 +134,12 @@ public class manageGroups extends javax.swing.JFrame {
         tblGroupDetails = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         txtGroupName = new javax.swing.JTextField();
-        txtDetail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         btSave = new javax.swing.JButton();
         comboBatchDataObject = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         comboCourse = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -188,7 +189,9 @@ public class manageGroups extends javax.swing.JFrame {
             tblGroupDetails.getColumnModel().getColumn(0).setMaxWidth(0);
             tblGroupDetails.getColumnModel().getColumn(1).setResizable(false);
             tblGroupDetails.getColumnModel().getColumn(2).setResizable(false);
-            tblGroupDetails.getColumnModel().getColumn(3).setResizable(false);
+            tblGroupDetails.getColumnModel().getColumn(3).setMinWidth(0);
+            tblGroupDetails.getColumnModel().getColumn(3).setPreferredWidth(0);
+            tblGroupDetails.getColumnModel().getColumn(3).setMaxWidth(0);
             tblGroupDetails.getColumnModel().getColumn(4).setResizable(false);
         }
 
@@ -200,22 +203,11 @@ public class manageGroups extends javax.swing.JFrame {
         txtGroupName.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtGroupName.setSelectionColor(new java.awt.Color(255, 255, 0));
 
-        txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details / Remarks");
-        txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
-
         jLabel2.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Group.png"))); // NOI18N
         jLabel2.setToolTipText("Group Name");
-
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
-        jLabel4.setToolTipText("Details / Remarks");
 
         btSave.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         btSave.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,10 +237,6 @@ public class manageGroups extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Batch Year");
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Group Details / Remarks");
 
         comboCourse.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboCourse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EEE", " " }));
@@ -292,32 +280,29 @@ public class manageGroups extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboBatchDataObject, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btSave, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtGroupName, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(12, 12, 12)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(comboLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboCourse, javax.swing.GroupLayout.Alignment.TRAILING, 0, 251, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -342,20 +327,14 @@ public class manageGroups extends javax.swing.JFrame {
                     .addComponent(comboCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addComponent(btSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
@@ -507,17 +486,14 @@ public class manageGroups extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblGroupDetails;
-    private javax.swing.JTextField txtDetail;
     private javax.swing.JTextField txtGroupName;
     private javax.swing.JTextField txtSearchByGroupName;
     // End of variables declaration//GEN-END:variables

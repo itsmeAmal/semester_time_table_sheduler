@@ -46,7 +46,6 @@ public class editGroup extends javax.swing.JDialog {
         try {
             group group = groupController.getGroupByGroupId(groupId);
             txtGroupName.setText(group.getName());
-            txtDetail.setText(group.getDetail());
             comboBatchDataObject.setSelectedIndex(0);
             comboCourse.setSelectedItem(group.getType());
         } catch (SQLException ex) {
@@ -99,11 +98,18 @@ public class editGroup extends javax.swing.JDialog {
 //            }
             group group = new group();
             group.setId(groupId);
-            group.setDetail(txtDetail.getText().trim());
+            group.setDetail(comboLevel.getSelectedItem().toString());
             group.setBatchId(commonController.getIntOrZeroFromString(dataObject.get("batch_year")));
             group.setName(txtGroupName.getText().trim());
             group.setStatus(group.ACTIVE_GROUP);
-            group.setType(comboCourse.getSelectedItem().toString());
+            String groupType = "";
+            if ("Common".equals(comboCourse.getSelectedItem().toString())) {
+                groupType = "0";
+            } else {
+                DataObject dataObj2 = (DataObject) comboCourse.getSelectedItem();
+                groupType = dataObj2.get("course_id");
+            }
+            group.setType(groupType);
 
             boolean status = groupController.updateGroup(group);
 
@@ -128,9 +134,6 @@ public class editGroup extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btSave2 = new javax.swing.JButton();
-        txtDetail = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         comboBatchDataObject = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -140,6 +143,9 @@ public class editGroup extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         comboCourse = new javax.swing.JComboBox<>();
         jLabel24 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        comboLevel = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Edit Selected Group");
@@ -159,21 +165,6 @@ public class editGroup extends javax.swing.JDialog {
                 btSave2ActionPerformed(evt);
             }
         });
-
-        txtDetail.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        txtDetail.setToolTipText("Details / Remarks");
-        txtDetail.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        txtDetail.setSelectionColor(new java.awt.Color(255, 255, 0));
-
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Detail.png"))); // NOI18N
-        jLabel4.setToolTipText("Details / Remarks");
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setText("Detail / Remarks");
 
         comboBatchDataObject.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboBatchDataObject.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Batch 1", "Batch 2", "Batch 3", "Batch 4" }));
@@ -218,6 +209,23 @@ public class editGroup extends javax.swing.JDialog {
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Course");
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/lableIcons/Level.png"))); // NOI18N
+        jLabel3.setToolTipText("Level");
+
+        comboLevel.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        comboLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Level 4", "Level 5", "Level 6" }));
+        comboLevel.setToolTipText("Level");
+        comboLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboLevelActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Level");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -238,18 +246,21 @@ public class editGroup extends javax.swing.JDialog {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btSave2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDetail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(comboCourse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -275,11 +286,11 @@ public class editGroup extends javax.swing.JDialog {
                     .addComponent(comboCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel23)
+                .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(comboLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btSave2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81))
@@ -320,6 +331,10 @@ public class editGroup extends javax.swing.JDialog {
     private void btSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSave2ActionPerformed
         updateGroupDetails();
     }//GEN-LAST:event_btSave2ActionPerformed
+
+    private void comboLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLevelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboLevelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,17 +383,17 @@ public class editGroup extends javax.swing.JDialog {
     private javax.swing.JButton btSave2;
     private javax.swing.JComboBox<String> comboBatchDataObject;
     private javax.swing.JComboBox<String> comboCourse;
+    private javax.swing.JComboBox<String> comboLevel;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField txtDetail;
     private javax.swing.JTextField txtGroupName;
     // End of variables declaration//GEN-END:variables
 }

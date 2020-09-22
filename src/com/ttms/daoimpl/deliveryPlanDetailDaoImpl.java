@@ -122,7 +122,8 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         return ++count;
     }
 
-    public ResultSet isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate, String LectureStartTime, String Level) throws SQLException {
+    public ResultSet isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate, 
+            String LectureStartTime, String Level, String Location, String LecName) throws SQLException {
 
         ArrayList<String[]> AttributeConditionValueList = new ArrayList();
 
@@ -134,6 +135,12 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
 
         String[] Av3 = {"delivery_plan_details_level", commonConstants.Sql.EQUAL, Level};
         AttributeConditionValueList.add(Av3);
+        
+        String[] Av4 = {"delivery_plan_details_lecturer_name", commonConstants.Sql.EQUAL, LecName};
+        AttributeConditionValueList.add(Av4);
+        
+        String[] Av5 = {"delivery_plan_details_room_name", commonConstants.Sql.EQUAL, Location};
+        AttributeConditionValueList.add(Av5);
 
         return deliveryPlanDetailsController.getDeliveryPlanDetailsByMoreAttributes(AttributeConditionValueList, commonConstants.Sql.AND);
 

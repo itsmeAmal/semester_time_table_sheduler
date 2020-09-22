@@ -161,12 +161,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                     if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
                             commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
                             comboLevel.getSelectedItem().toString())) {
-                        JOptionPane.showMessageDialog(this, "This tame table record already in the table !");
+                        JOptionPane.showMessageDialog(this, "This time table record already in the table !");
                         return;
                     }
                     if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
-                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime, comboLevel.getSelectedItem().toString())) {
-                        JOptionPane.showMessageDialog(this, "This tame table record already saved !");
+                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime, 
+                            comboLevel.getSelectedItem().toString(), comboLocation.getSelectedItem().toString(), 
+                            comboLecturer.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(this, "This time table record already saved !");
                         return;
                     }
                     if (checkBoxRepeatStudents.isSelected()) {

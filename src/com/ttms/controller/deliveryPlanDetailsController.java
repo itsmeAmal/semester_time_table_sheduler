@@ -71,9 +71,11 @@ public class deliveryPlanDetailsController {
         return new deliveryPlanDetailDaoImpl().getNextTimeOrderNo(date);
     }
 
-    public static boolean isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate, String LectureStartTime, String Level) throws SQLException {
+    public static boolean isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate, 
+            String LectureStartTime, String Level, String Location, String LecName) throws SQLException {
         boolean status = false;
-        ResultSet rset = new deliveryPlanDetailDaoImpl().isRecordAvailableInDeliveryPlanDetailUiTable(SelectedDate, LectureStartTime, Level);
+        ResultSet rset = new deliveryPlanDetailDaoImpl().isRecordAvailableInDeliveryPlanDetailUiTable(SelectedDate, 
+                LectureStartTime, Level, Location, LecName);
         if (rset.next()) {
             status = true;
         }

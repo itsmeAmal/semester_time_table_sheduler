@@ -142,95 +142,71 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 }
                 LectureTimeDuration = comboHours.getSelectedItem().toString();
                 LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
-            }
-
-            if (calTimeTableDate.getDate() == null
-                    || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
-                return;
             } else {
-                boolean status = false;
-                DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
-
-                for (int i = 0; i < dtm.getRowCount(); i++) {
-                    if (tblDeliveryPlanDetails.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
-                        status = true;
-                        break;
+                DefaultTableModel dtmTime = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
+                LectureStartTime = "09:00:00";
+                LectureTimeDuration = comboHours.getSelectedItem().toString();
+                LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
+                for (int i = 0; i < dtmTime.getRowCount(); i++) {
+                    if (dtmTime.getValueAt(i, 2).toString().equalsIgnoreCase("09:00:00")) {
+                        LectureStartTime = "11:00:00";
+                    } else if (dtmTime.getValueAt(i, 2).toString().equalsIgnoreCase("11:00:00")) {
+                        LectureStartTime = "01:00:00";
+                    } else if (dtmTime.getValueAt(i, 2).toString().equalsIgnoreCase("01:00:00")) {
+                        LectureStartTime = "03:00:00";
                     }
+                    LectureTimeDuration = comboHours.getSelectedItem().toString();
+                    LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
                 }
-                if (!status) {
-                    if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
-                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                            comboLevel.getSelectedItem().toString())) {
-                        JOptionPane.showMessageDialog(this, "This time table record already in the table !");
-                        return;
-                    }
-                    if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
-                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime, 
-                            comboLevel.getSelectedItem().toString(), comboLocation.getSelectedItem().toString(), 
-                            comboLecturer.getSelectedItem().toString())) {
-                        JOptionPane.showMessageDialog(this, "This time table record already saved !");
-                        return;
-                    }
-                    if (checkBoxRepeatStudents.isSelected()) {
-                        if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 5")) {
-                            if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
-                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                                    "Level 4")) {
-                                JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
-                                return;
-                            }
-                        }
-                        if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 6")) {
-                            if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
-                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                                    "Level 5")) {
-                                JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
-                                return;
-                            }
-                        }
-                    }
 
-                    if (tblGroupInfo.getRowCount() == 0) {
-                        Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
-                            comboLevel.getSelectedItem().toString(),
-                            LectureStartTime,
-                            txtModuleName.getText().trim(),
-                            comboModuleCode.getSelectedItem().toString(),
-                            comboType.getSelectedItem().toString(),
-                            comboLecturer.getSelectedItem().toString(),
-                            comboLocation.getSelectedItem().toString(),
-                            CourseName,
-                            Group,
-                            LectureStartTime,
-                            LectureTimeDuration,
-                            ++TimeOrderNo,
-                            LectureEndTime
-                        };
-                        dtm.addRow(obj);
-                    } else {
-                        if (comboType.getSelectedItem().toString().equalsIgnoreCase("Tutorial")
-                                || comboType.getSelectedItem().toString().equalsIgnoreCase("Lab")) {
-                            DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
-                            for (int i = 0; i < dtm2.getRowCount(); i++) {
-                                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
-                                    comboLevel.getSelectedItem().toString(),
-                                    LectureStartTime,
-                                    txtModuleName.getText().trim(),
-                                    comboModuleCode.getSelectedItem().toString(),
-                                    comboType.getSelectedItem().toString(),
-                                    comboLecturer.getSelectedItem().toString(),
-                                    comboLocation.getSelectedItem().toString(),                                   
-                                    dtm2.getValueAt(i, 1).toString(),
-                                    dtm2.getValueAt(i, 0).toString(),
-                                    LectureStartTime,
-                                    LectureTimeDuration,
-                                    ++TimeOrderNo,
-                                    LectureEndTime
-                                };
-                                dtm.addRow(obj);
+                if (calTimeTableDate.getDate() == null
+                        || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
+                    JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else {
+                    boolean status = false;
+                    DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
+
+                    for (int i = 0; i < dtm.getRowCount(); i++) {
+                        if (tblDeliveryPlanDetails.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
+                            status = true;
+                            break;
+                        }
+                    }
+                    if (!status) {
+                        if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                comboLevel.getSelectedItem().toString())) {
+                            JOptionPane.showMessageDialog(this, "This time table record already in the table !");
+                            return;
+                        }
+                        if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
+                                commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                comboLevel.getSelectedItem().toString(), comboLocation.getSelectedItem().toString(),
+                                comboLecturer.getSelectedItem().toString())) {
+                            JOptionPane.showMessageDialog(this, "This time table record already saved !");
+                            return;
+                        }
+                        if (checkBoxRepeatStudents.isSelected()) {
+                            if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 5")) {
+                                if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                        commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                        "Level 4")) {
+                                    JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
+                                    return;
+                                }
                             }
-                        } else {
+                            if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 6")) {
+                                if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                        commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                        "Level 5")) {
+                                    JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
+                                    return;
+                                }
+                            }
+                        }
+
+                        if (tblGroupInfo.getRowCount() == 0) {
                             Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
                                 comboLevel.getSelectedItem().toString(),
                                 LectureStartTime,
@@ -247,10 +223,50 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                 LectureEndTime
                             };
                             dtm.addRow(obj);
+                        } else {
+                            if (comboType.getSelectedItem().toString().equalsIgnoreCase("Tutorial")
+                                    || comboType.getSelectedItem().toString().equalsIgnoreCase("Lab")) {
+                                DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
+                                for (int i = 0; i < dtm2.getRowCount(); i++) {
+                                    Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                                        comboLevel.getSelectedItem().toString(),
+                                        LectureStartTime,
+                                        txtModuleName.getText().trim(),
+                                        comboModuleCode.getSelectedItem().toString(),
+                                        comboType.getSelectedItem().toString(),
+                                        comboLecturer.getSelectedItem().toString(),
+                                        comboLocation.getSelectedItem().toString(),
+                                        dtm2.getValueAt(i, 1).toString(),
+                                        dtm2.getValueAt(i, 0).toString(),
+                                        LectureStartTime,
+                                        LectureTimeDuration,
+                                        ++TimeOrderNo,
+                                        LectureEndTime
+                                    };
+                                    dtm.addRow(obj);
+                                }
+                            } else {
+                                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                                    comboLevel.getSelectedItem().toString(),
+                                    LectureStartTime,
+                                    txtModuleName.getText().trim(),
+                                    comboModuleCode.getSelectedItem().toString(),
+                                    comboType.getSelectedItem().toString(),
+                                    comboLecturer.getSelectedItem().toString(),
+                                    comboLocation.getSelectedItem().toString(),
+                                    CourseName,
+                                    Group,
+                                    LectureStartTime,
+                                    LectureTimeDuration,
+                                    ++TimeOrderNo,
+                                    LectureEndTime
+                                };
+                                dtm.addRow(obj);
+                            }
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -320,7 +336,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         dtm.getValueAt(i, 6).toString(),
                         dtm.getValueAt(i, 7).toString(),
                         dtm.getValueAt(i, 8).toString(),
-                        dtm.getValueAt(i, 9).toString(),                       
+                        dtm.getValueAt(i, 9).toString(),
                         dtm.getValueAt(i, 10).toString(),
                         dtm.getValueAt(i, 11).toString(),
                         dtm.getValueAt(i, 13).toString());

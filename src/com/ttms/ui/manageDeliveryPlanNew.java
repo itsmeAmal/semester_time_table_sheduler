@@ -5,20 +5,25 @@
  */
 package com.ttms.ui;
 
+import com.ttms.controller.commonConstants;
 import com.ttms.controller.commonController;
 import com.ttms.controller.deliveryPlanController;
 import com.ttms.controller.deliveryPlanDetailsController;
 import com.ttms.controller.lecturerController;
 import com.ttms.controller.roomController;
 import com.ttms.controller.subjectController;
+import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.daoimpl.deliveryPlanDaoImpl;
+import com.ttms.daoimpl.groupDaoImpl;
 import com.ttms.model.DataObject;
+import com.ttms.model.group;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -233,22 +238,55 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
         for (int i = 0; i < dtm.getRowCount(); i++) {
             try {
-                Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
-                        "", nextDeliveryPlanId, "",
-                        commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
-                        commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
-                        dtm.getValueAt(i, 10).toString(),
-                        dtm.getValueAt(i, 1).toString(),
-                        dtm.getValueAt(i, 3).toString(),
-                        dtm.getValueAt(i, 4).toString(),
-                        dtm.getValueAt(i, 5).toString(),
-                        dtm.getValueAt(i, 6).toString(),
-                        dtm.getValueAt(i, 7).toString(),
-                        "Course Name",
-                        "Group Name",
-                        dtm.getValueAt(i, 10).toString(),
-                        dtm.getValueAt(i, 11).toString(),
-                        dtm.getValueAt(i, 13).toString());
+                if (new commonDaoImpl().getLoopCountByCourseIdAndGroupDetailLevel(subject.getCourseId(), comboLevel.getSelectedItem().toString()) == 0) {
+                    Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
+                            "", nextDeliveryPlanId, "",
+                            commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
+                            commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
+                            dtm.getValueAt(i, 10).toString(),
+                            dtm.getValueAt(i, 1).toString(),
+                            dtm.getValueAt(i, 3).toString(),
+                            dtm.getValueAt(i, 4).toString(),
+                            dtm.getValueAt(i, 5).toString(),
+                            dtm.getValueAt(i, 6).toString(),
+                            dtm.getValueAt(i, 7).toString(),
+                            "Course Name",
+                            "Group Name",
+                            dtm.getValueAt(i, 10).toString(),
+                            dtm.getValueAt(i, 11).toString(),
+                            dtm.getValueAt(i, 13).toString());
+                } else {
+                    int count = new commonDaoImpl().getLoopCountByCourseIdAndGroupDetailLevel(subject.getCourseId(), comboLevel.getSelectedItem().toString());
+                    ArrayList<String[]> AttributeConditionValueList = new ArrayList<>();
+                    //group_id, group_name, group_batch_id, , group_detail, group_status
+                    String[] ACV1 = {"group_type", commonConstants.Sql.EQUAL, Integer.toString(subject.getCourseId())};
+                    AttributeConditionValueList.add(ACV1);
+
+                    String[] ACV2 = {"group_detail", commonConstants.Sql.EQUAL, comboLevel.getSelectedItem().toString()};
+                    AttributeConditionValueList.add(ACV2);
+
+                    group Group = new groupDaoImpl().getGroupsByMoreAttributes(AttributeConditionValueList, commonConstants.Sql.AND);
+
+                    for (int j = 0; j < count; j++) {
+                        Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
+                                "", nextDeliveryPlanId, "",
+                                commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
+                                commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
+                                dtm.getValueAt(i, 10).toString(),
+                                dtm.getValueAt(i, 1).toString(),
+                                dtm.getValueAt(i, 3).toString(),
+                                dtm.getValueAt(i, 4).toString(),
+                                dtm.getValueAt(i, 5).toString(),
+                                dtm.getValueAt(i, 6).toString(),
+                                dtm.getValueAt(i, 7).toString(),
+                                "Course Name",
+                                Group.getName(),
+                                dtm.getValueAt(i, 10).toString(),
+                                dtm.getValueAt(i, 11).toString(),
+                                dtm.getValueAt(i, 13).toString());
+                    }
+                }
+
             } catch (ParseException ex) {
                 Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -43,6 +44,21 @@ public class groupDaoImpl implements groupDao {
     @Override
     public ResultSet getGroupByOneAttribute(String attribute, String condition, String value) throws SQLException {
         return new commonDaoImpl().getResultByAttribute(selectQuery, attribute, condition, value);
+    }
+
+    public group getGroupsByMoreAttributes(ArrayList<String[]> attributeConditionValueList, String operator) throws SQLException {
+        ResultSet rset = new commonDaoImpl().getResultByAttributesWithJoinOperator(selectQuery, attributeConditionValueList, operator);
+        group Group = null;
+        while (rset.next()) {
+            Group = new group();
+            Group.setId(rset.getInt("group_id"));
+            Group.setBatchId(rset.getInt("group_batch_id"));
+            Group.setName(rset.getString("group_name"));
+            Group.setType(rset.getString("group_type")); //courseId
+            Group.setDetail(rset.getString("group_detail")); // level
+            Group.setStatus(rset.getInt("group_status"));
+        }
+        return Group;
     }
 
     @Override

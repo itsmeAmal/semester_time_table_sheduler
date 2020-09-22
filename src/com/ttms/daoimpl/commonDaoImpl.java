@@ -89,11 +89,12 @@ public class commonDaoImpl implements commonDao {
         ps.setDate(2, Date);
         int count = 0;
         ResultSet rset = ps.executeQuery();
-        while (rset.next()) {            
+        while (rset.next()) {
             count = rset.getInt("lecture_count");
         }
         return count;
     }
+
     public int GetTutorialCountByDateAndCoduleCode(Date Date, String ModeuleCode) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("select count(delivery_plan_details_module_code) as lecture_count "
@@ -103,11 +104,12 @@ public class commonDaoImpl implements commonDao {
         ps.setDate(2, Date);
         int count = 0;
         ResultSet rset = ps.executeQuery();
-        while (rset.next()) {            
+        while (rset.next()) {
             count = rset.getInt("lecture_count");
         }
         return count;
     }
+
     public int GetLabCountByDateAndCoduleCode(Date Date, String ModeuleCode) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("select count(delivery_plan_details_module_code) as lecture_count "
@@ -117,9 +119,22 @@ public class commonDaoImpl implements commonDao {
         ps.setDate(2, Date);
         int count = 0;
         ResultSet rset = ps.executeQuery();
-        while (rset.next()) {            
+        while (rset.next()) {
             count = rset.getInt("lecture_count");
         }
         return count;
+    }
+
+    public int getLoopCountByCourseIdAndGroupDetailLevel(int GroupType, String Level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("select loop_count from group_count where group_type=? and group_detail=?");
+        ps.setInt(1, GroupType);
+        ps.setString(2, Level);
+        ResultSet rset = ps.executeQuery();
+        int LoopCount = 0;
+        while (rset.next()) {            
+             LoopCount = rset.getInt("loop_count");
+        }
+        return LoopCount;
     }
 }

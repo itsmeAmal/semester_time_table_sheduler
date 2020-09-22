@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -132,9 +133,20 @@ public class commonDaoImpl implements commonDao {
         ps.setString(2, Level);
         ResultSet rset = ps.executeQuery();
         int LoopCount = 0;
-        while (rset.next()) {            
-             LoopCount = rset.getInt("loop_count");
+        while (rset.next()) {
+            LoopCount = rset.getInt("loop_count");
         }
         return LoopCount;
+    }
+
+    public ResultSet getAllGroupNamesByCourseIdAndGroupDetailLevel(int GroupType, String Level) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("SELECT group_id, group_name, group_batch_id, group_type as group_course_id, "
+                + " group_detail, subject_name, subject_id, group_status, course_name, course_type as subject_short_name "
+                + " FROM group_info left join course on group_type=course_id left join subject_details on course_id=subject_course_id "
+                + " where group_type=? and group_detail=?");
+        ps.setInt(1, GroupType);
+        ps.setString(2, Level);
+        return ps.executeQuery();
     }
 }

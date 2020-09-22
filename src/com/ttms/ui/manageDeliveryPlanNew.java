@@ -75,7 +75,6 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     }
 
     private boolean validationSet() {
-
         if (comboLevel.getSelectedItem() == null || comboLevel.getSelectedItem().toString().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Please select level !", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -114,8 +113,22 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         }
         return true;
     }
+//    
+
+    private void LoadGroupsToTable() {
+        try {
+            ResultSet Rset = new commonDaoImpl().getAllGroupNamesByCourseIdAndGroupDetailLevel(subject.getCourseId(), comboLevel.getSelectedItem().toString());
+            String[] ColumnList = {"group_name"};
+            if (Rset != null) {
+                commonController.loadDataToTable(tblGroupInfo, Rset, ColumnList);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void addDeliveryPlanDetailsToTable() throws SQLException {
+        String Group = "";
         if (validationSet()) {
             String LectureStartTime = "";
             String LectureTimeDuration = "";
@@ -139,24 +152,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
-
                 boolean status = false;
                 DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
-                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
-                    comboLevel.getSelectedItem().toString(),
-                    LectureStartTime,
-                    txtModuleName.getText().trim(),
-                    comboModuleCode.getSelectedItem().toString(),
-                    comboType.getSelectedItem().toString(),
-                    comboLecturer.getSelectedItem().toString(),
-                    comboLocation.getSelectedItem().toString(),
-                    "Course Name",
-                    "Group Name",
-                    LectureStartTime,
-                    LectureTimeDuration,
-                    ++TimeOrderNo,
-                    LectureEndTime
-                };
+
                 for (int i = 0; i < dtm.getRowCount(); i++) {
                     if (tblDeliveryPlanDetails.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
                         status = true;
@@ -170,15 +168,50 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "This tame table record already in the table !");
                         return;
                     }
-
                     if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
                             commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime, comboLevel.getSelectedItem().toString())) {
                         JOptionPane.showMessageDialog(this, "This tame table record already saved !");
                         return;
                     }
 
-                    dtm.addRow(obj);
-
+                    if (tblGroupInfo.getRowCount() == 0) {
+                        Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                            comboLevel.getSelectedItem().toString(),
+                            LectureStartTime,
+                            txtModuleName.getText().trim(),
+                            comboModuleCode.getSelectedItem().toString(),
+                            comboType.getSelectedItem().toString(),
+                            comboLecturer.getSelectedItem().toString(),
+                            comboLocation.getSelectedItem().toString(),
+                            "Course Name",
+                            Group,
+                            LectureStartTime,
+                            LectureTimeDuration,
+                            ++TimeOrderNo,
+                            LectureEndTime
+                        };
+                        dtm.addRow(obj);
+                    } else {
+                        DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
+                        for (int i = 0; i < dtm2.getRowCount(); i++) {
+                            Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                                comboLevel.getSelectedItem().toString(),
+                                LectureStartTime,
+                                txtModuleName.getText().trim(),
+                                comboModuleCode.getSelectedItem().toString(),
+                                comboType.getSelectedItem().toString(),
+                                comboLecturer.getSelectedItem().toString(),
+                                comboLocation.getSelectedItem().toString(),
+                                "Course Name",
+                                dtm2.getValueAt(i, 0).toString(),
+                                LectureStartTime,
+                                LectureTimeDuration,
+                                ++TimeOrderNo,
+                                LectureEndTime
+                            };
+                            dtm.addRow(obj);
+                        }
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
                 }
@@ -238,55 +271,22 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
         for (int i = 0; i < dtm.getRowCount(); i++) {
             try {
-                if (new commonDaoImpl().getLoopCountByCourseIdAndGroupDetailLevel(subject.getCourseId(), comboLevel.getSelectedItem().toString()) == 0) {
-                    Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
-                            "", nextDeliveryPlanId, "",
-                            commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
-                            commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
-                            dtm.getValueAt(i, 10).toString(),
-                            dtm.getValueAt(i, 1).toString(),
-                            dtm.getValueAt(i, 3).toString(),
-                            dtm.getValueAt(i, 4).toString(),
-                            dtm.getValueAt(i, 5).toString(),
-                            dtm.getValueAt(i, 6).toString(),
-                            dtm.getValueAt(i, 7).toString(),
-                            "Course Name",
-                            "Group Name",
-                            dtm.getValueAt(i, 10).toString(),
-                            dtm.getValueAt(i, 11).toString(),
-                            dtm.getValueAt(i, 13).toString());
-                } else {
-                    int count = new commonDaoImpl().getLoopCountByCourseIdAndGroupDetailLevel(subject.getCourseId(), comboLevel.getSelectedItem().toString());
-                    ArrayList<String[]> AttributeConditionValueList = new ArrayList<>();
-                    //group_id, group_name, group_batch_id, , group_detail, group_status
-                    String[] ACV1 = {"group_type", commonConstants.Sql.EQUAL, Integer.toString(subject.getCourseId())};
-                    AttributeConditionValueList.add(ACV1);
-
-                    String[] ACV2 = {"group_detail", commonConstants.Sql.EQUAL, comboLevel.getSelectedItem().toString()};
-                    AttributeConditionValueList.add(ACV2);
-
-                    group Group = new groupDaoImpl().getGroupsByMoreAttributes(AttributeConditionValueList, commonConstants.Sql.AND);
-
-                    for (int j = 0; j < count; j++) {
-                        Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
-                                "", nextDeliveryPlanId, "",
-                                commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
-                                commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
-                                dtm.getValueAt(i, 10).toString(),
-                                dtm.getValueAt(i, 1).toString(),
-                                dtm.getValueAt(i, 3).toString(),
-                                dtm.getValueAt(i, 4).toString(),
-                                dtm.getValueAt(i, 5).toString(),
-                                dtm.getValueAt(i, 6).toString(),
-                                dtm.getValueAt(i, 7).toString(),
-                                "Course Name",
-                                Group.getName(),
-                                dtm.getValueAt(i, 10).toString(),
-                                dtm.getValueAt(i, 11).toString(),
-                                dtm.getValueAt(i, 13).toString());
-                    }
-                }
-
+                Status = deliveryPlanDetailsController.addDeliveryPlanDetailRecord(
+                        "", nextDeliveryPlanId, "",
+                        commonController.getIntOrZeroFromString(dtm.getValueAt(i, 12).toString()),
+                        commonController.getSqlDateByString(dtm.getValueAt(i, 0).toString()),
+                        dtm.getValueAt(i, 10).toString(),
+                        dtm.getValueAt(i, 1).toString(),
+                        dtm.getValueAt(i, 3).toString(),
+                        dtm.getValueAt(i, 4).toString(),
+                        dtm.getValueAt(i, 5).toString(),
+                        dtm.getValueAt(i, 6).toString(),
+                        dtm.getValueAt(i, 7).toString(),
+                        "Course Name",
+                        "Group Name",
+                        dtm.getValueAt(i, 10).toString(),
+                        dtm.getValueAt(i, 11).toString(),
+                        dtm.getValueAt(i, 13).toString());
             } catch (ParseException ex) {
                 Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -314,6 +314,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         clearData();
                         setInitials();
                     }
+                    nextDeliveryPlanId = new deliveryPlanDaoImpl().getNextDeliveryPlanId();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
@@ -449,6 +450,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         chkAutoGenarateLecTime = new javax.swing.JCheckBox();
         rdoBtn4 = new javax.swing.JRadioButton();
         btSearchLecturer = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblGroupInfo = new javax.swing.JTable();
         txtRemark1 = new javax.swing.JTextField();
         btSearchDeliveryPlanDetail = new javax.swing.JButton();
 
@@ -674,7 +677,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 btAddDataToMainTbleActionPerformed(evt);
             }
         });
-        jPanel3.add(btAddDataToMainTble, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 237, -1, -1));
+        jPanel3.add(btAddDataToMainTble, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 250, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
@@ -710,7 +713,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         checkBoxRepeatStudents.setForeground(new java.awt.Color(255, 255, 255));
         checkBoxRepeatStudents.setText("Repeat Students Available");
         checkBoxRepeatStudents.setToolTipText("Repeat Students Available");
-        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 160, -1));
+        jPanel3.add(checkBoxRepeatStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 290, 240, -1));
 
         comboYear.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         comboYear.setToolTipText("Year");
@@ -741,15 +744,15 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         tblDeliveryPlanDetails.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblDeliveryPlanDetails);
         if (tblDeliveryPlanDetails.getColumnModel().getColumnCount() > 0) {
-            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setMinWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setPreferredWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setMaxWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setMinWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setPreferredWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setMaxWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setMinWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setPreferredWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setMinWidth(90);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setPreferredWidth(90);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(0).setMaxWidth(90);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setMinWidth(60);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(1).setMaxWidth(60);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setMinWidth(80);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(2).setMaxWidth(80);
             tblDeliveryPlanDetails.getColumnModel().getColumn(3).setMinWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(3).setPreferredWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(3).setMaxWidth(0);
@@ -768,24 +771,24 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             tblDeliveryPlanDetails.getColumnModel().getColumn(8).setMinWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(8).setPreferredWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(8).setMaxWidth(0);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setMinWidth(0);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setPreferredWidth(0);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setMaxWidth(0);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setMinWidth(110);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setPreferredWidth(110);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(9).setMaxWidth(110);
             tblDeliveryPlanDetails.getColumnModel().getColumn(10).setMinWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(10).setPreferredWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(10).setMaxWidth(0);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setMinWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setPreferredWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setMinWidth(80);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setPreferredWidth(80);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(11).setMaxWidth(80);
             tblDeliveryPlanDetails.getColumnModel().getColumn(12).setMinWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(12).setPreferredWidth(0);
             tblDeliveryPlanDetails.getColumnModel().getColumn(12).setMaxWidth(0);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setMinWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setPreferredWidth(100);
-            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setMaxWidth(100);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setMinWidth(80);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setPreferredWidth(80);
+            tblDeliveryPlanDetails.getColumnModel().getColumn(13).setMaxWidth(80);
         }
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(703, 120, 501, 157));
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(704, 120, 500, 170));
 
         btRemoveFromPrefTable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
         btRemoveFromPrefTable.setToolTipText("Delete Detail");
@@ -914,6 +917,31 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         });
         jPanel3.add(btSearchLecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, 40, 40));
 
+        tblGroupInfo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Available Groups"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblGroupInfo.setToolTipText("Priority Level");
+        tblGroupInfo.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tblGroupInfo);
+        if (tblGroupInfo.getColumnModel().getColumnCount() > 0) {
+            tblGroupInfo.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 230, 90));
+
         txtRemark1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         txtRemark1.setToolTipText("Remarks");
 
@@ -935,14 +963,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1258, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -953,17 +981,19 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 164, Short.MAX_VALUE))))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 640));
@@ -995,6 +1025,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
         }
+        LoadGroupsToTable();
     }//GEN-LAST:event_btSearchModuleActionPerformed
 
     private void btSearchLecturerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchLecturerActionPerformed
@@ -1198,12 +1229,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JRadioButton rdoBtn1;
     private javax.swing.JRadioButton rdoBtn2;
     private javax.swing.JRadioButton rdoBtn3;
     private javax.swing.JRadioButton rdoBtn4;
     private javax.swing.JTable tblDeliveryPlanDetails;
     private javax.swing.JTable tblDeliveryReportData;
+    private javax.swing.JTable tblGroupInfo;
     private javax.swing.JTextField txtModuleName;
     private javax.swing.JTextField txtRemark;
     private javax.swing.JTextField txtRemark1;

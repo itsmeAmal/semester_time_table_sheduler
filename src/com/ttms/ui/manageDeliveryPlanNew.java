@@ -178,6 +178,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                 return;
                             }
                         }
+                        if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 6")) {
+                            if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                    "Level 5")) {
+                                JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
+                                return;
+                            }
+                        }
                     }
 
                     if (tblGroupInfo.getRowCount() == 0) {

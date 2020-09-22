@@ -114,7 +114,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private void LoadGroupsToTable() {
         try {
             ResultSet Rset = new commonDaoImpl().getAllGroupNamesByCourseIdAndGroupDetailLevel(subject.getCourseId(), comboLevel.getSelectedItem().toString());
-            String[] ColumnList = {"group_name"};
+            String[] ColumnList = {"group_name", "course_name"};
             if (Rset != null) {
                 commonController.loadDataToTable(tblGroupInfo, Rset, ColumnList);
             }
@@ -125,6 +125,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
     private void addDeliveryPlanDetailsToTable() throws SQLException {
         String Group = "";
+        String CourseName = "";
         if (validationSet()) {
             String LectureStartTime = "";
             String LectureTimeDuration = "";
@@ -199,7 +200,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                             comboType.getSelectedItem().toString(),
                             comboLecturer.getSelectedItem().toString(),
                             comboLocation.getSelectedItem().toString(),
-                            "Course Name",
+                            CourseName,
                             Group,
                             LectureStartTime,
                             LectureTimeDuration,
@@ -219,8 +220,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                     comboModuleCode.getSelectedItem().toString(),
                                     comboType.getSelectedItem().toString(),
                                     comboLecturer.getSelectedItem().toString(),
-                                    comboLocation.getSelectedItem().toString(),
-                                    "Course Name",
+                                    comboLocation.getSelectedItem().toString(),                                   
+                                    dtm2.getValueAt(i, 1).toString(),
                                     dtm2.getValueAt(i, 0).toString(),
                                     LectureStartTime,
                                     LectureTimeDuration,
@@ -238,7 +239,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                 comboType.getSelectedItem().toString(),
                                 comboLecturer.getSelectedItem().toString(),
                                 comboLocation.getSelectedItem().toString(),
-                                "Course Name",
+                                CourseName,
                                 Group,
                                 LectureStartTime,
                                 LectureTimeDuration,
@@ -318,8 +319,8 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         dtm.getValueAt(i, 5).toString(),
                         dtm.getValueAt(i, 6).toString(),
                         dtm.getValueAt(i, 7).toString(),
-                        "Course Name",
-                        "Group Name",
+                        dtm.getValueAt(i, 8).toString(),
+                        dtm.getValueAt(i, 9).toString(),                       
                         dtm.getValueAt(i, 10).toString(),
                         dtm.getValueAt(i, 11).toString(),
                         dtm.getValueAt(i, 13).toString());
@@ -940,11 +941,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Available Groups"
+                "Available Groups", "Course Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -956,6 +957,9 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tblGroupInfo);
         if (tblGroupInfo.getColumnModel().getColumnCount() > 0) {
             tblGroupInfo.getColumnModel().getColumn(0).setResizable(false);
+            tblGroupInfo.getColumnModel().getColumn(1).setMinWidth(0);
+            tblGroupInfo.getColumnModel().getColumn(1).setPreferredWidth(0);
+            tblGroupInfo.getColumnModel().getColumn(1).setMaxWidth(0);
         }
 
         jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 180, 90));

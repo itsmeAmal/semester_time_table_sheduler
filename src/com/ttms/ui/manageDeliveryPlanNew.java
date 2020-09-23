@@ -13,6 +13,7 @@ import com.ttms.controller.roomController;
 import com.ttms.controller.subjectController;
 import com.ttms.daoimpl.commonDaoImpl;
 import com.ttms.daoimpl.deliveryPlanDaoImpl;
+import com.ttms.daoimpl.deliveryPlanDetailDaoImpl;
 import com.ttms.model.DataObject;
 import com.ttms.model.lecturer;
 import com.ttms.model.subject;
@@ -20,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -158,55 +160,95 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                     LectureTimeDuration = comboHours.getSelectedItem().toString();
                     LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
                 }
+            }
 
-                if (calTimeTableDate.getDate() == null
-                        || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
-                    JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
-                    return;
-                } else {
-                    boolean status = false;
-                    DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
+            if (calTimeTableDate.getDate() == null
+                    || calTimeTableDate.getDate().toString().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(this, "Select date !", "Error !", JOptionPane.ERROR_MESSAGE);
+                return;
+            } else {
+                boolean status = false;
+                DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
 
-                    for (int i = 0; i < dtm.getRowCount(); i++) {
-                        if (tblDeliveryPlanDetails.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
-                            status = true;
-                            break;
+                for (int i = 0; i < dtm.getRowCount(); i++) {
+                    if (tblDeliveryPlanDetails.getValueAt(i, 0).toString() == commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString()) {
+                        status = true;
+                        break;
+                    }
+                }
+                if (!status) {
+                    if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                            comboLevel.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(this, "This time table record already in the table !");
+                        return;
+                    }
+                    if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
+                            commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                            comboLevel.getSelectedItem().toString(), comboLocation.getSelectedItem().toString(),
+                            comboLecturer.getSelectedItem().toString())) {
+                        JOptionPane.showMessageDialog(this, "This time table record already saved !");
+                        return;
+                    }
+                    if (checkBoxRepeatStudents.isSelected()) {
+                        if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 5")) {
+                            if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                    "Level 4")) {
+                                JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
+                                return;
+                            }
+                        }
+                        if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 6")) {
+                            if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
+                                    commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
+                                    "Level 5")) {
+                                JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
+                                return;
+                            }
                         }
                     }
-                    if (!status) {
-                        if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
-                                commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                                comboLevel.getSelectedItem().toString())) {
-                            JOptionPane.showMessageDialog(this, "This time table record already in the table !");
-                            return;
-                        }
-                        if (deliveryPlanDetailsController.isRecordAvailableInDeliveryPlanDetailUiTable(
-                                commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                                comboLevel.getSelectedItem().toString(), comboLocation.getSelectedItem().toString(),
-                                comboLecturer.getSelectedItem().toString())) {
-                            JOptionPane.showMessageDialog(this, "This time table record already saved !");
-                            return;
-                        }
-                        if (checkBoxRepeatStudents.isSelected()) {
-                            if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 5")) {
-                                if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
-                                        commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                                        "Level 4")) {
-                                    JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
-                                    return;
-                                }
-                            }
-                            if (comboLevel.getSelectedItem().toString().equalsIgnoreCase("Level 6")) {
-                                if (commonController.isRecordAvailableInDeliveryPlanDetailUiTable(tblDeliveryPlanDetails,
-                                        commonController.getMysqlDateFromJDateChooser(calTimeTableDate), LectureStartTime,
-                                        "Level 5")) {
-                                    JOptionPane.showMessageDialog(this, "This is restricted as repeat students available in this session !");
-                                    return;
-                                }
-                            }
-                        }
 
-                        if (tblGroupInfo.getRowCount() == 0) {
+                    if (tblGroupInfo.getRowCount() == 0) {
+                        Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                            comboLevel.getSelectedItem().toString(),
+                            LectureStartTime,
+                            txtModuleName.getText().trim(),
+                            comboModuleCode.getSelectedItem().toString(),
+                            comboType.getSelectedItem().toString(),
+                            comboLecturer.getSelectedItem().toString(),
+                            comboLocation.getSelectedItem().toString(),
+                            CourseName,
+                            Group,
+                            LectureStartTime,
+                            LectureTimeDuration,
+                            ++TimeOrderNo,
+                            LectureEndTime
+                        };
+                        dtm.addRow(obj);
+                    } else {
+                        if (comboType.getSelectedItem().toString().equalsIgnoreCase("Tutorial")
+                                || comboType.getSelectedItem().toString().equalsIgnoreCase("Lab")) {
+                            DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
+                            for (int i = 0; i < dtm2.getRowCount(); i++) {
+                                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
+                                    comboLevel.getSelectedItem().toString(),
+                                    LectureStartTime,
+                                    txtModuleName.getText().trim(),
+                                    comboModuleCode.getSelectedItem().toString(),
+                                    comboType.getSelectedItem().toString(),
+                                    comboLecturer.getSelectedItem().toString(),
+                                    comboLocation.getSelectedItem().toString(),
+                                    dtm2.getValueAt(i, 1).toString(),
+                                    dtm2.getValueAt(i, 0).toString(),
+                                    LectureStartTime,
+                                    LectureTimeDuration,
+                                    ++TimeOrderNo,
+                                    LectureEndTime
+                                };
+                                dtm.addRow(obj);
+                            }
+                        } else {
                             Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
                                 comboLevel.getSelectedItem().toString(),
                                 LectureStartTime,
@@ -223,50 +265,10 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                                 LectureEndTime
                             };
                             dtm.addRow(obj);
-                        } else {
-                            if (comboType.getSelectedItem().toString().equalsIgnoreCase("Tutorial")
-                                    || comboType.getSelectedItem().toString().equalsIgnoreCase("Lab")) {
-                                DefaultTableModel dtm2 = (DefaultTableModel) tblGroupInfo.getModel();
-                                for (int i = 0; i < dtm2.getRowCount(); i++) {
-                                    Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
-                                        comboLevel.getSelectedItem().toString(),
-                                        LectureStartTime,
-                                        txtModuleName.getText().trim(),
-                                        comboModuleCode.getSelectedItem().toString(),
-                                        comboType.getSelectedItem().toString(),
-                                        comboLecturer.getSelectedItem().toString(),
-                                        comboLocation.getSelectedItem().toString(),
-                                        dtm2.getValueAt(i, 1).toString(),
-                                        dtm2.getValueAt(i, 0).toString(),
-                                        LectureStartTime,
-                                        LectureTimeDuration,
-                                        ++TimeOrderNo,
-                                        LectureEndTime
-                                    };
-                                    dtm.addRow(obj);
-                                }
-                            } else {
-                                Object[] obj = {commonController.getMysqlDateFromJDateChooser(calTimeTableDate).toString(),
-                                    comboLevel.getSelectedItem().toString(),
-                                    LectureStartTime,
-                                    txtModuleName.getText().trim(),
-                                    comboModuleCode.getSelectedItem().toString(),
-                                    comboType.getSelectedItem().toString(),
-                                    comboLecturer.getSelectedItem().toString(),
-                                    comboLocation.getSelectedItem().toString(),
-                                    CourseName,
-                                    Group,
-                                    LectureStartTime,
-                                    LectureTimeDuration,
-                                    ++TimeOrderNo,
-                                    LectureEndTime
-                                };
-                                dtm.addRow(obj);
-                            }
                         }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
                     }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selected day already in the table !", "Error !", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -387,7 +389,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         comboHours.setSelectedIndex(0);
         comboLecturer.setSelectedItem(null);
         comboLecturer.removeAllItems();
-        comboYear.setSelectedIndex(0);
+        comboYear.setSelectedItem(null);
         checkBoxRepeatStudents.setSelected(false);
         DefaultTableModel dtm = (DefaultTableModel) tblDeliveryPlanDetails.getModel();
         dtm.setRowCount(0);
@@ -501,8 +503,7 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         btSearchLecturer = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblGroupInfo = new javax.swing.JTable();
-        txtRemark1 = new javax.swing.JTextField();
-        btSearchDeliveryPlanDetail = new javax.swing.JButton();
+        btAddDataToMainTble1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Delivery Plan Management");
@@ -523,6 +524,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         tblDeliveryReportData.setRowHeight(20);
         tblDeliveryReportData.setRowMargin(2);
         tblDeliveryReportData.getTableHeader().setReorderingAllowed(false);
+        tblDeliveryReportData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDeliveryReportDataMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDeliveryReportData);
         if (tblDeliveryReportData.getColumnModel().getColumnCount() > 0) {
             tblDeliveryReportData.getColumnModel().getColumn(0).setMinWidth(0);
@@ -980,14 +986,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
         jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 180, 90));
 
-        txtRemark1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        txtRemark1.setToolTipText("Remarks");
-
-        btSearchDeliveryPlanDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/searchIcon.png"))); // NOI18N
-        btSearchDeliveryPlanDetail.setToolTipText("Search");
-        btSearchDeliveryPlanDetail.addActionListener(new java.awt.event.ActionListener() {
+        btAddDataToMainTble1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        btAddDataToMainTble1.setForeground(new java.awt.Color(255, 255, 255));
+        btAddDataToMainTble1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
+        btAddDataToMainTble1.setToolTipText("Update Delivery Plan");
+        btAddDataToMainTble1.setBorder(null);
+        btAddDataToMainTble1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSearchDeliveryPlanDetailActionPerformed(evt);
+                btAddDataToMainTble1ActionPerformed(evt);
             }
         });
 
@@ -1002,17 +1008,12 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1258, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btAddDataToMainTble1))
                         .addGap(15, 15, 15))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1022,16 +1023,14 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRemark1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btSearchDeliveryPlanDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btPreviewFullDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btRemoveDataFromMainTable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 164, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btAddDataToMainTble1)
+                        .addGap(0, 156, Short.MAX_VALUE))))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 640));
@@ -1145,9 +1144,48 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoBtn4ActionPerformed
 
-    private void btSearchDeliveryPlanDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchDeliveryPlanDetailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btSearchDeliveryPlanDetailActionPerformed
+    private void btAddDataToMainTble1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddDataToMainTble1ActionPerformed
+        DefaultTableModel Dtm = (DefaultTableModel) tblDeliveryReportData.getModel();
+        int selectedRaw = tblDeliveryReportData.getSelectedRow();
+        if (selectedRaw != -1) {
+            int DeliveryPlanDetailId = commonController.getIntOrZeroFromString(
+                    tblDeliveryReportData.getValueAt(selectedRaw, 0).toString());
+            String LectureStartTime = "";
+            if (rdoBtn1.isSelected()) {
+                LectureStartTime = "09:00:00";
+            } else if (rdoBtn2.isSelected()) {
+                LectureStartTime = "11:00:00";
+            } else if (rdoBtn3.isSelected()) {
+                LectureStartTime = "13:00:00";
+            } else if (rdoBtn4.isSelected()) {
+                LectureStartTime = "15:00:00";
+            }
+            String LectureTimeDuration = comboHours.getSelectedItem().toString();
+            String LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
+            try {
+                new deliveryPlanDetailDaoImpl().UpdateDeliveryPlanStartTimeAndDate(LectureStartTime, LectureEndTime, LectureTimeDuration, DeliveryPlanDetailId);
+            } catch (SQLException ex) {
+                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        loadDataToTable();
+    }//GEN-LAST:event_btAddDataToMainTble1ActionPerformed
+
+    private void tblDeliveryReportDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDeliveryReportDataMouseClicked
+        DefaultTableModel Dtm = (DefaultTableModel) tblDeliveryReportData.getModel();
+        int selectedRaw = tblDeliveryReportData.getSelectedRow();
+        if (selectedRaw != -1) {
+            try {
+                clearData();
+                String date = tblDeliveryReportData.getValueAt(selectedRaw, 1).toString();
+                Date date2 = new SimpleDateFormat("yyyy-mm-dd").parse(date);
+                calTimeTableDate.setDate(date2);
+                rdoBtn1.setSelected(true);
+            } catch (ParseException ex) {
+                Logger.getLogger(manageDeliveryPlanNew.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_tblDeliveryReportDataMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1217,11 +1255,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddDataToMainTble;
+    private javax.swing.JButton btAddDataToMainTble1;
     private javax.swing.JButton btAddToPreferenceTable;
     private javax.swing.JButton btPreviewFullDetails;
     private javax.swing.JButton btRemoveDataFromMainTable;
     private javax.swing.JButton btRemoveFromPrefTable;
-    private javax.swing.JButton btSearchDeliveryPlanDetail;
     private javax.swing.JButton btSearchLecturer;
     private javax.swing.JButton btSearchModule;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -1274,6 +1312,5 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
     private javax.swing.JTable tblDeliveryReportData;
     private javax.swing.JTable tblGroupInfo;
     private javax.swing.JTextField txtModuleName;
-    private javax.swing.JTextField txtRemark1;
     // End of variables declaration//GEN-END:variables
 }

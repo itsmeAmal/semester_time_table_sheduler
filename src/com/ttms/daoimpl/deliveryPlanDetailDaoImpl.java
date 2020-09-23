@@ -65,6 +65,8 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         ps.setString(12, planDetails.getLecturerName());
         ps.setString(13, planDetails.getRoomName());
         ps.setString(14, planDetails.getCourseName());
+        System.out.println("planDetails.getCourseName() " + planDetails.getCourseName());
+        System.out.println("planDetails.getGroupName() " + planDetails.getGroupName());
         ps.setString(15, planDetails.getGroupName());
         ps.setTime(16, planDetails.getLectureStartTime());
         ps.setString(17, planDetails.getDuration());
@@ -122,7 +124,7 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
         return ++count;
     }
 
-    public ResultSet isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate, 
+    public ResultSet isRecordAvailableInDeliveryPlanDetailUiTable(Date SelectedDate,
             String LectureStartTime, String Level, String Location, String LecName) throws SQLException {
 
         ArrayList<String[]> AttributeConditionValueList = new ArrayList();
@@ -135,15 +137,26 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
 
         String[] Av3 = {"delivery_plan_details_level", commonConstants.Sql.EQUAL, Level};
         AttributeConditionValueList.add(Av3);
-        
+
         String[] Av4 = {"delivery_plan_details_lecturer_name", commonConstants.Sql.EQUAL, LecName};
         AttributeConditionValueList.add(Av4);
-        
+
         String[] Av5 = {"delivery_plan_details_room_name", commonConstants.Sql.EQUAL, Location};
         AttributeConditionValueList.add(Av5);
 
         return deliveryPlanDetailsController.getDeliveryPlanDetailsByMoreAttributes(AttributeConditionValueList, commonConstants.Sql.AND);
-
     }
 
+    public boolean UpdateDeliveryPlanStartTimeAndDate(String StartTime, String EndTime, String Duration, int DeliveryPlanDetailId) throws SQLException {
+        Connection con = DatabaseConnection.getDatabaseConnection();
+        PreparedStatement ps = con.prepareStatement("update delivery_plan_details set delivery_plan_details_time=?, "
+                + " delivery_plan_details_start_time=?, delivery_plan_details_lecture_duration=? where delivery_plan_details_id=?");
+        ps.setString(1, StartTime);
+        ps.setString(2, StartTime);
+        ps.setString(3, Duration);
+        ps.setInt(4, DeliveryPlanDetailId);
+        ps.executeUpdate();
+        ps.close();
+        return true;
+    }
 }

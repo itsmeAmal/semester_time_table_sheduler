@@ -54,8 +54,7 @@
                           <Component id="txtSearchYear" min="-2" pref="340" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnEdit" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnDelete" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -68,7 +67,6 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnDelete" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="btnEdit" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="txtSearchYear" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
@@ -366,14 +364,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnDelete">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/ttms/labelIcons2/deleteIcon.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Delete Batch Details"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btnEdit">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">

@@ -104,7 +104,6 @@ public class manageLecturers extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         txtContactNo1 = new javax.swing.JTextField();
         btnEdit1 = new javax.swing.JButton();
 
@@ -328,10 +327,6 @@ public class manageLecturers extends javax.swing.JFrame {
         });
         jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 20, 40, 40));
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btnDelete.setToolTipText("Delete Lecturer Details");
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 20, 40, 40));
-
         txtContactNo1.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         txtContactNo1.setToolTipText("Search by Name");
         txtContactNo1.setSelectedTextColor(new java.awt.Color(0, 0, 0));
@@ -413,7 +408,6 @@ public class manageLecturers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Email;
     private javax.swing.JButton btSave;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEdit1;
     private javax.swing.JComboBox<String> comboTitle;

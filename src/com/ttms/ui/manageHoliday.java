@@ -137,7 +137,6 @@ public class manageHoliday extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         calHolidayFrom = new com.toedter.calendar.JDateChooser();
         calHolidayTo = new com.toedter.calendar.JDateChooser();
-        btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         txtSearchByDate = new javax.swing.JTextField();
 
@@ -333,9 +332,6 @@ public class manageHoliday extends javax.swing.JFrame {
                 .addGap(363, 363, 363))
         );
 
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/deleteIcon.png"))); // NOI18N
-        btnDelete.setToolTipText("Delete Batch Details");
-
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ttms/labelIcons2/editIcon.png"))); // NOI18N
         btnEdit.setToolTipText("Edit Holiday ");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -366,8 +362,7 @@ public class manageHoliday extends javax.swing.JFrame {
                         .addComponent(txtSearchByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 924, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -377,7 +372,6 @@ public class manageHoliday extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSearchByDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -516,7 +510,6 @@ public class manageHoliday extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSave;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private com.toedter.calendar.JDateChooser calHolidayFrom;
     private com.toedter.calendar.JDateChooser calHolidayTo;

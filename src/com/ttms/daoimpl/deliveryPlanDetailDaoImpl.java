@@ -150,11 +150,12 @@ public class deliveryPlanDetailDaoImpl implements deliveryPlanDetailsDao {
     public boolean UpdateDeliveryPlanStartTimeAndDate(String StartTime, String EndTime, String Duration, int DeliveryPlanDetailId) throws SQLException {
         Connection con = DatabaseConnection.getDatabaseConnection();
         PreparedStatement ps = con.prepareStatement("update delivery_plan_details set delivery_plan_details_time=?, "
-                + " delivery_plan_details_start_time=?, delivery_plan_details_lecture_duration=? where delivery_plan_details_id=?");
+                + " delivery_plan_details_start_time=?, delivery_plan_details_lecture_duration=? , delivery_plan_details_end_time=? where delivery_plan_details_id=?");
         ps.setString(1, StartTime);
         ps.setString(2, StartTime);
         ps.setString(3, Duration);
-        ps.setInt(4, DeliveryPlanDetailId);
+        ps.setString(4, EndTime);
+        ps.setInt(5, DeliveryPlanDetailId);
         ps.executeUpdate();
         ps.close();
         return true;

@@ -1160,8 +1160,11 @@ public class manageDeliveryPlanNew extends javax.swing.JFrame {
             } else if (rdoBtn4.isSelected()) {
                 LectureStartTime = "15:00:00";
             }
+            System.out.println("LectureStartTime " + LectureStartTime);
             String LectureTimeDuration = comboHours.getSelectedItem().toString();
+            System.out.println("LectureTimeDuration " + LectureTimeDuration);
             String LectureEndTime = commonController.getMysqlEndTimeFromStartTimeAndTimeGap(LectureStartTime, LectureTimeDuration).toString();
+            System.out.println("LectureEndTime " + LectureEndTime);
             try {
                 new deliveryPlanDetailDaoImpl().UpdateDeliveryPlanStartTimeAndDate(LectureStartTime, LectureEndTime, LectureTimeDuration, DeliveryPlanDetailId);
             } catch (SQLException ex) {

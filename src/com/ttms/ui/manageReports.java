@@ -32,7 +32,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author personal
  */
-public class manageReports extends javax.swing.JDialog {
+public class manageReports extends javax.swing.JFrame  {
 
     int lecturerId = 0;
     int subjectId = 0;
@@ -40,12 +40,8 @@ public class manageReports extends javax.swing.JDialog {
     /**
      * Creates new form editBatch
      *
-     * @param parent
-     * @param modal
-     * @param batchPrimaryKey
      */
-    public manageReports(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public manageReports() {
         initComponents();
         loadRoomDataObjectsToCombo();
     }
@@ -549,16 +545,9 @@ public class manageReports extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+      java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                manageReports dialog = new manageReports(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                new manageReportsNew().setVisible(true);
             }
         });
     }

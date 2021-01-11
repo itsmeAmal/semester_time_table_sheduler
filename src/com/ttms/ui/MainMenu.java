@@ -5,11 +5,6 @@
  */
 package com.ttms.ui;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JRException;
-
 /**
  *
  * @author Amal
@@ -21,6 +16,8 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        jLabel19.setVisible(false);
+        jLabel17.setVisible(false);
     }
 
     /**
@@ -417,7 +414,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("DELIVERY PLAN");
+        jLabel21.setText("TIME TABLE");
         jLabel21.setToolTipText("Dilivery Plan");
         jLabel21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -653,7 +650,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
-       new manageReports().setVisible(true); 
+        new manageReports().setVisible(true);
     }//GEN-LAST:event_jLabel20MouseClicked
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
@@ -661,7 +658,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
-        new userManagement().setVisible(true); 
+        new userManagement().setVisible(true);
     }//GEN-LAST:event_jLabel18MouseClicked
 
     /**

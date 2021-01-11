@@ -22,13 +22,14 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        jLabel1.setVisible(false);
     }
 
     private void login() {
         try {
             String uname = txtUserName.getText();
             String pw = txtPwField.getText();
-            
+
             boolean access = UserControl.getUserByUnameAndPw(uname, pw);
             if (access) {
                 new MainMenu().setVisible(true);
@@ -160,7 +161,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Time Table Management System");
+        jLabel4.setText("myClass System");
         panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 480, 40));
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 102));
